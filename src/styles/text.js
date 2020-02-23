@@ -1,4 +1,4 @@
-export const DEFAULT_FONT_FAMILY = 'Open Sans'
+export const DEFAULT_FONT_FAMILY = 'Montserrat'
 
 export const FONT_SIZES = {
   FONT_SIZE_0: 10,

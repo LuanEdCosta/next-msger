@@ -10,8 +10,3 @@ export const setSessionData = (payload) => ({
 export const removeSessionData = () => ({
   type: REMOVE_SESSION_DATA,
 })
-
-export default {
-  setSessionData,
-  removeSessionData,
-}
