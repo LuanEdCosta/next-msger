@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import styles from './styles'
+import Logo from '@/assets/images/Logo.png'
+import { Container, Image } from './styles'
 
 const Splash = () => {
   return (
-    <View style={styles.container}>
-      <Text>Splash</Text>
-    </View>
+    <Container>
+      <Image source={Logo} />
+    </Container>
   )
 }
 
