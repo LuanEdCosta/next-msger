@@ -12,11 +12,11 @@ module.exports = {
     jest: true,
   },
   rules: {
+    'react-hooks/rules-of-hooks': 'error',
     'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
-    'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-wrap-multilines': [
       'error',

@@ -8,6 +8,9 @@ import {
   AcionContainer,
   InputIconContainer,
   ActionIconTouchable,
+  LabelContainer,
+  ErrorContainer,
+  TextInputComponent,
 } from './styles'
 
 const Input = (props) => {
@@ -21,33 +24,37 @@ const Input = (props) => {
     onActionPress,
     actionDisabled,
     onLeftIconPress,
+    showInputIcon,
+    showAction,
   } = props
 
   const onLeftIconPressed = useCallback(() => {
     if (onLeftIconPress) onLeftIconPress()
-  }, [])
+  }, [onLeftIconPress])
 
   return (
     <View style={style}>
-      {labelComponent}
+      {labelComponent && <LabelContainer>{labelComponent}</LabelContainer>}
 
       <InputContainer>
-        <InputIconContainer>
+        {showInputIcon && !!inputIconComponent && (
           <TouchableWithoutFeedback onPress={onLeftIconPressed}>
-            {inputIconComponent}
+            <InputIconContainer>{inputIconComponent}</InputIconContainer>
           </TouchableWithoutFeedback>
-        </InputIconContainer>
+        )}
 
-        {inputComponent}
+        <TextInputComponent>{inputComponent}</TextInputComponent>
 
-        <AcionContainer>
-          <Touchable onPress={onActionPress} disabled={actionDisabled}>
-            <ActionIconTouchable>{actionIconComponent}</ActionIconTouchable>
-          </Touchable>
-        </AcionContainer>
+        {showAction && !!actionIconComponent && (
+          <AcionContainer>
+            <Touchable onPress={onActionPress} disabled={actionDisabled}>
+              <ActionIconTouchable>{actionIconComponent}</ActionIconTouchable>
+            </Touchable>
+          </AcionContainer>
+        )}
       </InputContainer>
 
-      {errorComponent}
+      {errorComponent && <ErrorContainer>{errorComponent}</ErrorContainer>}
     </View>
   )
 }
@@ -61,6 +68,8 @@ Input.defaultProps = {
   labelComponent: null,
   onActionPress: null,
   onLeftIconPress: null,
+  showAction: true,
+  showInputIcon: true,
   style: null,
 }
 
@@ -73,6 +82,8 @@ Input.propTypes = {
   labelComponent: PropTypes.element,
   onActionPress: PropTypes.func,
   onLeftIconPress: PropTypes.func,
+  showAction: PropTypes.bool,
+  showInputIcon: PropTypes.bool,
   style: ViewPropTypes.style,
 }
 

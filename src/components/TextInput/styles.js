@@ -11,5 +11,7 @@ export const DefaultTextInput = styled.TextInput.attrs({
 })`
   font-family: ${DEFAULT_FONT_FAMILY};
   color: ${MAIN_COLORS.primaryText};
-  font-size: ${FONT_SIZES.FONT_SIZE_2};
+  font-size: ${FONT_SIZES.FONT_SIZE_2}px;
+  padding-left: 12px;
+  padding-right: 12px;
 `

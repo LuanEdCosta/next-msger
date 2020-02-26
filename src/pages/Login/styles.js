@@ -37,6 +37,8 @@ export const AppNameContainer = styled.View`
   flex-direction: row;
   align-items: center;
   background-color: ${MAIN_COLORS.snowLight};
+  border-bottom-width: 1px;
+  border-bottom-color: ${MAIN_COLORS.snow};
 `
 
 export const AppLogo = styled.Image`
@@ -45,7 +47,7 @@ export const AppLogo = styled.Image`
 `
 
 export const AppName = styled(UppercaseBoldText)`
-  color: ${MAIN_COLORS.accent};
+  color: ${MAIN_COLORS.primaryText};
   font-size: ${FONT_SIZES.FONT_SIZE_3}px;
   margin-left: 16px;
 `
@@ -54,7 +56,10 @@ export const LoginBoxContent = styled.View`
   padding: 16px;
 `
 
-export const LoginButton = styled(Button)``
+export const LoginButton = styled(Button)`
+  margin-top: 8px;
+`
+
 export const LoginInput = styled(Input)`
   margin-bottom: 16px;
 `
