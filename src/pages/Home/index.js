@@ -1,11 +1,19 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
+import Button from '@/components/Button'
+import { firebase } from '@react-native-firebase/auth'
+import { APP_SWITCH_ROUTES } from '@/config/navigation/ScreenRoutes'
 import styles from './styles'
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  const onLogout = async () => {
+    await firebase.auth().signOut()
+    navigation.navigate(APP_SWITCH_ROUTES.LOGIN)
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
+    <View style={{ margin: 16 }}>
+      <Button onPress={onLogout} text="Logout" />
     </View>
   )
 }

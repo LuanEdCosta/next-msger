@@ -1,12 +1,15 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState, useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
+import { firebase } from '@react-native-firebase/auth'
 import LoginImage from '@/assets/images/Login.jpg'
 import LogoImage from '@/assets/images/Logo.png'
 import { useTranslation } from 'react-i18next'
 import { DefaultTextInput } from '@/components/TextInput'
+import { WhiteSpinner } from '@/components/Spinner'
 import Label from '@/components/Label'
 import { MAIN_COLORS } from '@/styles'
+import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import {
   Container,
   Scroll,
@@ -18,13 +21,17 @@ import {
   LoginButton,
   LoginBoxContent,
   LoginInput,
+  LoginErrorText,
+  LoginErrorContainer,
 } from './styles'
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const { t } = useTranslation(['Login', 'Common'])
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isShowingPassword, setIsShowingPassword] = useState(false)
+  const [isShowingError, setIsShowingError] = useState(false)
+  const [isPerformingLogin, setIsPerformingLogin] = useState(false)
   const emailInput = useRef(null)
   const passwordInput = useRef(null)
 
@@ -40,19 +47,30 @@ const Login = () => {
     setIsShowingPassword(!isShowingPassword)
   }, [isShowingPassword])
 
-  const onLogin = useCallback(() => {
-    if (!email.trim()) {
-      onFocusEmailInput()
-      return
-    }
+  const onLogin = useCallback(async () => {
+    try {
+      if (!email.trim()) {
+        onFocusEmailInput()
+        return
+      }
 
-    if (!password) {
-      onFocusPasswordInput()
-      // return
-    }
+      if (!password) {
+        onFocusPasswordInput()
+        return
+      }
 
-    // TODO: LOGIN
-  }, [email, onFocusEmailInput, onFocusPasswordInput, password])
+      setIsPerformingLogin(true)
+      await firebase.auth().signInWithEmailAndPassword(email, password)
+      navigation.navigate(DRAWER_ROUTES.HOME)
+    } catch (e) {
+      setIsShowingError(true)
+    }
+    setIsPerformingLogin(false)
+  }, [email, navigation, onFocusEmailInput, onFocusPasswordInput, password])
+
+  useEffect(() => {
+    setIsShowingError(false)
+  }, [email, password])
 
   return (
     <LoginBackground source={LoginImage}>
@@ -65,6 +83,17 @@ const Login = () => {
               <AppName>{t('Common:appName')}</AppName>
             </AppNameContainer>
             <LoginBoxContent>
+              {isShowingError && (
+                <LoginErrorContainer>
+                  <FontAwesomeIcon
+                    size={14}
+                    name="exclamation-circle"
+                    color={MAIN_COLORS.danger}
+                  />
+                  <LoginErrorText>{t('wrongEmailOrPassword')}</LoginErrorText>
+                </LoginErrorContainer>
+              )}
+
               <LoginInput
                 labelComponent={<Label label={t('emailLabel')} />}
                 onLeftIconPress={onFocusEmailInput}
@@ -72,8 +101,12 @@ const Login = () => {
                   <DefaultTextInput
                     ref={emailInput}
                     placeholder={t('emailPlaceholder')}
-                    value={email}
+                    returnKeyType="next"
+                    blurOnSubmit={false}
+                    onSubmitEditing={onFocusPasswordInput}
+                    editable={!isPerformingLogin}
                     onChangeText={setEmail}
+                    value={email}
                   />
                 }
                 inputIconComponent={
@@ -96,6 +129,7 @@ const Login = () => {
                     ref={passwordInput}
                     placeholder={t('passwordPlaceholder')}
                     secureTextEntry={!isShowingPassword}
+                    editable={!isPerformingLogin}
                     value={password}
                     onChangeText={setPassword}
                   />
@@ -119,12 +153,17 @@ const Login = () => {
               <LoginButton
                 text={t('loginButton')}
                 onPress={onLogin}
+                disabled={isPerformingLogin}
                 iconComponent={
-                  <FontAwesomeIcon
-                    size={14}
-                    name="chevron-right"
-                    color="white"
-                  />
+                  isPerformingLogin ? (
+                    <WhiteSpinner />
+                  ) : (
+                    <FontAwesomeIcon
+                      size={14}
+                      name="chevron-right"
+                      color="white"
+                    />
+                  )
                 }
               />
             </LoginBoxContent>

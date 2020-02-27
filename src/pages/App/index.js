@@ -1,18 +1,18 @@
-import React, { Suspense, lazy } from 'react'
+import React from 'react'
+import { Provider } from 'react-redux'
 import StatusBar from '@/components/StatusBar'
-import Splash from '@/components/Splash'
+import Navigation from '@/config/navigation'
+import store from '@/store'
 import '@/locales'
 import { Container } from './styles'
 
-const Navigation = lazy(() => import('@/config/navigation'))
-
 const App = () => (
-  <Container>
-    <StatusBar />
-    <Suspense fallback={<Splash />}>
+  <Provider store={store}>
+    <Container>
+      <StatusBar />
       <Navigation theme="light" />
-    </Suspense>
-  </Container>
+    </Container>
+  </Provider>
 )
 
 export default App

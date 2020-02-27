@@ -1,16 +1,8 @@
 import styled from 'styled-components/native'
-import { StyleSheet } from 'react-native'
-import { UppercaseBoldText } from '@/components/Text'
+import { UppercaseBoldText, DefaultText } from '@/components/Text'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import { MAIN_COLORS, FONT_SIZES } from '@/styles'
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-})
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -21,7 +13,10 @@ export const LoginBackground = styled.ImageBackground`
 `
 
 export const Scroll = styled.ScrollView.attrs({
-  contentContainerStyle: styles.scrollView,
+  contentContainerStyle: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
 })``
 
 export const LoginBox = styled.View`
@@ -61,5 +56,16 @@ export const LoginButton = styled(Button)`
 `
 
 export const LoginInput = styled(Input)`
+  margin-bottom: 16px;
+`
+export const LoginErrorText = styled(DefaultText)`
+  color: ${MAIN_COLORS.danger};
+  flex: 1;
+  margin-left: 8px;
+`
+
+export const LoginErrorContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
   margin-bottom: 16px;
 `
