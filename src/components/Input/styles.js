@@ -4,7 +4,7 @@ import { MAIN_COLORS } from '@/styles'
 const inputHeight = '48px'
 
 export const InputContainer = styled.View`
-  border: 1px solid ${MAIN_COLORS.darkGrey};
+  border: 1px ${MAIN_COLORS.darkGrey};
   border-radius: 5px;
   flex-direction: row;
   align-items: center;

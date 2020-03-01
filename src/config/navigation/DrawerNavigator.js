@@ -8,18 +8,67 @@ import CustomerList from '@/pages/CustomerList'
 import ServiceList from '@/pages/ServiceList'
 import ServiceTypeList from '@/pages/ServiceTypeList'
 import Drawer from '@/components/Drawer'
+import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
 const DrawerNavigator = createDrawerNavigator(
   {
-    [DR.HOME]: Home,
-    [DR.DASHBOARD]: Dashboard,
-    [DR.CUSTOMER_REGISTRATION]: CustomerRegistration,
-    [DR.MARKETING_STEP_REGISTRATION]: MarketingStepRegistration,
-    [DR.SERVICE_REGISTRATION]: ServiceRegistration,
-    [DR.CUSTOMERS_LIST]: CustomerList,
-    [DR.SERVICES_LIST]: ServiceList,
-    [DR.SERVICE_TYPES_LIST]: ServiceTypeList,
+    [DR.HOME]: {
+      screen: Home,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'home',
+        [DRAWER_PAGES.DRAWER_ICON]: 'home',
+      },
+    },
+    [DR.DASHBOARD]: {
+      screen: Dashboard,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'dashboard',
+        [DRAWER_PAGES.DRAWER_ICON]: 'chart-pie',
+      },
+    },
+    [DR.CUSTOMER_REGISTRATION]: {
+      screen: CustomerRegistration,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'customerRegistration',
+        [DRAWER_PAGES.DRAWER_ICON]: 'user-plus',
+      },
+    },
+    [DR.MARKETING_STEP_REGISTRATION]: {
+      screen: MarketingStepRegistration,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'marketingStepRegistration',
+        [DRAWER_PAGES.DRAWER_ICON]: 'arrow-circle-right',
+      },
+    },
+    [DR.SERVICE_REGISTRATION]: {
+      screen: ServiceRegistration,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'serviceRegistration',
+        [DRAWER_PAGES.DRAWER_ICON]: 'file-medical',
+      },
+    },
+    [DR.CUSTOMERS_LIST]: {
+      screen: CustomerList,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'customerList',
+        [DRAWER_PAGES.DRAWER_ICON]: 'users',
+      },
+    },
+    [DR.SERVICES_LIST]: {
+      screen: ServiceList,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'serviceList',
+        [DRAWER_PAGES.DRAWER_ICON]: 'file-contract',
+      },
+    },
+    [DR.SERVICE_TYPES_LIST]: {
+      screen: ServiceTypeList,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'serviceTypeList',
+        [DRAWER_PAGES.DRAWER_ICON]: 'file-alt',
+      },
+    },
   },
   {
     headerMode: 'screen',

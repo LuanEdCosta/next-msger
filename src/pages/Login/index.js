@@ -103,6 +103,7 @@ const Login = ({ navigation }) => {
                     placeholder={t('emailPlaceholder')}
                     returnKeyType="next"
                     autoCapitalize="none"
+                    autoCompleteType="email"
                     blurOnSubmit={false}
                     onSubmitEditing={onFocusPasswordInput}
                     editable={!isPerformingLogin}
