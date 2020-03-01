@@ -1,1 +1,1 @@
-export { DASHBOARD_FILTERS_KEY, USER_SESSION_KEY } from './keys'
+export { DASHBOARD_FILTERS_KEY } from './keys'

@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
+import styled from 'styled-components/native'
 
-export default StyleSheet.create({
-  container: {},
-})
+export const Container = styled.SafeAreaView`
+  background-color: white;
+`

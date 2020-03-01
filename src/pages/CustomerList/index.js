@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container } from './styles'
 
-const MarketingStepRegistration = () => {
+const CustomerList = () => {
   return <Container>{}</Container>
 }
 
-export default MarketingStepRegistration
+export default CustomerList

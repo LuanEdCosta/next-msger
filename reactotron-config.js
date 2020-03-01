@@ -12,7 +12,7 @@ console.tron = Reactotron
 
 const Tron = Reactotron.setAsyncStorageHandler(AsyncStorage)
   .configure({
-    host: 'localhost',
+    host: '192.168.0.27',
     port: 9090,
   })
   .useReactNative()
