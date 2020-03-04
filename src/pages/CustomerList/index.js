@@ -5,8 +5,9 @@ import firestore from '@react-native-firebase/firestore'
 import Header from '@/components/Header'
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import MessagePanel from '@/components/MessagePanel'
-import { Fw5Icon, MessagePanelIcon } from '@/components/Fw5Icon'
-import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
+import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
+import Fab from '@/components/Fab'
 import { Container, CustomerItem, CustomerItemText, Styles } from './styles'
 
 const CustomerList = ({ navigation }) => {
@@ -78,9 +79,19 @@ const CustomerList = ({ navigation }) => {
 
   const keyExtractor = useCallback(({ id }) => id, [])
 
+  const onNavigateToCustomerRegistration = useCallback(() => {
+    navigation.navigate(DRAWER_ROUTES.CUSTOMER_REGISTRATION)
+  }, [navigation])
+
   return (
     <Container>
       <Header i18Namespace="NavigationDrawer" i18Title="customerList" />
+
+      <Fab
+        iconComponent={<FabIcon name="plus" />}
+        onPress={onNavigateToCustomerRegistration}
+      />
+
       <FlatList
         contentContainerStyle={Styles.list}
         data={customerList}

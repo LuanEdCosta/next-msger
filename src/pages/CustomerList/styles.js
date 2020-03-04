@@ -6,7 +6,7 @@ import ListItemText from '@/components/ListItem/ListItemText'
 export const Styles = StyleSheet.create({
   list: {
     padding: 16,
-    paddingBottom: 24,
+    paddingBottom: 80,
   },
 })
 

@@ -25,3 +25,9 @@ export const ButtonIcon = styled(FontAwesome5Icon).attrs((props) => ({
   size: FONT_SIZES.FONT_SIZE_4,
   ...props,
 }))``
+
+export const FabIcon = styled(FontAwesome5Icon).attrs((props) => ({
+  color: MAIN_COLORS.white,
+  size: FONT_SIZES.FONT_SIZE_5,
+  ...props,
+}))``
