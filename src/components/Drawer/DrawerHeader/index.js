@@ -3,12 +3,12 @@ import { firebase } from '@react-native-firebase/auth'
 import { Container, Title, Subtitle } from './styles'
 
 const DrawerHeader = () => {
-  const { email, displayName } = firebase.auth().currentUser
+  const { email, uid } = firebase.auth().currentUser
 
   return (
     <Container>
       <Title numberOfLines={1}>{email}</Title>
-      {!!displayName && <Subtitle numberOfLines={1}>{displayName}</Subtitle>}
+      <Subtitle numberOfLines={1}>{uid}</Subtitle>
     </Container>
   )
 }

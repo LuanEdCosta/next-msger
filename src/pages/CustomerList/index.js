@@ -99,7 +99,7 @@ const CustomerList = ({ navigation }) => {
     [navigation],
   )
 
-  const keyExtractor = useCallback(({ id }) => id, [])
+  const keyExtractor = useCallback(({ [CUSTOMER_DOC.ID]: id }) => id, [])
 
   const onNavigateToCustomerRegistration = useCallback(() => {
     navigation.navigate(DRAWER_ROUTES.CUSTOMER_REGISTRATION)
@@ -129,6 +129,7 @@ const CustomerList = ({ navigation }) => {
         }
         ListHeaderComponent={
           <SearchBar
+            placeholder={t('searchPlaceholder')}
             setSearchText={onChangeSearchText}
             searchText={searchText}
             isSearching={isSearching}

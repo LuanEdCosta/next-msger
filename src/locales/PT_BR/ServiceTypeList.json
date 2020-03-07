@@ -1,0 +1,5 @@
+{
+  "anyServiceTypeFound": "Nenhum Tipo de Serviço Encontrado",
+  "searchPlaceholder": "Nome ou Data do tipo de serviço",
+  "createdAt": "Criado em: {{date, LL}}"
+}

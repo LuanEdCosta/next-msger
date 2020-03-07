@@ -28,7 +28,10 @@ const ServiceTypeRegistration = () => {
     try {
       await firestore()
         .collection(COLLECTIONS.SERVICE_TYPES)
-        .add({ [SERVICE_TYPE_DOC.NAME]: serviceTypeName })
+        .add({
+          [SERVICE_TYPE_DOC.NAME]: serviceTypeName,
+          [SERVICE_TYPE_DOC.CREATED_AT]: firestore.Timestamp.now(),
+        })
 
       setIsShowingErrors(false)
       setServiceTypeName('')

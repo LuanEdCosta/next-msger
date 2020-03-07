@@ -4,6 +4,7 @@ import { MAIN_COLORS } from '@/styles'
 import { useTranslation } from 'react-i18next'
 import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
+import { ScrollView } from 'react-native'
 import { Container, Styles } from './styles'
 import DrawerHeader from './DrawerHeader'
 
@@ -29,19 +30,21 @@ const Drawer = (props) => {
 
   return (
     <Container forceInset={{ top: 'always', horizontal: 'never' }}>
-      <DrawerHeader />
+      <ScrollView>
+        <DrawerHeader />
 
-      <DrawerNavigatorItems
-        {...props}
-        activeBackgroundColor={MAIN_COLORS.accent}
-        activeTintColor={MAIN_COLORS.white}
-        inactiveTintColor={MAIN_COLORS.primaryText}
-        labelStyle={Styles.labelStyle}
-        activeLabelStyle={Styles.activeLabelStyle}
-        iconContainerStyle={Styles.iconContainer}
-        getLabel={onGetLabel}
-        renderIcon={onRenderIcon}
-      />
+        <DrawerNavigatorItems
+          {...props}
+          activeBackgroundColor={MAIN_COLORS.accent}
+          activeTintColor={MAIN_COLORS.white}
+          inactiveTintColor={MAIN_COLORS.primaryText}
+          labelStyle={Styles.labelStyle}
+          activeLabelStyle={Styles.activeLabelStyle}
+          iconContainerStyle={Styles.iconContainer}
+          getLabel={onGetLabel}
+          renderIcon={onRenderIcon}
+        />
+      </ScrollView>
     </Container>
   )
 }

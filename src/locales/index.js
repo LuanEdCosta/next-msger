@@ -11,7 +11,7 @@ i18n.use(initReactI18next).init({
   debug: false,
   interpolation: {
     format(value, format, lng) {
-      if (value instanceof Date) {
+      if (value instanceof Date || moment.isMoment(value)) {
         const momentInstance = moment(value)
         momentInstance.locale(lng.toLowerCase())
         return momentInstance.format(format)

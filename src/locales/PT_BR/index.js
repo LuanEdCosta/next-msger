@@ -7,6 +7,7 @@ import CustomerRegistration from './CustomerRegistration.json'
 import Error from './Error.json'
 import InputMasks from './InputMasks.json'
 import ServiceTypeRegistration from './ServiceTypeRegistration.json'
+import ServiceTypeList from './ServiceTypeList.json'
 
 export default {
   Common,
@@ -18,4 +19,5 @@ export default {
   Error,
   InputMasks,
   ServiceTypeRegistration,
+  ServiceTypeList,
 }
