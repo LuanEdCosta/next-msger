@@ -35,7 +35,3 @@ export const ActionIconTouchable = styled.View`
 export const LabelContainer = styled.View`
   margin-bottom: 8px;
 `
-
-export const ErrorContainer = styled.View`
-  margin-top: 8px;
-`

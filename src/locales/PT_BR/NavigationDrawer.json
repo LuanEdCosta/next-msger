@@ -1,10 +1,11 @@
 {
   "home": "Início",
-  "customerRegistration": "Cadastro de Cliente",
+  "customerRegistration": "Cadastrar Cliente",
   "customerList": "Listagem de Clientes",
-  "dashboard": "Dashbaord",
+  "dashboard": "Dashboard",
   "serviceList": "Listagem de Serviços",
-  "marketingStepRegistration": "Cadastro de Etapa",
-  "serviceRegistration": "Cadastro de Tipo de Serviço",
-  "serviceTypeList": "Listagem de Tipos de Serviço"
+  "marketingStepRegistration": "Cadastrar Etapa de Marketing",
+  "serviceTypeRegistration": "Cadastrar Tipo de Serviço",
+  "serviceTypeList": "Listagem de Tipos de Serviço",
+  "serviceRegistration": "Cadastrar Serviço"
 }

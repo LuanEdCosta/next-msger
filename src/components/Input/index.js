@@ -54,7 +54,7 @@ const Input = (props) => {
         )}
       </InputContainer>
 
-      {errorComponent && <ErrorContainer>{errorComponent}</ErrorContainer>}
+      {errorComponent}
     </View>
   )
 }

@@ -3,6 +3,7 @@ import { MAIN_COLORS } from '@/styles'
 import { DefaultText } from '../Text'
 
 export const Container = styled.View`
+  margin-top: 8px;
   flex-direction: row;
   align-items: center;
 `

@@ -9,6 +9,7 @@ import ServiceList from '@/pages/ServiceList'
 import ServiceTypeList from '@/pages/ServiceTypeList'
 import Drawer from '@/components/Drawer'
 import DRAWER_PAGES from '@/config/constants/DrawerPages'
+import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
 const DrawerNavigator = createDrawerNavigator(
@@ -48,6 +49,13 @@ const DrawerNavigator = createDrawerNavigator(
         [DRAWER_PAGES.DRAWER_ICON]: 'file-medical',
       },
     },
+    [DR.SERVICE_TYPE_REGISTRATION]: {
+      screen: ServiceTypeRegistration,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'serviceTypeRegistration',
+        [DRAWER_PAGES.DRAWER_ICON]: 'file-alt',
+      },
+    },
     [DR.CUSTOMERS_LIST]: {
       screen: CustomerList,
       params: {
@@ -59,14 +67,14 @@ const DrawerNavigator = createDrawerNavigator(
       screen: ServiceList,
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'serviceList',
-        [DRAWER_PAGES.DRAWER_ICON]: 'file-contract',
+        [DRAWER_PAGES.DRAWER_ICON]: 'clipboard-list',
       },
     },
     [DR.SERVICE_TYPES_LIST]: {
       screen: ServiceTypeList,
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'serviceTypeList',
-        [DRAWER_PAGES.DRAWER_ICON]: 'file-alt',
+        [DRAWER_PAGES.DRAWER_ICON]: 'list-alt',
       },
     },
   },
