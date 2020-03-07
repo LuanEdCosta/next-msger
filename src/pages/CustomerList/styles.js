@@ -8,6 +8,9 @@ export const Styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 80,
   },
+  listHeader: {
+    paddingBottom: 16,
+  },
 })
 
 export const Container = styled.SafeAreaView`

@@ -8,12 +8,34 @@ import MessagePanel from '@/components/MessagePanel'
 import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import Fab from '@/components/Fab'
+import SearchBar from '@/components/SearchBar'
+import { useArraySearch } from '@/hooks'
+import { getOnlyPhoneNumbers } from '@/helpers'
 import { Container, CustomerItem, CustomerItemText, Styles } from './styles'
 
 const CustomerList = ({ navigation }) => {
   const { t } = useTranslation('CustomerList')
   const [customerList, setCustomerList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const {
+    searchText,
+    onChangeSearchText,
+    itemsToShow,
+    isSearching,
+  } = useArraySearch({
+    list: customerList,
+    keysToFilter: [
+      CUSTOMER_DOC.NAME,
+      CUSTOMER_DOC.EMAIL,
+      CUSTOMER_DOC.WHATSAPP,
+      CUSTOMER_DOC.PHONE,
+    ],
+    formatTexts: {
+      [CUSTOMER_DOC.PHONE]: getOnlyPhoneNumbers,
+      [CUSTOMER_DOC.WHATSAPP]: getOnlyPhoneNumbers,
+    },
+  })
 
   const onSubscribeToCustomersCollection = useCallback(() => {
     const unsubscribe = firestore()
@@ -94,7 +116,8 @@ const CustomerList = ({ navigation }) => {
 
       <FlatList
         contentContainerStyle={Styles.list}
-        data={customerList}
+        ListHeaderComponentStyle={Styles.listHeader}
+        data={itemsToShow}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
@@ -102,6 +125,14 @@ const CustomerList = ({ navigation }) => {
             text={t('anyCustomerFound')}
             isLoading={isLoading}
             iconComponent={<MessagePanelIcon name="users" />}
+          />
+        }
+        ListHeaderComponent={
+          <SearchBar
+            setSearchText={onChangeSearchText}
+            searchText={searchText}
+            isSearching={isSearching}
+            hasFilters={false}
           />
         }
       />

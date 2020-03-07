@@ -23,13 +23,13 @@ export const InputIconContainer = styled.View`
 `
 
 export const AcionContainer = styled.View`
-  overflow: hidden;
-  border-radius: 1000px;
-  margin-right: 4px;
+  height: 100%;
 `
 
 export const ActionIconTouchable = styled.View`
-  padding: 8px;
+  height: 100%;
+  justify-content: center;
+  padding: 0 16px;
 `
 
 export const LabelContainer = styled.View`
