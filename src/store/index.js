@@ -3,19 +3,19 @@
 /* eslint-disable import/no-mutable-exports */
 
 import { createStore, combineReducers } from 'redux'
-import session from './reducers/Session'
+import User from './reducers/User'
 
-const reducers = combineReducers({
-  session,
+const Reducers = combineReducers({
+  User,
 })
 
-let store = null
+let Store = null
 
 if (__DEV__) {
   const Reactotron = require('../../reactotron-config').default
-  store = createStore(reducers, Reactotron.createEnhancer())
+  Store = createStore(Reducers, Reactotron.createEnhancer())
 } else {
-  store = createStore(reducers)
+  Store = createStore(Reducers)
 }
 
-export default store
+export default Store

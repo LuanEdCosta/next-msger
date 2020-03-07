@@ -1,1 +1,1 @@
-export { setSessionData, removeSessionData } from './Session'
+export { setUserData, deleteUserData } from './User'
