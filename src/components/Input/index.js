@@ -9,7 +9,6 @@ import {
   InputIconContainer,
   ActionIconTouchable,
   LabelContainer,
-  ErrorContainer,
   TextInputComponent,
 } from './styles'
 

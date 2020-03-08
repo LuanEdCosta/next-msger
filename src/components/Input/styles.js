@@ -8,7 +8,7 @@ export const InputContainer = styled.View`
   border-radius: 5px;
   flex-direction: row;
   align-items: center;
-  height: ${inputHeight};
+  min-height: ${inputHeight};
   overflow: hidden;
 `
 

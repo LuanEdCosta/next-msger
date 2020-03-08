@@ -3,5 +3,14 @@
   "namePlaceholder": "Ex: Etapa 1",
   "numOfDaysLabel": "Nº de Dias Após a Criação do Serviço",
   "numOfDaysPlaceholder": "Ex: 15",
+  "observationsLabel": "Observações",
+  "observationsPlaceholder": "Descreva brevemente esta etapa de pós-marketing",
+  "observationsMaxLength": "{{length}}/150",
+  "emailMsgLabel": "Mensagem para os Emails",
+  "emailMsgPlaceholder": "Escreva a mensagem que será enviada para os clientes via EMAIL",
+  "emailMsgMaxLength": "{{length}}/500",
+  "whatsappMsgLabel": "Mensagem para WhatsApp",
+  "whatsappMsgPlaceholder": "Escreva a mensagem que será enviada para os clientes via WHATSAPP",
+  "whatsappMsgMaxLength": "{{length}}/500",
   "saveButton": "Cadastrar Etapa"
 }
