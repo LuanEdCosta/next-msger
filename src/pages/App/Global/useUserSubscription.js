@@ -12,21 +12,23 @@ export default () => {
 
   const onSubscribeToAuthChanges = useCallback(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      setUserId(user ? user.uid : null)
+      if (user) setUserId(user.uid)
+      else {
+        setUserId(null)
+        onDeleteUserData()
+      }
     })
 
     return unsubscribe
-  }, [])
+  }, [onDeleteUserData])
 
   const onSubscribeToUserCollection = useCallback(() => {
     const unsubscribe = firestore()
       .collection('users')
       .doc(userId)
       .onSnapshot({
-        error() {
-          onDeleteUserData()
-        },
         next(doc) {
+          if (!doc.exists) return
           onSetUserData({
             ...doc.data(),
             [USER_DOC.ID]: doc.id,
@@ -35,7 +37,7 @@ export default () => {
       })
 
     return unsubscribe
-  }, [onDeleteUserData, onSetUserData, userId])
+  }, [onSetUserData, userId])
 
   useEffect(onSubscribeToAuthChanges, [])
   useEffect(onSubscribeToUserCollection, [userId])
