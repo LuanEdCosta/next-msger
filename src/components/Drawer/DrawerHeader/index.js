@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Container, Title, Subtitle } from './styles'
 
 const DrawerHeader = () => {
-  const { email } = firebase.auth().currentUser
+  const { email } = firebase.auth().currentUser || {}
   const { [USER_DOC.NAME]: name } = useSelector(({ User }) => User)
 
   return (

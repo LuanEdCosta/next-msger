@@ -1,0 +1,7 @@
+{
+  "nameLabel": "Nome da Etapa",
+  "namePlaceholder": "Ex: Etapa 1",
+  "numOfDaysLabel": "Nº de Dias Após a Criação do Serviço",
+  "numOfDaysPlaceholder": "Ex: 15",
+  "saveButton": "Cadastrar Etapa"
+}

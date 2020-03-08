@@ -17,7 +17,7 @@ export const TextInputComponent = styled.View`
 `
 
 export const InputIconContainer = styled.View`
-  padding-left: 12px;
+  padding-left: 16px;
   height: ${inputHeight};
   justify-content: center;
 `
