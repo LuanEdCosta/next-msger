@@ -10,6 +10,7 @@ import ServiceTypeList from '@/pages/ServiceTypeList'
 import Drawer from '@/components/Drawer'
 import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
+import MarketingStepList from '@/pages/MarketingStepList'
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
 const DrawerNavigator = createDrawerNavigator(
@@ -56,21 +57,28 @@ const DrawerNavigator = createDrawerNavigator(
         [DRAWER_PAGES.DRAWER_ICON]: 'file-alt',
       },
     },
-    [DR.CUSTOMERS_LIST]: {
+    [DR.CUSTOMER_LIST]: {
       screen: CustomerList,
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'customerList',
         [DRAWER_PAGES.DRAWER_ICON]: 'users',
       },
     },
-    [DR.SERVICES_LIST]: {
+    [DR.MARKETING_STEP_LIST]: {
+      screen: MarketingStepList,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'marketingStepList',
+        [DRAWER_PAGES.DRAWER_ICON]: 'list-ol',
+      },
+    },
+    [DR.SERVICE_LIST]: {
       screen: ServiceList,
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'serviceList',
         [DRAWER_PAGES.DRAWER_ICON]: 'clipboard-list',
       },
     },
-    [DR.SERVICE_TYPES_LIST]: {
+    [DR.SERVICE_TYPE_LIST]: {
       screen: ServiceTypeList,
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'serviceTypeList',
@@ -81,7 +89,7 @@ const DrawerNavigator = createDrawerNavigator(
   {
     headerMode: 'screen',
     drawerType: 'slide',
-    drawerWidth: 300,
+    drawerWidth: 320,
     initialRouteName: DR.HOME,
     unmountInactiveRoutes: true,
     contentComponent: Drawer,

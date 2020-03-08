@@ -9,6 +9,8 @@ import InputMasks from './InputMasks.json'
 import ServiceTypeRegistration from './ServiceTypeRegistration.json'
 import ServiceTypeList from './ServiceTypeList.json'
 import MarketingStepRegistration from './MarketingStepRegistration.json'
+import MarketingStepList from './MarketingStepList.json'
+import MarketingStepDetails from './MarketingStepDetails.json'
 
 export default {
   Common,
@@ -22,4 +24,6 @@ export default {
   ServiceTypeRegistration,
   ServiceTypeList,
   MarketingStepRegistration,
+  MarketingStepList,
+  MarketingStepDetails,
 }

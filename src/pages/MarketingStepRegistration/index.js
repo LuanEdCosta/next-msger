@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import Header from '@/components/Header'
 import Button from '@/components/Button'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
-import { DefaultTextInput } from '@/components/TextInput'
+import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
@@ -23,6 +23,9 @@ const MarketingStepRegistration = () => {
   const [observations, setObservations] = useState('')
   const [emailMessage, setEmailMessage] = useState('')
   const [whatsappMessage, setWhatsappMessage] = useState('')
+
+  let numOfDaysInput = useRef(null)
+  const emailMessageInput = useRef(null)
 
   const onValidateRegistration = useCallback(() => {
     if (
@@ -59,7 +62,7 @@ const MarketingStepRegistration = () => {
         .collection(COLLECTIONS.MARKETING_STEPS)
         .add({
           [MARKETING_STEP_DOC.NAME]: marketingStepName,
-          [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: numOfDays,
+          [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: Number(numOfDays),
           [MARKETING_STEP_DOC.EMAIL_MESSAGE]: emailMessage,
           [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsappMessage,
           [MARKETING_STEP_DOC.OBSERVATIONS]: observations,
@@ -85,6 +88,14 @@ const MarketingStepRegistration = () => {
     whatsappMessage,
   ])
 
+  const onFocusNumOfDaysInput = useCallback(() => {
+    numOfDaysInput.focus()
+  }, [])
+
+  const onFocusEmailMessageInput = useCallback(() => {
+    emailMessageInput.current.focus()
+  }, [])
+
   return (
     <Container>
       <Header
@@ -109,8 +120,11 @@ const MarketingStepRegistration = () => {
               placeholder={t('namePlaceholder')}
               autoCapitalize="words"
               textContentType="none"
+              returnKeyType="next"
               onChangeText={setMarketingStepName}
               value={marketingStepName}
+              onSubmitEditing={onFocusNumOfDaysInput}
+              blurOnSubmit={false}
               autoCorrect
             />
           }
@@ -128,12 +142,17 @@ const MarketingStepRegistration = () => {
             />
           }
           inputComponent={
-            <DefaultTextInput
+            <DefaultTextInputMask
+              refInput={(ref) => {
+                numOfDaysInput = ref
+              }}
+              type="only-numbers"
+              returnKeyType="next"
               placeholder={t('numOfDaysPlaceholder')}
-              keyboardType="numeric"
+              onSubmitEditing={onFocusEmailMessageInput}
               onChangeText={setNumOfDays}
               value={numOfDays}
-              autoCorrect={false}
+              blurOnSubmit={false}
             />
           }
         />
@@ -154,6 +173,7 @@ const MarketingStepRegistration = () => {
           }
           inputComponent={
             <DefaultTextInput
+              ref={emailMessageInput}
               style={{ textAlignVertical: 'top' }}
               placeholder={t('emailMsgPlaceholder')}
               autoCapitalize="sentences"

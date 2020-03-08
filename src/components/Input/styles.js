@@ -18,16 +18,14 @@ export const TextInputComponent = styled.View`
 
 export const InputIconContainer = styled.View`
   padding-left: 16px;
-  height: ${inputHeight};
+  min-height: ${inputHeight};
   justify-content: center;
 `
 
-export const AcionContainer = styled.View`
-  height: 100%;
-`
+export const AcionContainer = styled.View``
 
 export const ActionIconTouchable = styled.View`
-  height: 100%;
+  min-height: ${inputHeight};
   justify-content: center;
   padding: 0 16px;
 `
