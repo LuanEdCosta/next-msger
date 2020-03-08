@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import firestore from '@react-native-firebase/firestore'
 import { firebase } from '@react-native-firebase/auth'
 import { useDispatchCallback } from '@/hooks'
@@ -6,15 +6,22 @@ import { setUserData, deleteUserData } from '@/store/actions'
 import { USER_DOC } from '@/config/database'
 
 export default () => {
+  const [userId, setUserId] = useState(null)
   const onSetUserData = useDispatchCallback(setUserData)
   const onDeleteUserData = useDispatchCallback(deleteUserData)
 
-  const { uid } = firebase.auth().currentUser || {}
+  const onSubscribeToAuthChanges = useCallback(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      setUserId(user ? user.uid : null)
+    })
+
+    return unsubscribe
+  }, [])
 
   const onSubscribeToUserCollection = useCallback(() => {
     const unsubscribe = firestore()
       .collection('users')
-      .doc(uid)
+      .doc(userId)
       .onSnapshot({
         error() {
           onDeleteUserData()
@@ -28,7 +35,8 @@ export default () => {
       })
 
     return unsubscribe
-  }, [onDeleteUserData, onSetUserData, uid])
+  }, [onDeleteUserData, onSetUserData, userId])
 
-  useEffect(onSubscribeToUserCollection, [uid])
+  useEffect(onSubscribeToAuthChanges, [])
+  useEffect(onSubscribeToUserCollection, [userId])
 }
