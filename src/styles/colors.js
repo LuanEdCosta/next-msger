@@ -14,4 +14,6 @@ export const MAIN_COLORS = {
   danger: '#FF4D4D',
   success: '#2eb82e',
   white: 'white',
+  normalBlue: '#4066E0',
+  darkBlue: '#22277A',
 }

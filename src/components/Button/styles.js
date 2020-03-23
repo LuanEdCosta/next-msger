@@ -14,7 +14,7 @@ export const Container = styled.View`
 `
 
 export const ButtonTouchable = styled.View`
-  padding: 0 16px;
+  padding: 0 24px;
   flex-direction: ${({ iconPosition }) =>
     iconPosition === 'left' ? 'row-reverse' : 'row'};
   justify-content: center;
@@ -23,8 +23,8 @@ export const ButtonTouchable = styled.View`
 
 export const ButtonText = styled(UppercaseBoldText)`
   margin: ${({ hasIcon, iconPosition }) => {
-    if (!hasIcon) return 0
-    return iconPosition === 'left' ? '0 0 0 16px' : '16px'
+    if (!hasIcon) return '0'
+    return iconPosition === 'left' ? '0 0 0 16px' : '0 16px 0 0'
   }};
   font-size: ${FONT_SIZES.FONT_SIZE_4}px;
   color: ${({ textColor }) => getColor(textColor)};
