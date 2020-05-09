@@ -18,13 +18,10 @@ const Select = (props) => {
     initialValue,
     value,
     placeholder,
-
     onSelect,
     setValue,
-
     selectDisabled,
     clearButtonDisabled,
-
     iconComponent,
     labelComponent,
     errorComponent,
