@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
-import Splash from '@/components/Splash'
+import { useEffect, useCallback } from 'react'
 import {
   DRAWER_ROUTES,
   APP_SWITCH_ROUTES,
@@ -18,7 +17,7 @@ const AuthLoading = ({ navigation }) => {
 
   useEffect(onCheckIfUserIsLogged, [])
 
-  return <Splash />
+  return null
 }
 
 export default AuthLoading
