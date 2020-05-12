@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+
 import { DefaultText, UppercaseBoldText } from '@/components/Text'
 
 export const Container = styled.View`

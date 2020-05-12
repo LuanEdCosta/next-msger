@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableNativeFeedback } from 'react-native-gesture-handler'
 import PropTypes from 'prop-types'
+
 import { getBlackRgba } from '@/styles'
 
 const Touchable = (props) => {

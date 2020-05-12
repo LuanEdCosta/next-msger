@@ -1,9 +1,12 @@
 import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import { useColorGetter } from '@/hooks'
 import { MAIN_COLORS } from '@/styles'
+
 import Touchable from '../Touchable'
+
 import { Styles, Container, TouchableContent } from './styles'
 
 const Fab = (props) => {

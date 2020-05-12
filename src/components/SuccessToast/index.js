@@ -1,6 +1,7 @@
 import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import { Container, Message } from './styles'
 
 const SuccessToast = (props) => {

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+
 import { FONT_SIZES } from '@/styles'
 import { UppercaseBoldText } from '@/components/Text'
 import { getColor } from '@/helpers/StylesHelper'

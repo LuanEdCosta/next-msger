@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/native'
 import { TextInputMask } from 'react-native-masked-text'
+
 import {
   DEFAULT_FONT_FAMILY,
   MAIN_COLORS,

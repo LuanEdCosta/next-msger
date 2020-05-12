@@ -1,5 +1,7 @@
 import styled from 'styled-components/native'
+
 import { MAIN_COLORS } from '@/styles'
+
 import { WhiteText } from '../Text'
 
 export const Container = styled.View`

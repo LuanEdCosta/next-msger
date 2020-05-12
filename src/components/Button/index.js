@@ -1,7 +1,9 @@
 import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import Touchable from '@/components/Touchable'
+
 import { Container, ButtonTouchable, ButtonText } from './styles'
 
 const Button = (props) => {

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+
 import Header from '@/components/Header'
 import Button from '@/components/Button'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
@@ -10,6 +11,7 @@ import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
 import { useErrorAlert } from '@/hooks'
+
 import { Container, Scroll, ServiceTypeInput } from './styles'
 
 const ServiceTypeRegistration = () => {

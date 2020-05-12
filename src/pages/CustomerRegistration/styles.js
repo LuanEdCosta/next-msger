@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import { StyleSheet } from 'react-native'
+
 import Input from '@/components/Input'
 
 const Styles = StyleSheet.create({

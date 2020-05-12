@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react'
+
 import useStopTypingCallback from './useStopTypingCallback'
 
 export default ({

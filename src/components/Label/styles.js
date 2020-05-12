@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native'
+
 import { MAIN_COLORS } from '@/styles'
 import { DefaultText, UppercaseBoldText } from '@/components/Text'
 

@@ -1,8 +1,10 @@
 import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
-import { Container, Content, Text } from './styles'
+
 import { AccentSpinner } from '../Spinner'
+
+import { Container, Content, Text } from './styles'
 
 const MessagePanel = (props) => {
   const { style, text, iconComponent, isLoading } = props

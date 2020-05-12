@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react'
 import { ViewPropTypes, Dimensions } from 'react-native'
-import PropTypes from 'prop-types'
 import ReactNativeModal from 'react-native-modal'
-import Spinner from '@/components/Spinner'
+import PropTypes from 'prop-types'
+
 import { MessagePanelIcon, Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
+import Spinner from '@/components/Spinner'
 import { useArraySearch } from '@/hooks'
+
 import {
   Container,
   Header,

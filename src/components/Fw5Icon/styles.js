@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
+
 import { MAIN_COLORS, FONT_SIZES } from '@/styles'
 
 export const Fw5Icon = styled(FontAwesome5Icon).attrs((props) => ({

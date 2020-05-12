@@ -1,6 +1,10 @@
 import React, { useCallback } from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
+import Touchable from '../Touchable'
+import { Fw5Icon } from '../Fw5Icon'
+
 import {
   Container,
   SelectComponent,
@@ -9,8 +13,6 @@ import {
   SelectText,
   ClearButton,
 } from './styles'
-import Touchable from '../Touchable'
-import { Fw5Icon } from '../Fw5Icon'
 
 const Select = (props) => {
   const {

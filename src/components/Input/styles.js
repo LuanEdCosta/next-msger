@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+
 import { MAIN_COLORS } from '@/styles'
 
 const inputHeight = '48px'

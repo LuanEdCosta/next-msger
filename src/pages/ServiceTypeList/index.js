@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+import moment from 'moment'
+
 import Header from '@/components/Header'
 import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
 import MessagePanel from '@/components/MessagePanel'
@@ -10,7 +12,7 @@ import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import Fab from '@/components/Fab'
 import SearchBar from '@/components/SearchBar'
 import { useArraySearch, useErrorAlert } from '@/hooks'
-import moment from 'moment'
+
 import {
   Container,
   ServiceTypeItem,

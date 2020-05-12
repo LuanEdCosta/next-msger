@@ -1,5 +1,7 @@
 import styled from 'styled-components/native'
+
 import { MAIN_COLORS } from '@/styles'
+
 import Input from '../Input'
 import TouchableIcon from '../TouchableIcon'
 

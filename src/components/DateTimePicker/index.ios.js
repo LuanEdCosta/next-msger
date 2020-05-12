@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Picker from '@react-native-community/datetimepicker'
 import Modal from 'react-native-modal'
+
 import { Container } from './styles'
 
 /**

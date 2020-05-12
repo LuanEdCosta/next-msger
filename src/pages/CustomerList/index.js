@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+
 import Header from '@/components/Header'
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import MessagePanel from '@/components/MessagePanel'
@@ -11,6 +12,7 @@ import Fab from '@/components/Fab'
 import SearchBar from '@/components/SearchBar'
 import { useArraySearch } from '@/hooks'
 import { getOnlyPhoneNumbers } from '@/helpers'
+
 import { Container, CustomerItem, CustomerItemText, Styles } from './styles'
 
 const CustomerList = ({ navigation }) => {

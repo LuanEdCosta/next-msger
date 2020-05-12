@@ -1,7 +1,9 @@
 import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import Touchable from '../Touchable'
+
 import { Container, Content, TextsContainer } from './styles'
 
 const ListItem = (props) => {

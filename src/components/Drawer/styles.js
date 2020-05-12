@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import { StyleSheet } from 'react-native'
+
 import { DEFAULT_FONT_FAMILY, FONT_SIZES } from '@/styles'
 
 export const Styles = StyleSheet.create({

@@ -1,7 +1,9 @@
 import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
+
 import Touchable from '../Touchable'
+
 import { Container, TouchableContainer } from './styles'
 
 const TouchableIcon = (props) => {

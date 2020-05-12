@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import firestore from '@react-native-firebase/firestore'
+import moment from 'moment'
+
 import Header from '@/components/Header'
 import { MARKETING_STEP_DOC, COLLECTIONS } from '@/config/database'
 import { Fw5Icon, ButtonIcon } from '@/components/Fw5Icon'
 import { useErrorAlert } from '@/hooks'
-import { useTranslation } from 'react-i18next'
-import firestore from '@react-native-firebase/firestore'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
-import moment from 'moment'
+
 import {
   Container,
   DataItem,

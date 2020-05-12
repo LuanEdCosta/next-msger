@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+
 import Header from '@/components/Header'
-import { Container, Scroll } from './styles'
+
 import ServiceRegistrationContext from './context'
 import SelectCustomer from './SelectCustomer'
-import SelectServiceType from './SelectServiceType'
-import SelectServiceStartDate from './SelectServiceStartDate'
 import SelectServiceEndDate from './SelectServiceEndDate'
+import SelectServiceStartDate from './SelectServiceStartDate'
+import SelectServiceType from './SelectServiceType'
+import { Container, Scroll } from './styles'
 
 const ServiceRegistration = () => {
   const [selectedCustomer, setSelectedCustomer] = useState(null)

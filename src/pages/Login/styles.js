@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+
 import { UppercaseBoldText, DefaultText } from '@/components/Text'
 import Button from '@/components/Button'
 import Input from '@/components/Input'

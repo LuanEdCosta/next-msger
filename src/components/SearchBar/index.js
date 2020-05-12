@@ -2,7 +2,13 @@ import React, { useRef, useCallback, useState } from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
+
 import { MAIN_COLORS } from '@/styles'
+
+import { Fw5IconAccent, Fw5Icon } from '../Fw5Icon'
+import { DefaultTextInput } from '../TextInput'
+import { AccentSpinner } from '../Spinner'
+
 import {
   Container,
   Bar,
@@ -10,9 +16,6 @@ import {
   FilterToggler,
   FilterContent,
 } from './styles'
-import { Fw5IconAccent, Fw5Icon } from '../Fw5Icon'
-import { DefaultTextInput } from '../TextInput'
-import { AccentSpinner } from '../Spinner'
 
 const SearchBar = (props) => {
   const {

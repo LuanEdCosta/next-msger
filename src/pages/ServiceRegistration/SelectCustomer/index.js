@@ -1,12 +1,15 @@
 import React, { useContext, useMemo, useState } from 'react'
-import Select from '@/components/Select'
 import { useTranslation } from 'react-i18next'
+
+import Select from '@/components/Select'
 import SearchableListModal from '@/components/SearchableListModal'
 import { CUSTOMER_DOC } from '@/config/database'
 import Label from '@/components/Label'
 import { Fw5IconAccent } from '@/components/Fw5Icon'
-import { Container } from './styles'
+
 import context from '../context'
+
+import { Container } from './styles'
 
 const SelectCustomer = () => {
   const { customerList, selectedCustomer, setSelectedCustomer } = useContext(

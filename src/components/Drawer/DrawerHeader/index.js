@@ -1,7 +1,9 @@
 import React from 'react'
 import { firebase } from '@react-native-firebase/auth'
-import { USER_DOC } from '@/config/database'
 import { useSelector } from 'react-redux'
+
+import { USER_DOC } from '@/config/database'
+
 import { Container, Title, Subtitle } from './styles'
 
 const DrawerHeader = () => {

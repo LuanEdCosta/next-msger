@@ -1,9 +1,10 @@
 import { useEffect, useCallback } from 'react'
+import { firebase } from '@react-native-firebase/auth'
+
 import {
   DRAWER_ROUTES as DWR,
   APP_SWITCH_ROUTES as APR,
 } from '@/config/navigation/ScreenRoutes'
-import { firebase } from '@react-native-firebase/auth'
 
 const AuthLoading = ({ navigation }) => {
   const onCheckIfUserIsLogged = useCallback(() => {

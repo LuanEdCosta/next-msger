@@ -1,8 +1,10 @@
 import React, { useCallback } from 'react'
-import { ButtonIcon } from '@/components/Fw5Icon'
 import { useTranslation } from 'react-i18next'
 import { withNavigation } from 'react-navigation'
+
+import { ButtonIcon } from '@/components/Fw5Icon'
 import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
+
 import { Container, Scroll, ActionButton } from './styles'
 
 const HomeActionButtons = ({ navigation }) => {

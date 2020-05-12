@@ -28,6 +28,32 @@ module.exports = {
         extensions: ['.js', '.jsx'],
       },
     ],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        groups: [
+          'builtin',
+          'unknown',
+          'internal',
+          'external',
+          'parent',
+          'sibling',
+          'index',
+        ],
+        pathGroups: [
+          {
+            pattern: '@/**',
+            group: 'parent',
+            position: 'before',
+          },
+          {
+            pattern: 'react',
+            group: 'builtin',
+          },
+        ],
+      },
+    ],
   },
   settings: {
     'import/resolver': {

@@ -1,4 +1,5 @@
 import { createDrawerNavigator } from 'react-navigation-drawer'
+
 import Home from '@/pages/Home'
 import Dashboard from '@/pages/Dashboard'
 import CustomerRegistration from '@/pages/CustomerRegistration'
@@ -11,6 +12,7 @@ import Drawer from '@/components/Drawer'
 import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
 import MarketingStepList from '@/pages/MarketingStepList'
+
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
 const DrawerNavigator = createDrawerNavigator(

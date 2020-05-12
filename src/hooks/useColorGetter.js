@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+
 import { MAIN_COLORS } from '@/styles'
 
 export default (fallbackColor = null) => {

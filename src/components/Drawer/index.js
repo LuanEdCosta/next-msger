@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react'
 import { DrawerNavigatorItems } from 'react-navigation-drawer'
-import { MAIN_COLORS } from '@/styles'
 import { useTranslation } from 'react-i18next'
-import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import { ScrollView } from 'react-native'
+
+import DRAWER_PAGES from '@/config/constants/DrawerPages'
+import { MAIN_COLORS } from '@/styles'
+
 import { Container, Styles } from './styles'
 import DrawerHeader from './DrawerHeader'
 

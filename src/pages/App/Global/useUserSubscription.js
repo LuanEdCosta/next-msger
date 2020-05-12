@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import firestore from '@react-native-firebase/firestore'
 import { firebase } from '@react-native-firebase/auth'
+
 import { useDispatchCallback } from '@/hooks'
 import { setUserData, deleteUserData } from '@/store/actions'
 import { USER_DOC } from '@/config/database'

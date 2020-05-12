@@ -3,8 +3,10 @@ import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
-import { MAIN_COLORS } from '@/styles'
 import { withNavigation } from 'react-navigation'
+
+import { MAIN_COLORS } from '@/styles'
+
 import {
   Styles,
   Container,

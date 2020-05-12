@@ -2,9 +2,12 @@ import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
+
 import { MAIN_COLORS } from '@/styles'
-import { Container, ErrorText } from './styles'
+
 import { Fw5Icon } from '../Fw5Icon'
+
+import { Container, ErrorText } from './styles'
 
 const InputError = (props) => {
   const { style, text, show, iconComponent } = props

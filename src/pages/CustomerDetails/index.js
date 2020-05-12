@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import firestore from '@react-native-firebase/firestore'
+
 import Header from '@/components/Header'
 import { CUSTOMER_DOC, COLLECTIONS } from '@/config/database'
 import { Fw5Icon, ButtonIcon } from '@/components/Fw5Icon'
 import { useErrorAlert } from '@/hooks'
-import { useTranslation } from 'react-i18next'
-import firestore from '@react-native-firebase/firestore'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
+
 import {
   Container,
   DataItem,

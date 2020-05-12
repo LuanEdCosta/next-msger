@@ -1,5 +1,6 @@
 import styled from 'styled-components/native'
 import { Platform } from 'react-native'
+
 import { MAIN_COLORS } from '@/styles'
 
 export default styled.StatusBar.attrs({

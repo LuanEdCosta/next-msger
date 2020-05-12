@@ -1,13 +1,15 @@
-import { MAIN_COLORS } from '@/styles'
-import styled from 'styled-components'
 import { FlatList } from 'react-native-gesture-handler'
-import { UppercaseBoldText } from '../Text'
-import MessagePanel from '../MessagePanel'
-import TouchableIcon from '../TouchableIcon'
-import { DefaultTextInput } from '../TextInput'
+import styled from 'styled-components'
+
+import { MAIN_COLORS } from '@/styles'
+
 import Input from '../Input'
 import ListItem from '../ListItem'
 import ListItemText from '../ListItem/ListItemText'
+import MessagePanel from '../MessagePanel'
+import { UppercaseBoldText } from '../Text'
+import { DefaultTextInput } from '../TextInput'
+import TouchableIcon from '../TouchableIcon'
 
 export const Container = styled.View`
   background-color: white;

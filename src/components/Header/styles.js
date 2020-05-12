@@ -1,6 +1,8 @@
 import styled from 'styled-components/native'
 import { StyleSheet } from 'react-native'
+
 import { MAIN_COLORS, FONT_SIZES } from '@/styles'
+
 import TouchableIcon from '../TouchableIcon'
 import { DefaultText, UppercaseBoldText } from '../Text'
 

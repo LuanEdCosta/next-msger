@@ -1,4 +1,5 @@
 import styled from 'styled-components/native'
+
 import { DEFAULT_FONT_FAMILY, MAIN_COLORS, FONT_SIZES } from '@/styles'
 
 export const DefaultText = styled.Text`
