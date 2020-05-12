@@ -35,7 +35,7 @@ const Select = (props) => {
     <Container style={style}>
       {labelComponent}
 
-      <SelectContainer>
+      <SelectContainer hasLabel={!!labelComponent} hasError={!!errorComponent}>
         <SelectComponent>
           <Touchable onPress={onSelect} disabled={selectDisabled}>
             <SelectTouchable>

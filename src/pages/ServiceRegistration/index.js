@@ -1,27 +1,47 @@
 import React, { useState } from 'react'
-import Select from '@/components/Select'
 import Header from '@/components/Header'
 import { Container, Scroll } from './styles'
+import ServiceRegistrationContext from './context'
+import SelectCustomer from './SelectCustomer'
+import SelectServiceType from './SelectServiceType'
+import SelectServiceStartDate from './SelectServiceStartDate'
+import SelectServiceEndDate from './SelectServiceEndDate'
 
 const ServiceRegistration = () => {
-  const [value, setValue] = useState(null)
+  const [selectedCustomer, setSelectedCustomer] = useState(null)
+  const [selectedServiceType, setSelectedServiceType] = useState(null)
+
+  const [customerList, setCustomerList] = useState([])
+  const [serviceTypeList, setServiceTypeList] = useState([])
 
   return (
-    <Container>
-      <Header i18Namespace="NavigationDrawer" i18Title="serviceRegistration" />
-      <Scroll>
-        {/* TESTING THE SELECT COMPONENT */}
-        <Select
-          placeholder="Toque para Selecionar"
-          value={value}
-          setValue={setValue}
-          initialValue={null}
-          onSelect={() => {
-            setValue('12/04/2000')
-          }}
+    <ServiceRegistrationContext.Provider
+      value={{
+        selectedCustomer,
+        setSelectedCustomer,
+        selectedServiceType,
+        setSelectedServiceType,
+
+        customerList,
+        setCustomerList,
+        serviceTypeList,
+        setServiceTypeList,
+      }}
+    >
+      <Container>
+        <Header
+          i18Namespace="NavigationDrawer"
+          i18Title="serviceRegistration"
         />
-      </Scroll>
-    </Container>
+
+        <Scroll>
+          <SelectCustomer />
+          <SelectServiceType />
+          <SelectServiceStartDate />
+          <SelectServiceEndDate />
+        </Scroll>
+      </Container>
+    </ServiceRegistrationContext.Provider>
   )
 }
 

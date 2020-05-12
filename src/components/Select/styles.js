@@ -5,15 +5,16 @@ import TouchableIcon from '../TouchableIcon'
 
 const selectHeight = 48
 
-export const Container = styled.View`
-  border-width: 2px;
-  border-color: ${MAIN_COLORS.darkGrey};
-  border-radius: 5px;
-`
+export const Container = styled.View``
 
 export const SelectContainer = styled.View`
   flex-direction: row;
   align-items: center;
+  border-width: 2px;
+  border-color: ${MAIN_COLORS.darkGrey};
+  border-radius: 5px;
+  margin-top: ${({ hasLabel }) => (hasLabel ? 8 : 0)}px;
+  margin-bottom: ${({ hasError }) => (hasError ? 8 : 0)}px;
 `
 
 export const SelectTouchable = styled.View`
