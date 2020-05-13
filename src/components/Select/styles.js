@@ -24,7 +24,7 @@ export const SelectTouchable = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 0 16px;
-  background-color: ${MAIN_COLORS.snow};
+  background-color: ${MAIN_COLORS.snowLight};
 `
 
 export const SelectText = styled(DefaultText)`

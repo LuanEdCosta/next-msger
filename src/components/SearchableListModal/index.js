@@ -148,8 +148,11 @@ const SearchableListModal = (props) => {
                   isSelected && <Fw5IconAccent name="check-circle" size={20} />
                 }
               >
-                <ItemText icon={titleIconComponent} text={title} isTitle />
-                <ItemText icon={subtitleIconComponent} text={subtitle} />
+                <ItemText text={title} isTitle>
+                  {titleIconComponent}
+                </ItemText>
+
+                <ItemText text={subtitle}>{subtitleIconComponent}</ItemText>
               </Item>
             )
           }}

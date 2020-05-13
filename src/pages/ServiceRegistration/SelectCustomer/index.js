@@ -12,7 +12,7 @@ import Select from '@/components/Select'
 import SearchableListModal from '@/components/SearchableListModal'
 import { CUSTOMER_DOC, COLLECTIONS } from '@/config/database'
 import Label from '@/components/Label'
-import { Fw5IconAccent } from '@/components/Fw5Icon'
+import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
 
 import context from '../context'
 
@@ -32,7 +32,7 @@ const SelectCustomer = () => {
   const [isShowingModal, setIsShowingModal] = useState(false)
 
   const customerName = useMemo(() => {
-    if (selectedCustomer) return selectedCustomer.name
+    if (selectedCustomer) return selectedCustomer[CUSTOMER_DOC.NAME]
     return null
   }, [selectedCustomer])
 
@@ -82,7 +82,8 @@ const SelectCustomer = () => {
         titleKey={CUSTOMER_DOC.NAME}
         subtitleKey={CUSTOMER_DOC.EMAIL}
         modalTitle={t('customerSelect')}
-        titleIconComponent={<Fw5IconAccent name="user" solid />}
+        titleIconComponent={<Fw5Icon name="signature" />}
+        subtitleIconComponent={<Fw5Icon name="envelope" solid />}
         messagePanelText={t('anyCustoemerFound')}
         searchInputPlaceholder={t('customerSearchPh')}
       />

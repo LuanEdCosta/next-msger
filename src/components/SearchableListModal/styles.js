@@ -14,7 +14,7 @@ import TouchableIcon from '../TouchableIcon'
 export const Container = styled.View`
   background-color: white;
   flex: 1;
-  border-radius: 5;
+  border-radius: 5px;
   overflow: hidden;
 `
 

@@ -11,7 +11,7 @@ export const Container = styled.View`
   overflow: hidden;
   border-radius: 5px;
   justify-content: center;
-  height: 50px;
+  height: 58px;
 `
 
 export const ButtonTouchable = styled.View`
