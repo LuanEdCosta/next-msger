@@ -4,7 +4,7 @@ import ReactNativeModal from 'react-native-modal'
 import PropTypes from 'prop-types'
 
 import { MessagePanelIcon, Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
-import Spinner from '@/components/Spinner'
+import { AccentSpinner } from '@/components/Spinner'
 import { useArraySearch } from '@/hooks'
 
 import {
@@ -48,14 +48,18 @@ const SearchableListModal = (props) => {
     itemsToShow,
     onChangeSearchText,
     searchText,
-  } = useArraySearch(list, true, [titleKey, subtitleKey])
+  } = useArraySearch({
+    list,
+    isItemsObjects: true,
+    keysToFilter: [titleKey, subtitleKey],
+  })
 
   const onClearSearchText = useCallback(() => {
     onChangeSearchText('')
   }, [onChangeSearchText])
 
   const onCloseModal = useCallback(() => {
-    setIsShowing(false)
+    if (setIsShowing) setIsShowing(false)
     if (searchText) onChangeSearchText('')
   }, [onChangeSearchText, searchText, setIsShowing])
 
@@ -84,13 +88,12 @@ const SearchableListModal = (props) => {
             actionIconComponent={<Fw5Icon name="times" />}
             onActionPress={onClearSearchText}
             showAction={!!searchText}
-            inModalWorkaround
             labelComponent={
               !!modalTitle && <ModalTitle>{modalTitle}</ModalTitle>
             }
-            iconComponent={
+            inputIconComponent={
               isSearching ? (
-                <Spinner color="accent" size={14} />
+                <AccentSpinner size={14} />
               ) : (
                 <Fw5IconAccent name="search" />
               )
@@ -107,7 +110,7 @@ const SearchableListModal = (props) => {
             }
           />
 
-          <CloseButton onPress={onCloseModal} inModalWorkaround>
+          <CloseButton onPress={onCloseModal}>
             <Fw5Icon name="chevron-right" size={20} />
           </CloseButton>
         </Header>
@@ -141,9 +144,9 @@ const SearchableListModal = (props) => {
             return (
               <Item
                 onPress={onSelectItem}
-                hideRightIcon={!isSelected}
-                rightIcon={<Fw5IconAccent name="check-circle" />}
-                inModalWorkaround
+                iconComponent={
+                  isSelected && <Fw5IconAccent name="check-circle" size={20} />
+                }
               >
                 <ItemText icon={titleIconComponent} text={title} isTitle />
                 <ItemText icon={subtitleIconComponent} text={subtitle} />

@@ -1,0 +1,7 @@
+{
+  "saveButton": "Cadastrar",
+  "customerSelect": "Cliente deste Serviço",
+  "customerSelectPh": "Toque para Selecionar o Cliente",
+  "anyCustoemerFound": "Nenhum Cliente Encontrado",
+  "customerSearchPh": "Pesquise por nome ou email"
+}

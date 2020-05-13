@@ -12,6 +12,7 @@ import MarketingStepRegistration from './MarketingStepRegistration.json'
 import MarketingStepList from './MarketingStepList.json'
 import MarketingStepDetails from './MarketingStepDetails.json'
 import Home from './Home.json'
+import ServiceRegistration from './ServiceRegistration.json'
 
 export default {
   Common,
@@ -28,4 +29,5 @@ export default {
   MarketingStepList,
   MarketingStepDetails,
   Home,
+  ServiceRegistration,
 }

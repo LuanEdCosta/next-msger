@@ -7,13 +7,16 @@ import SelectCustomer from './SelectCustomer'
 import SelectServiceEndDate from './SelectServiceEndDate'
 import SelectServiceStartDate from './SelectServiceStartDate'
 import SelectServiceType from './SelectServiceType'
+import SaveButton from './SaveButton'
 import { Container, Scroll } from './styles'
 
 const ServiceRegistration = () => {
+  const [isLoadingCustomers, setIsLoadingCustomers] = useState(true)
   const [selectedCustomer, setSelectedCustomer] = useState(null)
-  const [selectedServiceType, setSelectedServiceType] = useState(null)
-
   const [customerList, setCustomerList] = useState([])
+
+  const [isLoadingServiceTypes, setIsLoadingServiceTypes] = useState(true)
+  const [selectedServiceType, setSelectedServiceType] = useState(null)
   const [serviceTypeList, setServiceTypeList] = useState([])
 
   return (
@@ -21,13 +24,17 @@ const ServiceRegistration = () => {
       value={{
         selectedCustomer,
         setSelectedCustomer,
-        selectedServiceType,
-        setSelectedServiceType,
-
         customerList,
         setCustomerList,
+        isLoadingCustomers,
+        setIsLoadingCustomers,
+
+        selectedServiceType,
+        setSelectedServiceType,
         serviceTypeList,
         setServiceTypeList,
+        isLoadingServiceTypes,
+        setIsLoadingServiceTypes,
       }}
     >
       <Container>
@@ -41,6 +48,7 @@ const ServiceRegistration = () => {
           <SelectServiceType />
           <SelectServiceStartDate />
           <SelectServiceEndDate />
+          <SaveButton />
         </Scroll>
       </Container>
     </ServiceRegistrationContext.Provider>
