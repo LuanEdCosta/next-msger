@@ -1,9 +1,55 @@
-import React from 'react'
+import React, { useContext, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import moment from 'moment'
+
+import Select from '@/components/Select'
+import Label from '@/components/Label'
+import { Fw5IconAccent } from '@/components/Fw5Icon'
+import DateTimePicker from '@/components/DateTimePicker/index.android'
+
+import context from '../context'
 
 import { Container } from './styles'
 
 const SelectServiceEndDate = () => {
-  return <Container>{}</Container>
+  const { endDate, setEndDate } = useContext(context)
+
+  const { t } = useTranslation('ServiceRegistration')
+  const [isShowingPicker, setIsShowingPicker] = useState(false)
+
+  const onChangeDate = useCallback(
+    (_, date) => {
+      setIsShowingPicker(false)
+      if (date) setEndDate(date)
+    },
+    [setEndDate],
+  )
+
+  return (
+    <Container>
+      <Select
+        value={endDate ? moment(endDate).format('L') : null}
+        setValue={setEndDate}
+        placeholder={t('endDatePh')}
+        onSelect={() => setIsShowingPicker(true)}
+        labelComponent={
+          <Label
+            label={t('endDate')}
+            iconComponent={<Fw5IconAccent name="calendar-day" solid />}
+            isRequired
+          />
+        }
+      />
+
+      <DateTimePicker
+        isShowing={isShowingPicker}
+        maximumDate={moment().toDate()}
+        value={moment(endDate || undefined).toDate()}
+        onChange={onChangeDate}
+        mode="date"
+      />
+    </Container>
+  )
 }
 
 export default SelectServiceEndDate

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 
 import Header from '@/components/Header'
 
@@ -19,6 +20,9 @@ const ServiceRegistration = () => {
   const [selectedServiceType, setSelectedServiceType] = useState(null)
   const [serviceTypeList, setServiceTypeList] = useState([])
 
+  const [startDate, setStartDate] = useState(moment())
+  const [endDate, setEndDate] = useState(moment())
+
   return (
     <ServiceRegistrationContext.Provider
       value={{
@@ -35,6 +39,11 @@ const ServiceRegistration = () => {
         setServiceTypeList,
         isLoadingServiceTypes,
         setIsLoadingServiceTypes,
+
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
       }}
     >
       <Container>

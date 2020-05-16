@@ -7,5 +7,9 @@
   "serviceTypeSelect": "Tipo do Serviço",
   "serviceTypeSelectPh": "Toque e Selecione o Tipo do Serviço",
   "anyServiceTypeFound": "Nenhum Cliente Encontrado",
-  "serviceTypeSearchPh": "Nome do tipo do serviço"
+  "serviceTypeSearchPh": "Nome do tipo do serviço",
+  "startDate": "Data de Início do Serviço",
+  "startDatePh": "Toque e Selecione a Data Inicial",
+  "endDate": "Data de Término do Serviço",
+  "endDatePh": "Toque e Selecione a Data Final"
 }
