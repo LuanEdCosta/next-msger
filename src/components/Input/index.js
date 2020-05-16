@@ -10,7 +10,6 @@ import {
   AcionContainer,
   InputIconContainer,
   ActionIconTouchable,
-  LabelContainer,
   TextInputComponent,
 } from './styles'
 
@@ -35,9 +34,9 @@ const Input = (props) => {
 
   return (
     <View style={style}>
-      {labelComponent && <LabelContainer>{labelComponent}</LabelContainer>}
+      {labelComponent}
 
-      <InputContainer>
+      <InputContainer hasLabel={!!labelComponent} hasError={!!errorComponent}>
         {showInputIcon && !!inputIconComponent && (
           <TouchableWithoutFeedback onPress={onLeftIconPressed}>
             <InputIconContainer>{inputIconComponent}</InputIconContainer>

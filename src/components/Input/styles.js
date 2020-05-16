@@ -11,6 +11,8 @@ export const InputContainer = styled.View`
   align-items: center;
   min-height: ${inputHeight};
   overflow: hidden;
+  margin-top: ${({ hasLabel }) => (hasLabel ? 8 : 0)}px;
+  margin-bottom: ${({ hasError }) => (hasError ? 8 : 0)}px;
 `
 
 export const TextInputComponent = styled.View`
@@ -29,8 +31,4 @@ export const ActionIconTouchable = styled.View`
   min-height: ${inputHeight};
   justify-content: center;
   padding: 0 16px;
-`
-
-export const LabelContainer = styled.View`
-  margin-bottom: 8px;
 `
