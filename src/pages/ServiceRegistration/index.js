@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import moment from 'moment'
 
 import Header from '@/components/Header'
@@ -23,9 +23,27 @@ const ServiceRegistration = () => {
   const [startDate, setStartDate] = useState(moment())
   const [endDate, setEndDate] = useState(moment())
 
+  const [isSaving, setIsSaving] = useState(false)
+  const [isShowingErrors, setIsShowingErrors] = useState(false)
+
+  const isAbleToSave = useMemo(() => {
+    return selectedCustomer && selectedServiceType && startDate && endDate
+  }, [endDate, selectedCustomer, selectedServiceType, startDate])
+
+  const onClearForm = useCallback(() => {
+    setIsShowingErrors(false)
+    setSelectedCustomer(null)
+    setSelectedServiceType(null)
+    setStartDate(moment())
+    setEndDate(moment())
+  }, [])
+
   return (
     <ServiceRegistrationContext.Provider
       value={{
+        isAbleToSave,
+        onClearForm,
+
         selectedCustomer,
         setSelectedCustomer,
         customerList,
@@ -44,6 +62,11 @@ const ServiceRegistration = () => {
         setStartDate,
         endDate,
         setEndDate,
+
+        isSaving,
+        setIsSaving,
+        isShowingErrors,
+        setIsShowingErrors,
       }}
     >
       <Container>

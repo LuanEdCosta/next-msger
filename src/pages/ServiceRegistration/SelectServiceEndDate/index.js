@@ -35,7 +35,7 @@ const SelectServiceEndDate = () => {
         labelComponent={
           <Label
             label={t('endDate')}
-            iconComponent={<Fw5IconAccent name="calendar-day" solid />}
+            iconComponent={<Fw5IconAccent name="calendar-week" solid />}
             isRequired
           />
         }
