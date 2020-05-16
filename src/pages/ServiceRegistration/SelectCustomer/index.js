@@ -13,6 +13,7 @@ import SearchableListModal from '@/components/SearchableListModal'
 import { CUSTOMER_DOC, COLLECTIONS } from '@/config/database'
 import Label from '@/components/Label'
 import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
+import InputError from '@/components/InputError'
 
 import context from '../context'
 
@@ -26,9 +27,10 @@ const SelectCustomer = () => {
     setSelectedCustomer,
     isLoadingCustomers,
     setIsLoadingCustomers,
+    isShowingErrors,
   } = useContext(context)
 
-  const { t } = useTranslation('ServiceRegistration')
+  const { t } = useTranslation(['ServiceRegistration', 'Error'])
   const [isShowingModal, setIsShowingModal] = useState(false)
 
   const customerName = useMemo(() => {
@@ -67,6 +69,12 @@ const SelectCustomer = () => {
             label={t('customerSelect')}
             iconComponent={<Fw5IconAccent name="user" solid />}
             isRequired
+          />
+        }
+        errorComponent={
+          <InputError
+            show={isShowingErrors && !selectedCustomer}
+            text={t('Error:emptyField')}
           />
         }
       />

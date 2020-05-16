@@ -14,6 +14,7 @@ import SearchableListModal from '@/components/SearchableListModal'
 import { SERVICE_TYPE_DOC, COLLECTIONS } from '@/config/database'
 import Label from '@/components/Label'
 import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
+import InputError from '@/components/InputError'
 
 import context from '../context'
 
@@ -27,9 +28,10 @@ const SelectServiceType = () => {
     setSelectedServiceType,
     isLoadingServiceTypes,
     setIsLoadingServiceTypes,
+    isShowingErrors,
   } = useContext(context)
 
-  const { t } = useTranslation('ServiceRegistration')
+  const { t } = useTranslation(['ServiceRegistration', 'Error'])
   const [isShowingModal, setIsShowingModal] = useState(false)
 
   const customerName = useMemo(() => {
@@ -73,6 +75,12 @@ const SelectServiceType = () => {
             label={t('serviceTypeSelect')}
             iconComponent={<Fw5IconAccent name="file-alt" solid />}
             isRequired
+          />
+        }
+        errorComponent={
+          <InputError
+            show={isShowingErrors && !selectedServiceType}
+            text={t('Error:emptyField')}
           />
         }
       />

@@ -6,15 +6,16 @@ import Select from '@/components/Select'
 import Label from '@/components/Label'
 import { Fw5IconAccent } from '@/components/Fw5Icon'
 import DateTimePicker from '@/components/DateTimePicker/index.android'
+import InputError from '@/components/InputError'
 
 import context from '../context'
 
 import { Container } from './styles'
 
 const SelectServiceStartDate = () => {
-  const { startDate, setStartDate } = useContext(context)
+  const { startDate, setStartDate, isShowingErrors } = useContext(context)
 
-  const { t } = useTranslation('ServiceRegistration')
+  const { t } = useTranslation(['ServiceRegistration', 'Error'])
   const [isShowingPicker, setIsShowingPicker] = useState(false)
 
   const onChangeDate = useCallback(
@@ -37,6 +38,12 @@ const SelectServiceStartDate = () => {
             label={t('startDate')}
             iconComponent={<Fw5IconAccent name="calendar-day" solid />}
             isRequired
+          />
+        }
+        errorComponent={
+          <InputError
+            show={isShowingErrors && !startDate}
+            text={t('Error:emptyField')}
           />
         }
       />
