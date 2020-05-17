@@ -12,6 +12,7 @@ import Drawer from '@/components/Drawer'
 import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
 import MarketingStepList from '@/pages/MarketingStepList'
+import UserProfile from '@/pages/UserProfile'
 
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
@@ -22,6 +23,13 @@ const DrawerNavigator = createDrawerNavigator(
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'home',
         [DRAWER_PAGES.DRAWER_ICON]: 'home',
+      },
+    },
+    [DR.USER_PROFILE]: {
+      screen: UserProfile,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'userProfile',
+        [DRAWER_PAGES.DRAWER_ICON]: 'user-circle',
       },
     },
     [DR.DASHBOARD]: {
