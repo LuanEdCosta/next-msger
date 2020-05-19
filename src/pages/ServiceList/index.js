@@ -28,6 +28,10 @@ const ServiceList = ({ navigation }) => {
   } = useArraySearch({
     list: serviceList,
     keysToFilter: [SERVICE_DOC.START_DATE, SERVICE_DOC.END_DATE],
+    formatTexts: {
+      [SERVICE_DOC.START_DATE]: (val) => moment(val).format('LL'),
+      [SERVICE_DOC.END_DATE]: (val) => moment(val).format('LL'),
+    },
   })
 
   const onSubscribeToServicesCollection = useCallback(() => {

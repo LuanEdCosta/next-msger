@@ -15,6 +15,7 @@ import Home from './Home.json'
 import ServiceRegistration from './ServiceRegistration.json'
 import UserProfile from './UserProfile.json'
 import ServiceList from './ServiceList.json'
+import ServiceDetails from './ServiceDetails.json'
 
 export default {
   Common,
@@ -34,4 +35,5 @@ export default {
   ServiceRegistration,
   UserProfile,
   ServiceList,
+  ServiceDetails,
 }
