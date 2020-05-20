@@ -16,6 +16,7 @@ import ServiceRegistration from './ServiceRegistration.json'
 import UserProfile from './UserProfile.json'
 import ServiceList from './ServiceList.json'
 import ServiceDetails from './ServiceDetails.json'
+import ServiceDetailsOverviewTab from './ServiceDetailsOverviewTab.json'
 
 export default {
   Common,
@@ -36,4 +37,5 @@ export default {
   UserProfile,
   ServiceList,
   ServiceDetails,
+  ServiceDetailsOverviewTab,
 }
