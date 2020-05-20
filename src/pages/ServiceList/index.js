@@ -27,10 +27,23 @@ const ServiceList = ({ navigation }) => {
     isSearching,
   } = useArraySearch({
     list: serviceList,
-    keysToFilter: [SERVICE_DOC.START_DATE, SERVICE_DOC.END_DATE],
+    keysToFilter: [
+      SERVICE_DOC.START_DATE,
+      SERVICE_DOC.END_DATE,
+      SERVICE_DOC.CUSTOMER_KEY,
+      SERVICE_DOC.SERVICE_TYPE_KEY,
+    ],
     formatTexts: {
       [SERVICE_DOC.START_DATE]: (val) => moment(val).format('LL'),
       [SERVICE_DOC.END_DATE]: (val) => moment(val).format('LL'),
+      [SERVICE_DOC.CUSTOMER_KEY]: (customer) => {
+        if (customer) return customer[SERVICE_DOC.CUSTOMER.NAME]
+        return ''
+      },
+      [SERVICE_DOC.SERVICE_TYPE_KEY]: (serviceType) => {
+        if (serviceType) return serviceType[SERVICE_DOC.SERVICE_TYPE.NAME]
+        return ''
+      },
     },
   })
 
@@ -70,17 +83,17 @@ const ServiceList = ({ navigation }) => {
             <Fw5Icon name="file-alt" solid />
           </ServiceItemText>
 
-          <ServiceItemText text={moment(startDate).format('LL')}>
+          <ServiceItemText text={t('startDate', { date: moment(startDate) })}>
             <Fw5Icon name="calendar-day" solid />
           </ServiceItemText>
 
-          <ServiceItemText text={moment(endDate).format('LL')}>
+          <ServiceItemText text={t('endDate', { date: moment(endDate) })}>
             <Fw5Icon name="calendar-week" solid />
           </ServiceItemText>
         </ServiceItem>
       )
     },
-    [navigation],
+    [navigation, t],
   )
 
   const keyExtractor = useCallback(({ [SERVICE_DOC.ID]: id }) => id, [])
