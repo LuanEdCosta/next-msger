@@ -39,8 +39,16 @@ const SaveButton = () => {
     setIsSaving(true)
 
     try {
-      const { [CUSTOMER_DOC.ID]: customerId } = selectedCustomer
-      const { [SERVICE_TYPE_DOC.ID]: serviceTypeId } = selectedServiceType
+      const {
+        [CUSTOMER_DOC.ID]: customerId,
+        [CUSTOMER_DOC.NAME]: customerName,
+        [CUSTOMER_DOC.EMAIL]: customerEmail,
+      } = selectedCustomer
+
+      const {
+        [SERVICE_TYPE_DOC.ID]: serviceTypeId,
+        [SERVICE_TYPE_DOC.NAME]: serviceTypeName,
+      } = selectedServiceType
 
       const startUtcTimestamp = moment(startDate)
         .utc()
@@ -53,11 +61,18 @@ const SaveButton = () => {
       await firestore()
         .collection(COLLECTIONS.SERVICES)
         .add({
-          [SERVICE_DOC.CUSTOMER_ID]: customerId,
-          [SERVICE_DOC.SERVICE_TYPE_ID]: serviceTypeId,
           [SERVICE_DOC.START_DATE]: startUtcTimestamp,
           [SERVICE_DOC.END_DATE]: endUtcTimestamp,
           [SERVICE_DOC.CREATED_AT]: firestore.FieldValue.serverTimestamp(),
+          [SERVICE_DOC.CUSTOMER_KEY]: {
+            [SERVICE_DOC.CUSTOMER.ID]: customerId,
+            [SERVICE_DOC.CUSTOMER.NAME]: customerName,
+            [SERVICE_DOC.CUSTOMER.EMAIL]: customerEmail,
+          },
+          [SERVICE_DOC.SERVICE_TYPE_KEY]: {
+            [SERVICE_DOC.SERVICE_TYPE.ID]: serviceTypeId,
+            [SERVICE_DOC.SERVICE_TYPE.NAME]: serviceTypeName,
+          },
         })
 
       onClearForm()

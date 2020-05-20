@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-import firestore from '@react-native-firebase/firestore'
 import moment from 'moment'
 
 import Header from '@/components/Header'
-import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
+import { SERVICE_DOC } from '@/config/database'
 import MessagePanel from '@/components/MessagePanel'
 import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
@@ -14,6 +13,7 @@ import SearchBar from '@/components/SearchBar'
 import { useArraySearch } from '@/hooks'
 
 import { Container, ServiceItem, ServiceItemText, Styles } from './styles'
+import useSubscribeToServicesCollection from './useSubscribeToServicesCollection'
 
 const ServiceList = ({ navigation }) => {
   const { t } = useTranslation('ServiceList')
@@ -34,22 +34,10 @@ const ServiceList = ({ navigation }) => {
     },
   })
 
-  const onSubscribeToServicesCollection = useCallback(() => {
-    const unsubscribe = firestore()
-      .collection(COLLECTIONS.SERVICES)
-      .onSnapshot((querySnapshot) => {
-        const services = querySnapshot.docs.map((doc) => {
-          const service = doc.data()
-          service[SERVICE_DOC.ID] = doc.id
-          return service
-        })
-
-        if (isLoading) setIsLoading(false)
-        setServiceList(services)
-      })
-
-    return unsubscribe
-  }, [isLoading])
+  const onSubscribeToServicesCollection = useSubscribeToServicesCollection(
+    setIsLoading,
+    setServiceList,
+  )
 
   useEffect(onSubscribeToServicesCollection, [])
 
@@ -57,11 +45,10 @@ const ServiceList = ({ navigation }) => {
     ({ item }) => {
       const {
         [SERVICE_DOC.ID]: id,
-        [SERVICE_DOC.CREATED_AT]: createdAt,
         [SERVICE_DOC.END_DATE]: endDate,
         [SERVICE_DOC.START_DATE]: startDate,
-        // [SERVICE_DOC.CUSTOMER_ID]: customerId,
-        // [SERVICE_DOC.SERVICE_TYPE_ID]: phonserviceTypeId,
+        [SERVICE_DOC.CUSTOMER_KEY]: customer,
+        [SERVICE_DOC.SERVICE_TYPE_KEY]: serviceType,
       } = item
 
       const onPress = () => {
@@ -75,16 +62,20 @@ const ServiceList = ({ navigation }) => {
           onPress={onPress}
           iconComponent={<Fw5Icon name="chevron-right" />}
         >
-          <ServiceItemText text={moment(createdAt).format('LL')} isTitle>
-            <Fw5Icon name="calendar" solid />
+          <ServiceItemText text={customer[SERVICE_DOC.CUSTOMER.NAME]} isTitle>
+            <Fw5Icon name="user-circle" solid />
+          </ServiceItemText>
+
+          <ServiceItemText text={serviceType[SERVICE_DOC.SERVICE_TYPE.NAME]}>
+            <Fw5Icon name="file-alt" solid />
           </ServiceItemText>
 
           <ServiceItemText text={moment(startDate).format('LL')}>
-            <Fw5Icon name="calendar" solid />
+            <Fw5Icon name="calendar-day" solid />
           </ServiceItemText>
 
           <ServiceItemText text={moment(endDate).format('LL')}>
-            <Fw5Icon name="calendar" solid />
+            <Fw5Icon name="calendar-week" solid />
           </ServiceItemText>
         </ServiceItem>
       )
