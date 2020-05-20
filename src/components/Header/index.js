@@ -7,14 +7,7 @@ import { withNavigation } from 'react-navigation'
 
 import { MAIN_COLORS } from '@/styles'
 
-import {
-  Styles,
-  Container,
-  Action,
-  TextsContainer,
-  Title,
-  Subtitle,
-} from './styles'
+import { Container, Action, TextsContainer, Title, Subtitle } from './styles'
 
 const Header = ({ navigation, ...props }) => {
   const {
@@ -37,7 +30,7 @@ const Header = ({ navigation, ...props }) => {
   }, [isStackPage, navigation])
 
   return (
-    <Container style={[Styles.container, style]} hasShadow={hasShadow}>
+    <Container style={style} hasShadow={hasShadow}>
       <Action onPress={onActionPress || onPressAction}>
         <FontAwesome5Icon
           name={isStackPage ? 'chevron-left' : 'bars'}
