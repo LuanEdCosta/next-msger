@@ -11,6 +11,7 @@ const ServiceDetailsHeader = () => {
           i18Subtitle="pageSubtitle"
           i18Title="pageTitle"
           hasShadow={false}
+          isStackPage
         />
       )
     },

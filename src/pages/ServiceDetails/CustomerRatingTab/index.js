@@ -1,9 +1,14 @@
 import React from 'react'
 
 import { Container } from './styles'
+import UnratedService from './UnratedService'
 
 const CustomerRatingTab = () => {
-  return <Container>{}</Container>
+  return (
+    <Container>
+      <UnratedService />
+    </Container>
+  )
 }
 
 export default CustomerRatingTab
