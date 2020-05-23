@@ -4,6 +4,11 @@ import { DefaultText, UppercaseBoldText } from '@/components/Text'
 import Button from '@/components/Button'
 import { MAIN_COLORS } from '@/styles'
 
+export const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+`
+
 export const Title = styled(UppercaseBoldText)`
   margin: 24px 0 8px 0;
   font-size: 20px;

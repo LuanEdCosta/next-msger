@@ -116,10 +116,10 @@ const RateService = ({ navigation }) => {
         />
 
         <SaveButton
-          text={t('saveButton')}
           onPress={onSaveRating}
           disabled={!isAbleToSave || isSaving}
           backgroundColor={isAbleToSave ? 'accent' : 'secondaryText'}
+          text={t(isEditing ? 'saveButtonWhenEditing' : 'saveButton')}
           iconComponent={
             isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
           }

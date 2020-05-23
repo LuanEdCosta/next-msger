@@ -6,7 +6,7 @@ import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { SERVICE_DOC } from '@/config/database'
 
-import { Title, Description, RateButton } from './styles'
+import { Container, Title, Description, RateButton } from './styles'
 
 const UnratedService = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID, '')
@@ -20,7 +20,7 @@ const UnratedService = ({ navigation }) => {
   }, [navigation, serviceId])
 
   return (
-    <>
+    <Container>
       <Fw5IconAccent name="grin-stars" size={height / 5} solid />
       <Title>{t('unratedTitle')}</Title>
       <Description>{t('unratedDescription')}</Description>
@@ -30,7 +30,7 @@ const UnratedService = ({ navigation }) => {
         onPress={onRateService}
         iconComponent={<ButtonIcon name="star" />}
       />
-    </>
+    </Container>
   )
 }
 
