@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore'
 import { useTranslation } from 'react-i18next'
 
 import { Fw5Icon, Fw5IconAccent, ButtonIcon } from '@/components/Fw5Icon'
+import { RATE_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
 import { SERVICE_DOC, COLLECTIONS } from '@/config/database'
 import { DefaultTextInput } from '@/components/TextInput'
 import { WhiteSpinner } from '@/components/Spinner'
@@ -19,13 +20,20 @@ import {
 } from './styles'
 
 const RateService = ({ navigation }) => {
+  const isEditing = navigation.getParam(RATE_SERVICE_PARAMS.IS_EDITING, false)
+  const currentNote = navigation.getParam(RATE_SERVICE_PARAMS.CURRENT_NOTE, 0)
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
+  const currentComment = navigation.getParam(
+    RATE_SERVICE_PARAMS.CURRENT_COMMENT,
+    '',
+  )
+
   const { t } = useTranslation('RateService')
   const showAlert = useErrorAlert()
 
-  const [note, setNote] = useState(0)
-  const [comment, setComment] = useState('')
+  const [note, setNote] = useState(currentNote)
   const [isSaving, setIsSaving] = useState(false)
+  const [comment, setComment] = useState(currentComment)
 
   const onSaveRating = useCallback(async () => {
     setIsSaving(true)
@@ -56,9 +64,9 @@ const RateService = ({ navigation }) => {
   return (
     <Container>
       <Header
+        i18Title={isEditing ? 'pageTitleWhenEditing' : 'pageTitle'}
         i18Namespace="RateService"
         i18Subtitle="pageSubtitle"
-        i18Title="pageTitle"
         isStackPage
       />
 

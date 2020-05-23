@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react'
+import React, { useMemo, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import firestore from '@react-native-firebase/firestore'
 import moment from 'moment'
 
-import { useErrorAlert } from '@/hooks'
-import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
+import { SERVICE_DOC } from '@/config/database'
 import { Fw5Icon } from '@/components/Fw5Icon'
+
+import ServiceDetailsContext from '../ServiceDetailsContext'
 
 import {
   Container,
@@ -16,32 +16,9 @@ import {
   DataItemText,
 } from './styles'
 
-const OverviewTab = ({ navigation }) => {
-  const serviceId = navigation.getParam(SERVICE_DOC.ID, '')
-
+const OverviewTab = () => {
   const { t } = useTranslation('ServiceDetailsOverviewTab')
-  const showAlert = useErrorAlert()
-
-  const [serviceData, setServiceData] = useState({})
-
-  const onSubscribeToServiceDocument = useCallback(() => {
-    const unsubscribe = firestore()
-      .collection(COLLECTIONS.SERVICES)
-      .doc(serviceId)
-      .onSnapshot({
-        error: showAlert,
-        next(doc) {
-          setServiceData({
-            ...doc.data(),
-            [SERVICE_DOC.ID]: doc.id,
-          })
-        },
-      })
-
-    return unsubscribe
-  }, [serviceId, showAlert])
-
-  useEffect(onSubscribeToServiceDocument, [])
+  const { serviceData } = useContext(ServiceDetailsContext)
 
   const customer = useMemo(() => serviceData[SERVICE_DOC.CUSTOMER_KEY] || {}, [
     serviceData,

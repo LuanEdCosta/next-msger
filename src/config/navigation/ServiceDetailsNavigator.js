@@ -5,7 +5,7 @@ import SendMessagesTab from '@/pages/ServiceDetails/SendMessagesTab'
 import CustomerRatingTab from '@/pages/ServiceDetails/CustomerRatingTab'
 import CustomerReturnTab from '@/pages/ServiceDetails/CustomerReturnTab'
 import ServiceDetailsTabBar from '@/pages/ServiceDetails/ServiceDetailsTabBar'
-import ServiceDetailsHeader from '@/pages/ServiceDetails/ServiceDetailsHeader'
+import withServiceSubscription from '@/pages/ServiceDetails/withServiceSubscription'
 
 import { SERVICE_DETAILS_ROUTES as SDR } from './ScreenRoutes'
 
@@ -20,8 +20,7 @@ const ServiceDetailsNavigator = createMaterialTopTabNavigator(
     lazy: true,
     backBehavior: 'history',
     tabBarComponent: ServiceDetailsTabBar,
-    navigationOptions: ServiceDetailsHeader,
   },
 )
 
-export default ServiceDetailsNavigator
+export default withServiceSubscription(ServiceDetailsNavigator)
