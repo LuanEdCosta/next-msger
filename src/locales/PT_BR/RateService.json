@@ -1,0 +1,10 @@
+{
+  "pageTitle": "Avaliar Serviço",
+  "pageSubtitle": "Selecione a quantidade de estrelas",
+  "saveButton": "Salvar Avaliação",
+  "noteLabel": "Nota do Serviço",
+  "noteHint": "Obrigatório",
+  "commentLabel": "Observações",
+  "commentMaxLength": "{{length}}/500",
+  "commentPh": "Escreva alguma obeservação feita pelo cliente a respeito do serviço"
+}

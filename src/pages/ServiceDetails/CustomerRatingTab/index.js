@@ -3,10 +3,10 @@ import React from 'react'
 import { Container } from './styles'
 import UnratedService from './UnratedService'
 
-const CustomerRatingTab = () => {
+const CustomerRatingTab = ({ navigation }) => {
   return (
     <Container>
-      <UnratedService />
+      <UnratedService navigation={navigation} />
     </Container>
   )
 }

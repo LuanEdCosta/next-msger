@@ -1,5 +1,6 @@
 import { createStackNavigator, TransitionPresets } from 'react-navigation-stack'
 
+import RateService from '@/pages/RateService'
 import CustomerDetails from '@/pages/CustomerDetails'
 import MarketingStepDetails from '@/pages/MarketingStepDetails'
 
@@ -18,6 +19,7 @@ const MainNavigator = createStackNavigator(
     [MAIN_ROUTES.CUSTOMER_DETAILS]: CustomerDetails,
     [MAIN_ROUTES.MARKETING_STEP_DETAILS]: MarketingStepDetails,
     [MAIN_ROUTES.SERVICE_DETAILS]: ServiceDetailsNavigator,
+    [MAIN_ROUTES.RATE_SERVICE]: RateService,
   },
   {
     defaultNavigationOptions: {

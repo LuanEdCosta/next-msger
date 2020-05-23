@@ -18,6 +18,7 @@ import ServiceList from './ServiceList.json'
 import ServiceDetails from './ServiceDetails.json'
 import ServiceDetailsOverviewTab from './ServiceDetailsOverviewTab.json'
 import ServiceDetailsRatingTab from './ServiceDetailsRatingTab.json'
+import RateService from './RateService.json'
 
 export default {
   Common,
@@ -40,4 +41,5 @@ export default {
   ServiceDetails,
   ServiceDetailsOverviewTab,
   ServiceDetailsRatingTab,
+  RateService,
 }
