@@ -19,6 +19,7 @@ import ServiceDetails from './ServiceDetails.json'
 import ServiceDetailsOverviewTab from './ServiceDetailsOverviewTab.json'
 import ServiceDetailsRatingTab from './ServiceDetailsRatingTab.json'
 import RateService from './RateService.json'
+import Glossary from './Glossary.json'
 
 export default {
   Common,
@@ -42,4 +43,5 @@ export default {
   ServiceDetailsOverviewTab,
   ServiceDetailsRatingTab,
   RateService,
+  Glossary,
 }

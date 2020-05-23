@@ -1,12 +1,15 @@
-import React, { useContext, useCallback, useMemo } from 'react'
+import React, { useContext, useCallback, useMemo, useState } from 'react'
+import { Alert, ActivityIndicator } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { RATE_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
-import { SERVICE_DOC } from '@/config/database'
 import { Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
+import { SERVICE_DOC } from '@/config/database'
+import { MAIN_COLORS } from '@/styles'
 
 import ServiceDetailsContext from '../../ServiceDetailsContext'
+import useDeleteServiceRating from '../useDeleteServiceRating'
 
 import {
   Title,
@@ -15,12 +18,18 @@ import {
   EditButton,
   Subtitle,
   RatingData,
+  ActionsContainer,
+  DeleteButton,
 } from './styles'
 
 const RatedService = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
+
+  const { t } = useTranslation(['ServiceDetailsRatingTab', 'Glossary'])
   const { serviceData } = useContext(ServiceDetailsContext)
-  const { t } = useTranslation('ServiceDetailsRatingTab')
+
+  const [isDeleting, setIsDeleting] = useState(false)
+  const onDeleteRating = useDeleteServiceRating(serviceId, setIsDeleting)
 
   const {
     [SERVICE_DOC.RATING.NOTE]: note,
@@ -37,6 +46,18 @@ const RatedService = ({ navigation }) => {
       [RATE_SERVICE_PARAMS.CURRENT_COMMENT]: comment,
     })
   }, [comment, navigation, note, serviceId])
+
+  const onDeleteRatingButtonPressed = useCallback(() => {
+    Alert.alert(
+      t('deleteAlertTitle'),
+      t('deleteAlertMessage'),
+      [
+        { text: t('Glossary:cancel') },
+        { text: t('Glossary:delete'), onPress: onDeleteRating },
+      ],
+      { cancelable: true },
+    )
+  }, [onDeleteRating, t])
 
   return (
     <>
@@ -59,15 +80,25 @@ const RatedService = ({ navigation }) => {
         {!!comment && <Comment>{comment}</Comment>}
       </RatingData>
 
-      <EditButton
-        text={t('editRatingButton')}
-        onPress={onEditRating}
-        borderWidth={2}
-        borderColor="accent"
-        backgroundColor="white"
-        textColor="accent"
-        iconComponent={<Fw5IconAccent name="pen" size={18} />}
-      />
+      <ActionsContainer>
+        <EditButton
+          text={t('editRatingButton')}
+          onPress={onEditRating}
+          borderWidth={2}
+          borderColor="accent"
+          backgroundColor="white"
+          textColor="accent"
+          iconComponent={<Fw5IconAccent name="pen" size={18} />}
+        />
+
+        <DeleteButton onPress={onDeleteRatingButtonPressed} size={50}>
+          {isDeleting ? (
+            <ActivityIndicator color={MAIN_COLORS.secondaryText} />
+          ) : (
+            <Fw5Icon name="trash" size={18} />
+          )}
+        </DeleteButton>
+      </ActionsContainer>
     </>
   )
 }
