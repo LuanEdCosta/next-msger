@@ -1,4 +1,6 @@
 {
   "delete": "Excluir",
-  "cancel": "Salvar"
+  "cancel": "Cancelar",
+  "save": "Salvar",
+  "edit": "Editar"
 }

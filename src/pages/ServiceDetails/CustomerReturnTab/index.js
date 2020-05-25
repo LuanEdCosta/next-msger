@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
+import { Alert } from 'react-native'
 
 import { SERVICE_DOC, CUSTOMER_RETURN_DOC } from '@/config/database'
 import { MessagePanelIcon, FabIcon, Fw5Icon } from '@/components/Fw5Icon'
@@ -17,13 +18,16 @@ import {
   ReturnListItemText,
   ReturnListItemContainer,
 } from './styles'
+import useDeleteCustomerReturn from './useDeleteCustomerReturn'
 
 const CustomerReturnTab = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
 
-  const { t } = useTranslation('ServiceDetailsReturnTab')
+  const { t } = useTranslation(['ServiceDetailsReturnTab', 'Glossary'])
   const [returnList, setReturnList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const onDeleteCustomerReturn = useDeleteCustomerReturn()
 
   const onSubscribeToReturnCollection = useSubscribeToReturnCollection(
     setReturnList,
@@ -33,14 +37,33 @@ const CustomerReturnTab = ({ navigation }) => {
 
   useEffect(onSubscribeToReturnCollection, [])
 
+  const onConfirmToDelete = useCallback(
+    (id) => {
+      Alert.alert(
+        t('deleteAlertTitle'),
+        t('deleteAlertMessage'),
+        [
+          { text: t('Glossary:cancel') },
+          {
+            text: t('Glossary:delete'),
+            onPress: () => onDeleteCustomerReturn(id),
+          },
+        ],
+        { cancelable: true },
+      )
+    },
+    [onDeleteCustomerReturn, t],
+  )
+
   const onRenderItem = useCallback(
     ({ item }) => {
       const {
+        [CUSTOMER_RETURN_DOC.ID]: id,
         [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDate,
         [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
       } = item
 
-      const onDeleteReturn = () => {}
+      const onDeleteReturn = () => onConfirmToDelete(id)
 
       return (
         <ReturnListItemContainer>
@@ -50,7 +73,15 @@ const CustomerReturnTab = ({ navigation }) => {
             </ReturnListItemText>
 
             <ReturnListItemText
-              text={t('returnDate', { date: moment(returnDate) })}
+              text={t('returnDate', {
+                date: moment(returnDate),
+                interpolation: {
+                  escapeValue: false,
+                  format(str) {
+                    return decodeURI(encodeURI(str))
+                  },
+                },
+              })}
             >
               <Fw5Icon name="calendar-alt" />
             </ReturnListItemText>
@@ -62,7 +93,7 @@ const CustomerReturnTab = ({ navigation }) => {
         </ReturnListItemContainer>
       )
     },
-    [t],
+    [onConfirmToDelete, t],
   )
 
   const keyExtractor = useCallback((item) => {
