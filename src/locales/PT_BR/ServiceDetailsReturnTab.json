@@ -1,0 +1,4 @@
+{
+  "anyReturnFound": "Nenhum Retorno Encontrado",
+  "returnDate": "Data do Retorno: {{date, LL}}"
+}

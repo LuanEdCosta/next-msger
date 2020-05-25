@@ -1,0 +1,9 @@
+{
+  "pageTitle": "Novo Retorno do Cliente",
+  "observationsLabel": "Observações",
+  "observationsLength": "0/500",
+  "observationsPh": "Digite alguma observação sobre o retorno do cliente",
+  "returnDate": "Data do Retorno",
+  "returnDatePh": "Toque aqui para selecionar",
+  "saveButton": "Cadastrar Retorno"
+}

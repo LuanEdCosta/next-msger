@@ -4,4 +4,5 @@ export default {
   USERS: 'users',
   MARKETING_STEPS: 'marketingSteps',
   SERVICES: 'services',
+  CUSTOMER_RETURNS: 'customerReturns',
 }
