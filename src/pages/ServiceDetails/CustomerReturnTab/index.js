@@ -60,6 +60,7 @@ const CustomerReturnTab = ({ navigation }) => {
       const {
         [CUSTOMER_RETURN_DOC.ID]: id,
         [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDate,
+        [CUSTOMER_RETURN_DOC.RETURN_HOUR]: returnHour,
         [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
       } = item
 
@@ -68,11 +69,8 @@ const CustomerReturnTab = ({ navigation }) => {
       return (
         <ReturnListItemContainer>
           <ReturnListItem>
-            <ReturnListItemText text={observations} isTitle>
-              <Fw5Icon name="comment" solid />
-            </ReturnListItemText>
-
             <ReturnListItemText
+              isTitle
               text={t('returnDate', {
                 date: moment(returnDate),
                 interpolation: {
@@ -84,6 +82,18 @@ const CustomerReturnTab = ({ navigation }) => {
               })}
             >
               <Fw5Icon name="calendar-alt" />
+            </ReturnListItemText>
+
+            <ReturnListItemText
+              text={t('returnHour', {
+                hour: returnHour ? moment(returnHour) : t('withourHour'),
+              })}
+            >
+              <Fw5Icon name="clock" solid />
+            </ReturnListItemText>
+
+            <ReturnListItemText text={observations} numOfLines={1}>
+              <Fw5Icon name="comment" solid />
             </ReturnListItemText>
           </ReturnListItem>
 

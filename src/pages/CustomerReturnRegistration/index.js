@@ -4,8 +4,8 @@ import moment from 'moment'
 import firestore from '@react-native-firebase/firestore'
 
 import { Fw5IconAccent, ButtonIcon } from '@/components/Fw5Icon'
-import DateTimePicker from '@/components/DateTimePicker'
 import { DefaultTextInput } from '@/components/TextInput'
+import DateTimePicker from '@/components/DateTimePicker'
 import { WhiteSpinner } from '@/components/Spinner'
 import InputError from '@/components/InputError'
 import Select from '@/components/Select'
@@ -18,7 +18,13 @@ import {
   CUSTOMER_RETURN_DOC,
 } from '@/config/database'
 
-import { Container, Scroll, ObservationsInput, SaveButton } from './styles'
+import {
+  Container,
+  Scroll,
+  SelectHour,
+  ObservationsInput,
+  SaveButton,
+} from './styles'
 
 const CustomerReturnRegistration = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
@@ -27,17 +33,27 @@ const CustomerReturnRegistration = ({ navigation }) => {
 
   const [observations, setObservations] = useState('')
   const [returnDate, setReturnDate] = useState(moment())
+  const [returnHour, setReturnHour] = useState(moment())
 
-  const [isShowingPicker, setIsShowingPicker] = useState(false)
+  const [isShowingDatePicker, setIsShowingDatePicker] = useState(false)
+  const [isShowingHourPicker, setIsShowingHourPicker] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
 
   const onChangeDate = useCallback(
     (_, date) => {
-      setIsShowingPicker(false)
+      setIsShowingDatePicker(false)
       if (date) setReturnDate(date)
     },
     [setReturnDate],
+  )
+
+  const onChangeHour = useCallback(
+    (_, date) => {
+      setIsShowingHourPicker(false)
+      if (date) setReturnHour(date)
+    },
+    [setReturnHour],
   )
 
   const onSaveCustomerReturn = useCallback(async () => {
@@ -47,7 +63,12 @@ const CustomerReturnRegistration = ({ navigation }) => {
 
     try {
       const now = firestore.FieldValue.serverTimestamp()
+
       const returnDateTimestamp = moment(returnDate)
+        .utc()
+        .valueOf()
+
+      const returnHourTimestamp = moment(returnHour)
         .utc()
         .valueOf()
 
@@ -59,6 +80,7 @@ const CustomerReturnRegistration = ({ navigation }) => {
           [CUSTOMER_RETURN_DOC.SERVICE_ID]: serviceId,
           [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
           [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDateTimestamp,
+          [CUSTOMER_RETURN_DOC.RETURN_HOUR]: returnHourTimestamp,
         })
 
       setIsSaving(false)
@@ -67,7 +89,7 @@ const CustomerReturnRegistration = ({ navigation }) => {
       setIsSaving(false)
       showAlert()
     }
-  }, [navigation, observations, returnDate, serviceId, showAlert])
+  }, [navigation, observations, returnDate, returnHour, serviceId, showAlert])
 
   return (
     <Container>
@@ -78,16 +100,23 @@ const CustomerReturnRegistration = ({ navigation }) => {
       />
 
       <DateTimePicker
-        isShowing={isShowingPicker}
+        isShowing={isShowingDatePicker}
         value={moment(returnDate || undefined).toDate()}
         onChange={onChangeDate}
         mode="date"
       />
 
+      <DateTimePicker
+        isShowing={isShowingHourPicker}
+        value={moment(returnHour || undefined).toDate()}
+        onChange={onChangeHour}
+        mode="time"
+      />
+
       <Scroll>
         <Select
           value={returnDate ? moment(returnDate).format('L') : null}
-          onSelect={() => setIsShowingPicker(true)}
+          onSelect={() => setIsShowingDatePicker(true)}
           placeholder={t('returnDatePh')}
           setValue={setReturnDate}
           labelComponent={
@@ -101,6 +130,19 @@ const CustomerReturnRegistration = ({ navigation }) => {
             <InputError
               show={isShowingErrors && !returnDate}
               text={t('Error:emptyField')}
+            />
+          }
+        />
+
+        <SelectHour
+          value={returnHour ? moment(returnHour).format('HH:mm') : null}
+          onSelect={() => setIsShowingHourPicker(true)}
+          placeholder={t('returnHourPh')}
+          setValue={setReturnHour}
+          labelComponent={
+            <Label
+              label={t('returnHour')}
+              iconComponent={<Fw5IconAccent name="clock" />}
             />
           }
         />

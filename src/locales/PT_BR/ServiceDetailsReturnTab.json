@@ -1,6 +1,8 @@
 {
   "anyReturnFound": "Nenhum Retorno Encontrado",
-  "returnDate": "Data do Retorno: {{date, L}}",
+  "returnDate": "Data: {{date, L}}",
+  "returnHour": "Hora: {{hour, HH:mm}}",
+  "withourHour": "Não Informada",
   "deleteAlertTitle": "Excluir Retorno do Cliente",
   "deleteAlertMessage": "Tem certeza que deseja excluir este retorno do cliente"
 }

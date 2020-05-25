@@ -4,6 +4,8 @@
   "observationsLength": "{{length}}/500",
   "observationsPh": "Digite alguma observação sobre o retorno do cliente",
   "returnDate": "Data do Retorno",
-  "returnDatePh": "Toque aqui para selecionar",
+  "returnDatePh": "Toque aqui para selecionar a data",
+  "returnHour": "Hora do Retorno",
+  "returnHourPh": "Toque aqui para selecionar a hora",
   "saveButton": "Cadastrar Retorno"
 }
