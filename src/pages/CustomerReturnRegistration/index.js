@@ -83,6 +83,8 @@ const CustomerReturnRegistration = ({ navigation }) => {
     [setReturnHour],
   )
 
+  // ---------------------------------------------------------------------------
+
   const onSaveCustomerReturn = useCallback(async () => {
     setIsShowingErrors(true)
     if (!returnDate) return
@@ -99,17 +101,26 @@ const CustomerReturnRegistration = ({ navigation }) => {
         .utc()
         .valueOf()
 
-      await firestore()
-        .collection(COLLECTIONS.CUSTOMER_RETURNS)
-        .doc(returnIdParam)
-        .set({
-          [CUSTOMER_RETURN_DOC.REASON]: '',
-          [CUSTOMER_RETURN_DOC.CREATED_AT]: now,
-          [CUSTOMER_RETURN_DOC.SERVICE_ID]: serviceId,
-          [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
-          [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDateTimestamp,
-          [CUSTOMER_RETURN_DOC.RETURN_HOUR]: returnHourTimestamp,
-        })
+      const dataToSave = {
+        [CUSTOMER_RETURN_DOC.REASON]: '',
+        [CUSTOMER_RETURN_DOC.CREATED_AT]: now,
+        [CUSTOMER_RETURN_DOC.SERVICE_ID]: serviceId,
+        [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
+        [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDateTimestamp,
+        [CUSTOMER_RETURN_DOC.RETURN_HOUR]: returnHourTimestamp,
+      }
+
+      if (isEditing) {
+        delete dataToSave[CUSTOMER_RETURN_DOC.CREATED_AT]
+        await firestore()
+          .collection(COLLECTIONS.CUSTOMER_RETURNS)
+          .doc(returnIdParam)
+          .update(dataToSave)
+      } else {
+        await firestore()
+          .collection(COLLECTIONS.CUSTOMER_RETURNS)
+          .add(dataToSave)
+      }
 
       setIsSaving(false)
       navigation.goBack()
@@ -118,12 +129,13 @@ const CustomerReturnRegistration = ({ navigation }) => {
       showAlert()
     }
   }, [
-    returnIdParam,
-    navigation,
-    observations,
     returnDate,
     returnHour,
     serviceId,
+    observations,
+    isEditing,
+    navigation,
+    returnIdParam,
     showAlert,
   ])
 
@@ -212,7 +224,11 @@ const CustomerReturnRegistration = ({ navigation }) => {
           text={t(isEditing ? 'saveButtonWhenEditing' : 'saveButton')}
           onPress={onSaveCustomerReturn}
           iconComponent={
-            isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            isSaving ? (
+              <WhiteSpinner />
+            ) : (
+              <ButtonIcon name={isEditing ? 'pen' : 'check'} />
+            )
           }
         />
       </Scroll>
