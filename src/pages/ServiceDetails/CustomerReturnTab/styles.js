@@ -3,6 +3,7 @@ import { FlatList } from 'react-native'
 
 import ListItem from '@/components/ListItem'
 import ListItemText from '@/components/ListItem/ListItemText'
+import { UppercaseBoldText, DefaultText } from '@/components/Text'
 
 export const Container = styled.View`
   background-color: white;
@@ -32,4 +33,13 @@ export const ReturnListItem = styled(ListItem)`
 export const ReturnListItemText = styled(ListItemText)`
   margin: 2px 0;
   padding-right: 8px;
+`
+
+export const HintTitle = styled(UppercaseBoldText)`
+  margin-top: 16px;
+`
+
+export const HintText = styled(DefaultText)`
+  margin-top: 8px;
+  line-height: 20px;
 `

@@ -190,7 +190,7 @@ const CustomerReturnRegistration = ({ navigation }) => {
           labelComponent={
             <Label
               label={t('returnHour')}
-              iconComponent={<Fw5IconAccent name="clock" />}
+              iconComponent={<Fw5IconAccent name="clock" solid />}
             />
           }
         />
@@ -199,7 +199,7 @@ const CustomerReturnRegistration = ({ navigation }) => {
           labelComponent={
             <Label
               label={t('observationsLabel')}
-              iconComponent={<Fw5IconAccent name="envelope" solid />}
+              iconComponent={<Fw5IconAccent name="comment" solid />}
               description={t('observationsLength', {
                 length: observations.length,
               })}

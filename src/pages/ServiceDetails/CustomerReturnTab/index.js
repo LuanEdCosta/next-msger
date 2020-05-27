@@ -18,6 +18,8 @@ import {
   ReturnListItem,
   ReturnListItemText,
   ReturnListItemContainer,
+  HintTitle,
+  HintText,
 } from './styles'
 import useDeleteCustomerReturn from './useDeleteCustomerReturn'
 
@@ -104,9 +106,11 @@ const CustomerReturnTab = ({ navigation }) => {
               <Fw5Icon name="clock" solid />
             </ReturnListItemText>
 
-            <ReturnListItemText text={observations} numOfLines={1}>
-              <Fw5Icon name="comment" solid />
-            </ReturnListItemText>
+            {!!observations && (
+              <ReturnListItemText text={observations} numOfLines={1}>
+                <Fw5Icon name="comment" solid />
+              </ReturnListItemText>
+            )}
           </ReturnListItem>
 
           <TouchableIcon onPress={onDeleteReturn}>
@@ -140,11 +144,16 @@ const CustomerReturnTab = ({ navigation }) => {
         renderItem={onRenderItem}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
-          <MessagePanel
-            isLoading={isLoading}
-            text={t('anyReturnFound')}
-            iconComponent={<MessagePanelIcon name="reply" />}
-          />
+          <>
+            <MessagePanel
+              isLoading={isLoading}
+              text={t('anyReturnFound')}
+              iconComponent={<MessagePanelIcon name="reply" />}
+            />
+
+            <HintTitle>{t('hintTitle')}</HintTitle>
+            <HintText>{t('hintText')}</HintText>
+          </>
         }
       />
     </Container>

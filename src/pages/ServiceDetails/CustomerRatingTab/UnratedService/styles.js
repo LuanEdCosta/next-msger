@@ -17,6 +17,7 @@ export const Title = styled(UppercaseBoldText)`
 
 export const Description = styled(DefaultText)`
   margin-bottom: 24px;
+  line-height: 20px;
 `
 
 export const RateButton = styled(Button)`

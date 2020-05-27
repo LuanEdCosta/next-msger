@@ -4,5 +4,7 @@
   "returnHour": "Hora: {{hour, HH:mm}}",
   "withourHour": "Não Informada",
   "deleteAlertTitle": "Excluir Retorno do Cliente",
-  "deleteAlertMessage": "Tem certeza que deseja excluir este retorno do cliente"
+  "deleteAlertMessage": "Tem certeza que deseja excluir este retorno do cliente",
+  "hintTitle": "O que é o \"Retorno do Cliente\"",
+  "hintText": "Um retorno pode ser cadastrado quando o cliente retorna ao estabelecimento por algum motivo. Registrar estes acontecimentos pode ajudar a empresa a melhorar a qualidade dos seus serviços."
 }
