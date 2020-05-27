@@ -17,6 +17,7 @@ import {
   COLLECTIONS,
   CUSTOMER_RETURN_DOC,
 } from '@/config/database'
+import { CUSTOMER_RETURN_REGISTRATION_PARAMS } from '@/config/navigation/RouteParams'
 
 import {
   Container,
@@ -28,17 +29,43 @@ import {
 
 const CustomerReturnRegistration = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
+  const returnIdParam = navigation.getParam(CUSTOMER_RETURN_DOC.ID, undefined)
+
+  const isEditing = navigation.getParam(
+    CUSTOMER_RETURN_REGISTRATION_PARAMS.IS_EDITING,
+    false,
+  )
+
+  const observationsParam = navigation.getParam(
+    CUSTOMER_RETURN_DOC.OBSERVATIONS,
+    '',
+  )
+
+  const returnDateParam = navigation.getParam(
+    CUSTOMER_RETURN_DOC.RETURN_DATE,
+    moment(),
+  )
+
+  const returnHourParam = navigation.getParam(
+    CUSTOMER_RETURN_DOC.RETURN_HOUR,
+    moment(),
+  )
+
+  // ---------------------------------------------------------------------------
+
   const { t } = useTranslation(['CustomerReturnRegistration', 'Error'])
   const showAlert = useErrorAlert()
 
-  const [observations, setObservations] = useState('')
-  const [returnDate, setReturnDate] = useState(moment())
-  const [returnHour, setReturnHour] = useState(moment())
+  const [observations, setObservations] = useState(observationsParam)
+  const [returnDate, setReturnDate] = useState(returnDateParam)
+  const [returnHour, setReturnHour] = useState(returnHourParam)
 
   const [isShowingDatePicker, setIsShowingDatePicker] = useState(false)
   const [isShowingHourPicker, setIsShowingHourPicker] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+
+  // ---------------------------------------------------------------------------
 
   const onChangeDate = useCallback(
     (_, date) => {
@@ -74,7 +101,8 @@ const CustomerReturnRegistration = ({ navigation }) => {
 
       await firestore()
         .collection(COLLECTIONS.CUSTOMER_RETURNS)
-        .add({
+        .doc(returnIdParam)
+        .set({
           [CUSTOMER_RETURN_DOC.REASON]: '',
           [CUSTOMER_RETURN_DOC.CREATED_AT]: now,
           [CUSTOMER_RETURN_DOC.SERVICE_ID]: serviceId,
@@ -89,13 +117,21 @@ const CustomerReturnRegistration = ({ navigation }) => {
       setIsSaving(false)
       showAlert()
     }
-  }, [navigation, observations, returnDate, returnHour, serviceId, showAlert])
+  }, [
+    returnIdParam,
+    navigation,
+    observations,
+    returnDate,
+    returnHour,
+    serviceId,
+    showAlert,
+  ])
 
   return (
     <Container>
       <Header
         i18Namespace="CustomerReturnRegistration"
-        i18Title="pageTitle"
+        i18Title={isEditing ? 'pageTitleWhenEditing' : 'pageTitle'}
         isStackPage
       />
 
@@ -173,7 +209,7 @@ const CustomerReturnRegistration = ({ navigation }) => {
         />
 
         <SaveButton
-          text={t('saveButton')}
+          text={t(isEditing ? 'saveButtonWhenEditing' : 'saveButton')}
           onPress={onSaveCustomerReturn}
           iconComponent={
             isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />

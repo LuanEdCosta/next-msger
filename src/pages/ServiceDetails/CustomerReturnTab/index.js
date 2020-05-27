@@ -9,6 +9,7 @@ import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import MessagePanel from '@/components/MessagePanel'
 import Fab from '@/components/Fab'
 import TouchableIcon from '@/components/TouchableIcon'
+import { CUSTOMER_RETURN_REGISTRATION_PARAMS } from '@/config/navigation/RouteParams'
 
 import useSubscribeToReturnCollection from './useSubscribeToReturnCollection'
 import {
@@ -55,6 +56,16 @@ const CustomerReturnTab = ({ navigation }) => {
     [onDeleteCustomerReturn, t],
   )
 
+  const onNavigateToEditReturn = useCallback(
+    (item) => {
+      navigation.navigate(MAIN_ROUTES.CUSTOMER_RETURN_REGISTRATION, {
+        [CUSTOMER_RETURN_REGISTRATION_PARAMS.IS_EDITING]: true,
+        ...item, // Spread CUSTOMER_RETURN_DOC here
+      })
+    },
+    [navigation],
+  )
+
   const onRenderItem = useCallback(
     ({ item }) => {
       const {
@@ -65,10 +76,11 @@ const CustomerReturnTab = ({ navigation }) => {
       } = item
 
       const onDeleteReturn = () => onConfirmToDelete(id)
+      const onEditReturn = () => onNavigateToEditReturn(item)
 
       return (
         <ReturnListItemContainer>
-          <ReturnListItem>
+          <ReturnListItem onPress={onEditReturn}>
             <ReturnListItemText
               isTitle
               text={t('returnDate', {
@@ -103,7 +115,7 @@ const CustomerReturnTab = ({ navigation }) => {
         </ReturnListItemContainer>
       )
     },
-    [onConfirmToDelete, t],
+    [onConfirmToDelete, onNavigateToEditReturn, t],
   )
 
   const keyExtractor = useCallback((item) => {
