@@ -1,4 +1,4 @@
 export default {
-  ID: 'id',
+  ID: 'userId',
   NAME: 'name',
 }

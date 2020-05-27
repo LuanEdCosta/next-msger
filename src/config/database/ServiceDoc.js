@@ -1,15 +1,15 @@
 export default {
-  ID: 'id',
+  ID: 'serviceId',
   START_DATE: 'startDate',
   END_DATE: 'endDate',
   CREATED_AT: 'createdAt',
   CUSTOMER: {
-    ID: 'id',
+    ID: 'customerId',
     NAME: 'name',
     EMAIL: 'email',
   },
   SERVICE_TYPE: {
-    ID: 'id',
+    ID: 'serviceTypeId',
     NAME: 'name',
   },
   RATING: {

@@ -1,5 +1,5 @@
 export default {
-  ID: 'id',
+  ID: 'marketingStepId',
   NAME: 'name',
   OBSERVATIONS: 'observations',
   NUMBER_OF_DAYS: 'numberOfDays',

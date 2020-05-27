@@ -1,5 +1,5 @@
 export default {
-  ID: 'id',
+  ID: 'customerReturnId',
   RETURN_DATE: 'returnDate',
   RETURN_HOUR: 'returnHour',
   REASON: 'reason',

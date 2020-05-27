@@ -1,5 +1,5 @@
 export default {
-  ID: 'id',
+  ID: 'serviceTypeId',
   NAME: 'name',
   CREATED_AT: 'createdAt',
 }

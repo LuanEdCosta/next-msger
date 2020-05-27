@@ -1,5 +1,5 @@
 export default {
-  ID: 'id',
+  ID: 'customerId',
   NAME: 'name',
   WHATSAPP: 'whatsapp',
   BIRTH_DATE: 'birth_date',
