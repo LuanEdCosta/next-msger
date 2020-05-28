@@ -13,7 +13,8 @@ export const Container = styled.View`
 export const List = styled(FlatList).attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
   },
 })`
   flex: 1;

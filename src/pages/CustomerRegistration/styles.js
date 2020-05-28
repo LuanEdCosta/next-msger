@@ -6,7 +6,8 @@ import Input from '@/components/Input'
 const Styles = StyleSheet.create({
   scroll: {
     flexGrow: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 24,
     paddingBottom: 24,
   },
 })
