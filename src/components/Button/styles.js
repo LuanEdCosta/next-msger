@@ -11,10 +11,10 @@ export const Container = styled.View`
   overflow: hidden;
   border-radius: 5px;
   justify-content: center;
-  height: 58px;
 `
 
 export const ButtonTouchable = styled.View`
+  height: 58px;
   padding: 0 24px;
   flex-direction: ${({ iconPosition }) =>
     iconPosition === 'left' ? 'row-reverse' : 'row'};
