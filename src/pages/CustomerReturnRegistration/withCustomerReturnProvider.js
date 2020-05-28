@@ -2,7 +2,11 @@ import React, { useCallback, useState } from 'react'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
-import { CUSTOMER_RETURN_DOC, SERVICE_DOC } from '@/config/database'
+import {
+  CUSTOMER_RETURN_DOC,
+  SERVICE_DOC,
+  RETURN_REASON_DOC,
+} from '@/config/database'
 import { CUSTOMER_RETURN_REGISTRATION_PARAMS } from '@/config/navigation/RouteParams'
 import { useErrorAlert } from '@/hooks'
 
@@ -13,6 +17,7 @@ export default (WrappedComponent) => (props) => {
 
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
   const returnIdParam = navigation.getParam(CUSTOMER_RETURN_DOC.ID, undefined)
+  const reasonParam = navigation.getParam(CUSTOMER_RETURN_DOC.REASON_KEY, null)
 
   const isEditing = navigation.getParam(
     CUSTOMER_RETURN_REGISTRATION_PARAMS.IS_EDITING,
@@ -39,12 +44,24 @@ export default (WrappedComponent) => (props) => {
   const { t } = useTranslation(['CustomerReturnRegistration', 'Error'])
   const showAlert = useErrorAlert()
 
+  const [selectedReason, setSelectedReason] = useState(
+    reasonParam
+      ? {
+          [RETURN_REASON_DOC.ID]: reasonParam[CUSTOMER_RETURN_DOC.REASON.ID],
+          [RETURN_REASON_DOC.NAME]:
+            reasonParam[CUSTOMER_RETURN_DOC.REASON.NAME],
+        }
+      : null,
+  )
+
   const [observations, setObservations] = useState(observationsParam)
   const [returnDate, setReturnDate] = useState(returnDateParam)
   const [returnHour, setReturnHour] = useState(returnHourParam)
+  const [reasonList, setReasonList] = useState([])
 
   const [isShowingDatePicker, setIsShowingDatePicker] = useState(false)
   const [isShowingHourPicker, setIsShowingHourPicker] = useState(false)
+  const [isLoadingReasons, setIsLoadingReasons] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
 
@@ -95,6 +112,12 @@ export default (WrappedComponent) => (props) => {
         setIsShowingErrors,
         isSaving,
         setIsSaving,
+        selectedReason,
+        setSelectedReason,
+        reasonList,
+        setReasonList,
+        isLoadingReasons,
+        setIsLoadingReasons,
 
         onChangeDate,
         onChangeHour,

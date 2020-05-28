@@ -20,6 +20,7 @@ import {
 import withCustomerReturnProvider from './withCustomerReturnProvider'
 import CustomerReturnContext from './context'
 import useSaveCustomerReturn from './useSaveCustomerReturn'
+import SelectReason from './SelectReason'
 
 const CustomerReturnRegistration = withCustomerReturnProvider(() => {
   const {
@@ -68,6 +69,8 @@ const CustomerReturnRegistration = withCustomerReturnProvider(() => {
       />
 
       <Scroll>
+        <SelectReason />
+
         <Select
           value={returnDate ? moment(returnDate).format('L') : null}
           onSelect={() => setIsShowingDatePicker(true)}

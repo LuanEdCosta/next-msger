@@ -62,7 +62,7 @@ const CustomerReturnTab = ({ navigation }) => {
     (item) => {
       navigation.navigate(MAIN_ROUTES.CUSTOMER_RETURN_REGISTRATION, {
         [CUSTOMER_RETURN_REGISTRATION_PARAMS.IS_EDITING]: true,
-        ...item, // Spread CUSTOMER_RETURN_DOC here
+        ...item, // Spread CUSTOMER_RETURN_DOC
       })
     },
     [navigation],
@@ -72,10 +72,13 @@ const CustomerReturnTab = ({ navigation }) => {
     ({ item }) => {
       const {
         [CUSTOMER_RETURN_DOC.ID]: id,
+        [CUSTOMER_RETURN_DOC.REASON_KEY]: reason,
         [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDate,
         [CUSTOMER_RETURN_DOC.RETURN_HOUR]: returnHour,
         [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
       } = item
+
+      const { [CUSTOMER_RETURN_DOC.REASON.NAME]: reasonName } = reason
 
       const onDeleteReturn = () => onConfirmToDelete(id)
       const onEditReturn = () => onNavigateToEditReturn(item)
@@ -83,8 +86,11 @@ const CustomerReturnTab = ({ navigation }) => {
       return (
         <ReturnListItemContainer>
           <ReturnListItem onPress={onEditReturn}>
+            <ReturnListItemText text={t('reason', { reasonName })} isTitle>
+              <Fw5Icon name="question-circle" solid />
+            </ReturnListItemText>
+
             <ReturnListItemText
-              isTitle
               text={t('returnDate', {
                 date: moment(returnDate),
                 interpolation: {

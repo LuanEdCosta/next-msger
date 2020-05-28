@@ -2,6 +2,7 @@
   "anyReturnFound": "Nenhum Retorno Encontrado",
   "returnDate": "Data: {{date, L}}",
   "returnHour": "Hora: {{hour, HH:mm}}",
+  "reason": "Motivo: {{reasonName}}",
   "withourHour": "Não Informada",
   "deleteAlertTitle": "Excluir Retorno do Cliente",
   "deleteAlertMessage": "Tem certeza que deseja excluir este retorno do cliente",
