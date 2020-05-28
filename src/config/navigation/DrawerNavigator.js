@@ -13,6 +13,7 @@ import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
 import MarketingStepList from '@/pages/MarketingStepList'
 import UserProfile from '@/pages/UserProfile'
+import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
 
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
@@ -93,6 +94,13 @@ const DrawerNavigator = createDrawerNavigator(
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'serviceTypeList',
         [DRAWER_PAGES.DRAWER_ICON]: 'list-alt',
+      },
+    },
+    [DR.RETURN_REASON_REGISTRATION]: {
+      screen: ReturnReasonRegistration,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'returnReasonRegistration',
+        [DRAWER_PAGES.DRAWER_ICON]: 'reply',
       },
     },
   },

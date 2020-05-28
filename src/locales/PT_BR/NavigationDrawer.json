@@ -9,5 +9,6 @@
   "serviceTypeRegistration": "Cadastrar Tipo de Serviço",
   "serviceTypeList": "Listagem de Tipos de Serviço",
   "serviceRegistration": "Cadastrar Serviço",
-  "marketingStepList": "Listagem de Etapas de Marketing"
+  "marketingStepList": "Listagem de Etapas de Marketing",
+  "returnReasonRegistration": "Cadastro de Motivo de Retorno"
 }

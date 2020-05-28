@@ -5,4 +5,5 @@ export default {
   MARKETING_STEPS: 'marketingSteps',
   SERVICES: 'services',
   CUSTOMER_RETURNS: 'customerReturns',
+  RETURN_REASONS: 'returnReasons',
 }

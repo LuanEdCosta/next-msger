@@ -22,6 +22,7 @@ import ServiceDetailsReturnTab from './ServiceDetailsReturnTab.json'
 import RateService from './RateService.json'
 import Glossary from './Glossary.json'
 import CustomerReturnRegistration from './CustomerReturnRegistration.json'
+import ReturnReasonRegistration from './ReturnReasonRegistration.json'
 
 export default {
   Common,
@@ -48,4 +49,5 @@ export default {
   RateService,
   Glossary,
   CustomerReturnRegistration,
+  ReturnReasonRegistration,
 }
