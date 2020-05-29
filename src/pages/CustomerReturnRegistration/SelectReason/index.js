@@ -12,16 +12,18 @@ import SearchableListModal from '@/components/SearchableListModal'
 import { COLLECTIONS, RETURN_REASON_DOC } from '@/config/database'
 import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
 import InputError from '@/components/InputError'
-import Select from '@/components/Select'
 import Label from '@/components/Label'
+import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { RETURN_REASON_PARAMS } from '@/config/navigation/RouteParams'
 
 import context from '../context'
 
-import { Container } from './styles'
+import { Container, ReasonSelect, AddNewReturnReason } from './styles'
 
 const SelectReason = () => {
   const {
     t,
+    navigation,
     reasonList,
     setReasonList,
     selectedReason,
@@ -38,17 +40,25 @@ const SelectReason = () => {
     return null
   }, [selectedReason])
 
+  const onAddNewReturnReason = useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.RETURN_REASON_REGISTRATION, {
+      [RETURN_REASON_PARAMS.IS_STACK_PAGE]: true,
+    })
+  }, [navigation])
+
   const onSubscribeToReasonsCollection = useCallback(() => {
     const unsubscribe = firestore()
       .collection(COLLECTIONS.RETURN_REASONS)
       .onSnapshot((querySnapshot) => {
         const reasons = querySnapshot.docs.map((doc) => {
           const reason = doc.data()
-          reason[RETURN_REASON_DOC.ID] = doc.id
-          reason[RETURN_REASON_DOC.CREATED_AT] = moment(
-            reason[RETURN_REASON_DOC.CREATED_AT],
-          ).format('LL')
-          return reason
+          return {
+            ...reason,
+            [RETURN_REASON_DOC.ID]: doc.id,
+            [RETURN_REASON_DOC.CREATED_AT]: moment(
+              reason[RETURN_REASON_DOC.CREATED_AT],
+            ).format('LL'),
+          }
         })
 
         setReasonList(reasons)
@@ -62,7 +72,7 @@ const SelectReason = () => {
 
   return (
     <Container>
-      <Select
+      <ReasonSelect
         value={reasonName}
         setValue={setSelectedReason}
         placeholder={t('reasonSelectPh')}
@@ -80,6 +90,12 @@ const SelectReason = () => {
             text={t('Error:emptyField')}
           />
         }
+      />
+
+      <AddNewReturnReason
+        onPress={onAddNewReturnReason}
+        text={t('addReturnReason')}
+        iconComponent={<Fw5Icon color="white" name="plus" />}
       />
 
       <SearchableListModal

@@ -51,7 +51,7 @@ export const ModalTitle = styled(UppercaseBoldText)`
 `
 
 export const Item = styled(ListItem)`
-  margin: 0 16px;
+  margin: 0 16px 8px 16px;
 `
 
 export const ItemText = styled(ListItemText)``

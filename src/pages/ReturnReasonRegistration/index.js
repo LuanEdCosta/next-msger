@@ -11,10 +11,16 @@ import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, RETURN_REASON_DOC } from '@/config/database'
 import { useErrorAlert } from '@/hooks'
+import { RETURN_REASON_PARAMS } from '@/config/navigation/RouteParams'
 
 import { Container, Scroll, ReasonNameInput } from './styles'
 
-const ReturnReasonRegistration = () => {
+const ReturnReasonRegistration = ({ navigation }) => {
+  const isStackPage = navigation.getParam(
+    RETURN_REASON_PARAMS.IS_STACK_PAGE,
+    false,
+  )
+
   const { t } = useTranslation(['ReturnReasonRegistration', 'InputMasks'])
   const showErrorAlert = useErrorAlert()
 
@@ -45,7 +51,11 @@ const ReturnReasonRegistration = () => {
 
   return (
     <Container>
-      <Header i18Namespace="ReturnReasonRegistration" i18Title="pageTitle" />
+      <Header
+        i18Namespace="ReturnReasonRegistration"
+        i18Title="pageTitle"
+        isStackPage={isStackPage}
+      />
 
       <Scroll>
         <ReasonNameInput
@@ -83,5 +93,9 @@ const ReturnReasonRegistration = () => {
     </Container>
   )
 }
+
+ReturnReasonRegistration.navigationOptions = () => ({
+  headerShown: false,
+})
 
 export default ReturnReasonRegistration

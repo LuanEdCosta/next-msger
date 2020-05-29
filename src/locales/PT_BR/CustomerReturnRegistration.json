@@ -13,5 +13,6 @@
   "anyReasonFound": "Nenhum Motivo Encontrado",
   "reasonSearchPh": "Pesquise o nome do motivo",
   "reasonSelect": "Motivo do Retorno",
-  "reasonSelectPh": "Toque para Selecionar o Motivo"
+  "reasonSelectPh": "Toque para Selecionar o Motivo",
+  "addReturnReason": "Adicionar Motivo"
 }

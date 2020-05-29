@@ -35,7 +35,7 @@ const Button = (props) => {
             iconPosition={iconPosition}
             textStyle={textStyle}
             textColor={textColor}
-            hasIcon={!!iconPosition}
+            hasIcon={!!iconComponent}
           >
             {text}
           </ButtonText>
