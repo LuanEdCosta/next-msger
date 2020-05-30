@@ -1,0 +1,10 @@
+{
+  "rate": "Avaliar Serviço",
+  "unratedTitle": "Avaliação do Cliente",
+  "unratedDescription": "A opinião do cliente pode ajudar a melhorar a qualidade dos serviços da empresa. Clique no botão abaixo para cadastrar a avaliação.",
+  "ratedTitle": "O Serviço foi Avaliado",
+  "ratedSubtitle": "Confira abaixo a nota atribuída e as observações escritas (se existirem).",
+  "editRatingButton": "Editar Avaliação",
+  "deleteAlertTitle": "Excluir Avaliação do Cliente",
+  "deleteAlertMessage": "Tem certeza que deseja excluir esta avaliação?"
+}

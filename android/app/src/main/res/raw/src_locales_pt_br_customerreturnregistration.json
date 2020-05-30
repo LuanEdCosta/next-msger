@@ -1,0 +1,18 @@
+{
+  "pageTitle": "Novo Retorno do Cliente",
+  "pageTitleWhenEditing": "Editar Retorno do Cliente",
+  "observationsLabel": "Observações",
+  "observationsLength": "{{length}}/500",
+  "observationsPh": "Digite alguma observação sobre o retorno do cliente",
+  "returnDate": "Data do Retorno",
+  "returnDatePh": "Toque aqui para selecionar a data",
+  "returnHour": "Hora do Retorno",
+  "returnHourPh": "Toque aqui para selecionar a hora",
+  "saveButton": "Cadastrar Retorno",
+  "saveButtonWhenEditing": "Editar Retorno",
+  "anyReasonFound": "Nenhum Motivo Encontrado",
+  "reasonSearchPh": "Pesquise o nome do motivo",
+  "reasonSelect": "Motivo do Retorno",
+  "reasonSelectPh": "Toque para Selecionar o Motivo",
+  "addReturnReason": "Adicionar Motivo"
+}

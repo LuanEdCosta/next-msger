@@ -1,0 +1,9 @@
+{
+  "serviceTypeLabel": "Nome do Tipo de Serviço",
+  "serviceTypePlaceholder": "Ex: Meu Serviço 1",
+  "saveButton": "Salvar",
+  "customerSelect": "Cliente deste Serviço",
+  "customerSelectPh": "Toque para Selecionar o Cliente",
+  "anyCustoemerFound": "Nenhum Cliente Encontrado",
+  "customerSearchPh": "Pesquise por nome ou email"
+}

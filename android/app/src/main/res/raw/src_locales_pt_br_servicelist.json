@@ -1,0 +1,6 @@
+{
+  "anyServiceFound": "Nenhum serviço encontrado",
+  "searchPlaceholder": "Pesquise pelo Cliente, Serviço ou Datas",
+  "startDate": "Início: {{date, LL}}",
+  "endDate": "Final: {{date, LL}}"
+}
