@@ -15,6 +15,12 @@ export const Fw5IconAccent = styled(FontAwesome5Icon).attrs((props) => ({
   ...props,
 }))``
 
+export const Fw5IconWhite = styled(FontAwesome5Icon).attrs((props) => ({
+  color: MAIN_COLORS.white,
+  size: FONT_SIZES.FONT_SIZE_2,
+  ...props,
+}))``
+
 export const MessagePanelIcon = styled(FontAwesome5Icon).attrs((props) => ({
   color: MAIN_COLORS.darkGrey,
   size: 50,
@@ -30,5 +36,11 @@ export const ButtonIcon = styled(FontAwesome5Icon).attrs((props) => ({
 export const FabIcon = styled(FontAwesome5Icon).attrs((props) => ({
   color: MAIN_COLORS.white,
   size: FONT_SIZES.FONT_SIZE_5,
+  ...props,
+}))``
+
+export const CheckboxIcon = styled(FontAwesome5Icon).attrs((props) => ({
+  color: MAIN_COLORS.white,
+  size: FONT_SIZES.FONT_SIZE_0,
   ...props,
 }))``
