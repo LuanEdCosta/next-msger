@@ -11,4 +11,5 @@ export default {
   DISTRICT: 'district',
   ADDRESS: 'address',
   NUMBER: 'number',
+  CREATED_AT: 'createdAt',
 }

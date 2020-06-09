@@ -45,8 +45,8 @@ const CustomerRegistration = () => {
   const onSaveCustomer = useCallback(async () => {
     if (!isShowingErrors) setIsShowingErrors(true)
     if (!onValidateInputs()) return
-
     setIsSaving(true)
+
     try {
       await firestore()
         .collection(COLLECTIONS.CUSTOMERS)
@@ -55,13 +55,15 @@ const CustomerRegistration = () => {
           [CUSTOMER_DOC.EMAIL]: email,
           [CUSTOMER_DOC.WHATSAPP]: whatsapp,
           [CUSTOMER_DOC.PHONE]: phone,
+          [CUSTOMER_DOC.CREATED_AT]: firestore.Timestamp.now(),
         })
 
       onClearData()
     } catch (e) {
       showErrorAlert()
+    } finally {
+      setIsSaving(false)
     }
-    setIsSaving(false)
   }, [
     email,
     isShowingErrors,

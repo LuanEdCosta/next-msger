@@ -19,6 +19,7 @@ import ServiceDetails from './ServiceDetails.json'
 import ServiceDetailsOverviewTab from './ServiceDetailsOverviewTab.json'
 import ServiceDetailsRatingTab from './ServiceDetailsRatingTab.json'
 import ServiceDetailsReturnTab from './ServiceDetailsReturnTab.json'
+import ServiceDetailsSendMessagesTab from './ServiceDetailsSendMessagesTab.json'
 import RateService from './RateService.json'
 import Glossary from './Glossary.json'
 import CustomerReturnRegistration from './CustomerReturnRegistration.json'
@@ -46,6 +47,7 @@ export default {
   ServiceDetailsOverviewTab,
   ServiceDetailsRatingTab,
   ServiceDetailsReturnTab,
+  ServiceDetailsSendMessagesTab,
   RateService,
   Glossary,
   CustomerReturnRegistration,
