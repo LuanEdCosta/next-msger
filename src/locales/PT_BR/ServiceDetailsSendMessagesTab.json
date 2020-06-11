@@ -1,1 +1,7 @@
-{}
+{
+  "anyMarketingStepFound": "Nenhuma Etapa de Marketing",
+  "marketingStepHint": "É necessário cadastrar uma etapa de marketing para poder enviar mensagens em serviços. Toque no botão abaixo e cadastre uma etapa em menos de dois minutos!",
+  "newMarketingStepButton": "Cadastrar Etapa",
+  "itemNumOfDays": "{{numOfDays}} Dias Após a Finalização do Serviço",
+  "listHint": "Toque em um ícone para mandar a mensagem. Se um ícone estiver colorido a mensagem já foi enviada."
+}

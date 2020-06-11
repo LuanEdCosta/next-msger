@@ -38,7 +38,7 @@ const MarketingStepList = ({ navigation }) => {
     ],
   })
 
-  const onSubscribeToCustomersCollection = useCallback(() => {
+  const onSubscribeToMarketingStepCollection = useCallback(() => {
     const unsubscribe = firestore()
       .collection(COLLECTIONS.MARKETING_STEPS)
       .orderBy(MARKETING_STEP_DOC.NUMBER_OF_DAYS)
@@ -56,7 +56,7 @@ const MarketingStepList = ({ navigation }) => {
     return unsubscribe
   }, [isLoading])
 
-  useEffect(onSubscribeToCustomersCollection, [])
+  useEffect(onSubscribeToMarketingStepCollection, [])
 
   const renderItem = useCallback(
     ({ item }) => {
