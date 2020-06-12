@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import firestore from '@react-native-firebase/firestore'
 
 import { useErrorAlert } from '@/hooks'
@@ -11,7 +11,6 @@ export default (DefaultNavigator) => {
   const CustomNavigator = (props) => {
     const { navigation } = props
     const serviceId = navigation.getParam(SERVICE_DOC.ID)
-
     const showAlert = useErrorAlert()
 
     const [serviceData, setServiceData] = useState({})
@@ -35,8 +34,13 @@ export default (DefaultNavigator) => {
 
     useEffect(onSubscribeToServiceDocument, [])
 
+    const customerData = useMemo(() => {
+      const customer = serviceData[SERVICE_DOC.CUSTOMER] || {}
+      return customer
+    }, [serviceData])
+
     return (
-      <ServiceDetailsContext.Provider value={{ serviceData }}>
+      <ServiceDetailsContext.Provider value={{ serviceData, customerData }}>
         <DefaultNavigator {...props} />
       </ServiceDetailsContext.Provider>
     )

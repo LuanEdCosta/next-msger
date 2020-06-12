@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 
 import Header from '@/components/Header'
-import Button from '@/components/Button'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
 import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
@@ -12,7 +11,7 @@ import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
 import { useErrorAlert } from '@/hooks'
 
-import { Container, Scroll, MarketingStepInput } from './styles'
+import { Container, Scroll, MarketingStepInput, SaveButton } from './styles'
 
 const MarketingStepRegistration = () => {
   const { t } = useTranslation('MarketingStepRegistration')
@@ -25,6 +24,7 @@ const MarketingStepRegistration = () => {
   const [observations, setObservations] = useState('')
   const [emailMessage, setEmailMessage] = useState('')
   const [whatsappMessage, setWhatsappMessage] = useState('')
+  const [smsMessage, setSmsMessage] = useState('')
 
   let numOfDaysInput = useRef(null)
   const emailMessageInput = useRef(null)
@@ -67,6 +67,7 @@ const MarketingStepRegistration = () => {
           [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: Number(numOfDays),
           [MARKETING_STEP_DOC.EMAIL_MESSAGE]: emailMessage,
           [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsappMessage,
+          [MARKETING_STEP_DOC.SMS_MESSAGE]: smsMessage,
           [MARKETING_STEP_DOC.OBSERVATIONS]: observations,
           [MARKETING_STEP_DOC.CREATED_AT]: firestore.Timestamp.now(),
         })
@@ -87,6 +88,7 @@ const MarketingStepRegistration = () => {
     onClearData,
     onValidateRegistration,
     showAlert,
+    smsMessage,
     whatsappMessage,
   ])
 
@@ -219,6 +221,35 @@ const MarketingStepRegistration = () => {
         />
 
         <MarketingStepInput
+          errorComponent={
+            <InputError show={isShowingErrors && !smsMessage.trim()} />
+          }
+          labelComponent={
+            <Label
+              label={t('smsMsgLabel')}
+              iconComponent={<Fw5IconAccent name="sms" />}
+              description={t('smsMsgMaxLength', {
+                length: smsMessage.length,
+              })}
+              isRequired
+            />
+          }
+          inputComponent={
+            <DefaultTextInput
+              style={{ textAlignVertical: 'top' }}
+              placeholder={t('smsMsgPlaceholder')}
+              autoCapitalize="sentences"
+              onChangeText={setSmsMessage}
+              value={smsMessage}
+              maxLength={500}
+              numberOfLines={5}
+              multiline
+              autoCorrect
+            />
+          }
+        />
+
+        <MarketingStepInput
           labelComponent={
             <Label
               label={t('observationsLabel')}
@@ -243,7 +274,7 @@ const MarketingStepRegistration = () => {
           }
         />
 
-        <Button
+        <SaveButton
           text={t('saveButton')}
           onPress={onSaveMarketingStep}
           disabled={isSaving}

@@ -5,5 +5,6 @@ export default {
   NUMBER_OF_DAYS: 'numberOfDays',
   EMAIL_MESSAGE: 'emailMessage',
   WHATSAPP_MESSAGE: 'whatsappMessage',
+  SMS_MESSAGE: 'smsMessage',
   CREATED_AT: 'createdAt',
 }

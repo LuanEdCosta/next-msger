@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react'
 import { useTranslation } from 'react-i18next'
+import moment from 'moment'
 
-import { MARKETING_STEP_DOC, CUSTOMER_DOC } from '@/config/database'
-import { useSendWhatsAppMessage, useErrorAlert } from '@/hooks'
+import { MARKETING_STEP_DOC, SERVICE_DOC } from '@/config/database'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
@@ -12,6 +18,7 @@ import {
   List,
   ListHint,
   ItemContainer,
+  ItemStatus,
   ItemHeader,
   MarketingStepName,
   MarketingStepDays,
@@ -19,6 +26,10 @@ import {
   SendMessageButton,
   SendMessageIcon,
 } from './styles'
+import useSendWhatsAppToCustomer from './useSendWhatsAppToCustomer'
+import useSendEmailToCustomer from './useSendEmailToCustomer'
+import useSendSmsToCustomer from './useSendSmsToCustomer'
+import useCallCustomer from './useCallCustomer'
 
 const SendMessagesTab = ({ navigation }) => {
   const { t } = useTranslation('ServiceDetailsSendMessagesTab')
@@ -27,8 +38,11 @@ const SendMessagesTab = ({ navigation }) => {
   const [isLoadingMarketingSteps, setIsLoadingMarketingSteps] = useState(true)
   const [marketingStepList, setMarketingStepList] = useState([])
 
-  const showAlert = useErrorAlert()
-  const onSendWhatsAppMessage = useSendWhatsAppMessage()
+  const onSendWhatsAppToCustomer = useSendWhatsAppToCustomer()
+  const onSendEmailToCustomer = useSendEmailToCustomer()
+  const onSendSmsToCustomer = useSendSmsToCustomer()
+  const onCallCustomer = useCallCustomer()
+
   const onSubscribeToMarketingStep = useMarketingStepSubscription(
     setIsLoadingMarketingSteps,
     setMarketingStepList,
@@ -36,50 +50,83 @@ const SendMessagesTab = ({ navigation }) => {
 
   useEffect(onSubscribeToMarketingStep, [])
 
+  const daysAfterServiceEnds = useMemo(() => {
+    const { [SERVICE_DOC.END_DATE]: endDateTimestamp } = serviceData
+    const endDate = moment(endDateTimestamp)
+    const today = moment()
+    const differenceInDays = today.diff(endDate, 'days')
+    return differenceInDays
+  }, [serviceData])
+
   const renderItem = useCallback(
-    ({ item }) => {
+    ({ item: marketingStep }) => {
       const {
         [MARKETING_STEP_DOC.NAME]: name,
         [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: numOfDays,
-        [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsMessage,
-      } = item
+      } = marketingStep
 
-      const { [CUSTOMER_DOC.WHATSAPP]: whatsNumber } = serviceData
+      const isMarketingStepEnabled = daysAfterServiceEnds >= numOfDays
 
-      const onSendWhats = async () => {
-        try {
-          await onSendWhatsAppMessage(whatsNumber, whatsMessage)
-        } catch (e) {
-          showAlert()
-        }
+      const onSendWhatsMessage = () => {
+        onSendWhatsAppToCustomer(marketingStep, isMarketingStepEnabled)
       }
+
+      const onSendEmail = () => {
+        onSendEmailToCustomer(marketingStep, isMarketingStepEnabled)
+      }
+
+      const onSendSms = () => {
+        onSendSmsToCustomer(marketingStep, isMarketingStepEnabled)
+      }
+
+      const onCall = () => onCallCustomer(isMarketingStepEnabled)
 
       return (
         <ItemContainer>
+          {!isMarketingStepEnabled && (
+            <ItemStatus>
+              {t('notReadyToSendMessages', { numOfDays: daysAfterServiceEnds })}
+            </ItemStatus>
+          )}
+
           <ItemHeader>
-            <MarketingStepName>{name}</MarketingStepName>
+            <MarketingStepName>
+              {t('itemStepName', { stepName: name })}
+            </MarketingStepName>
+
             <MarketingStepDays>
               {t('itemNumOfDays', { numOfDays })}
             </MarketingStepDays>
           </ItemHeader>
 
-          <ItemContent>
-            <SendMessageButton onPress={onSendWhats} wasSent={false}>
+          <ItemContent isMarketingStepEnabled={isMarketingStepEnabled}>
+            <SendMessageButton onPress={onSendWhatsMessage} wasSent={false}>
               <SendMessageIcon name="whatsapp" wasSent={false} />
             </SendMessageButton>
 
-            <SendMessageButton onPress={() => {}}>
+            <SendMessageButton onPress={onSendEmail}>
               <SendMessageIcon name="envelope" />
             </SendMessageButton>
 
-            <SendMessageButton onPress={() => {}}>
+            <SendMessageButton onPress={onSendSms}>
               <SendMessageIcon name="sms" />
+            </SendMessageButton>
+
+            <SendMessageButton onPress={onCall}>
+              <SendMessageIcon name="phone-volume" />
             </SendMessageButton>
           </ItemContent>
         </ItemContainer>
       )
     },
-    [onSendWhatsAppMessage, serviceData, showAlert, t],
+    [
+      daysAfterServiceEnds,
+      onCallCustomer,
+      onSendEmailToCustomer,
+      onSendSmsToCustomer,
+      onSendWhatsAppToCustomer,
+      t,
+    ],
   )
 
   const keyExtractor = useCallback((item) => {

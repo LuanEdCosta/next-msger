@@ -27,6 +27,14 @@ export const ItemContainer = styled.View`
   border: 1px ${MAIN_COLORS.lightGrey};
 `
 
+export const ItemStatus = styled.Text`
+  background-color: ${MAIN_COLORS.snow};
+  color: ${MAIN_COLORS.danger};
+  padding: 4px 16px;
+  text-align: center;
+  font-size: 12px;
+`
+
 export const ItemHeader = styled.View`
   padding: 8px 12px;
   border-bottom-width: 1px;
@@ -36,6 +44,7 @@ export const ItemHeader = styled.View`
 
 export const MarketingStepName = styled(BoldText)`
   color: ${MAIN_COLORS.primaryText};
+  margin-bottom: 2px;
 `
 
 export const MarketingStepDays = styled(DefaultText)``
@@ -43,6 +52,9 @@ export const MarketingStepDays = styled(DefaultText)``
 export const ItemContent = styled.View`
   flex-direction: row;
   justify-content: center;
+  opacity: ${({ isMarketingStepEnabled }) => {
+    return isMarketingStepEnabled ? 1 : 0.6
+  }};
 `
 
 export const SendMessageButton = styled(TouchableIcon).attrs({

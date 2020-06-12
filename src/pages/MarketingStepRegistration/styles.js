@@ -2,6 +2,7 @@ import styled from 'styled-components/native'
 import { StyleSheet } from 'react-native'
 
 import Input from '@/components/Input'
+import Button from '@/components/Button'
 
 const Styles = StyleSheet.create({
   scroll: {
@@ -23,4 +24,8 @@ export const Container = styled.SafeAreaView`
 
 export const MarketingStepInput = styled(Input)`
   margin-bottom: 16px;
+`
+
+export const SaveButton = styled(Button)`
+  margin-top: 8px;
 `
