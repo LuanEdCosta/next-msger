@@ -1,43 +1,35 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
-import firestore from '@react-native-firebase/firestore'
+import React, { useEffect, useState } from 'react'
 
-import { useErrorAlert } from '@/hooks'
-import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
+import { SERVICE_DOC } from '@/config/database'
 
 import ServiceDetailsHeader from './ServiceDetailsHeader'
 import ServiceDetailsContext from './ServiceDetailsContext'
+import useServiceSubscription from './useServiceSubscription'
+import useFetchCustomerData from './useFetchCustomerData'
 
 export default (DefaultNavigator) => {
   const CustomNavigator = (props) => {
     const { navigation } = props
     const serviceId = navigation.getParam(SERVICE_DOC.ID)
-    const showAlert = useErrorAlert()
 
     const [serviceData, setServiceData] = useState({})
+    const [customerData, setCustomerData] = useState({})
 
-    const onSubscribeToServiceDocument = useCallback(() => {
-      const unsubscribe = firestore()
-        .collection(COLLECTIONS.SERVICES)
-        .doc(serviceId)
-        .onSnapshot({
-          error: showAlert,
-          next(doc) {
-            setServiceData({
-              ...doc.data(),
-              [SERVICE_DOC.ID]: doc.id,
-            })
-          },
-        })
+    const onSubscribeToServiceDocument = useServiceSubscription(
+      serviceId,
+      setServiceData,
+    )
 
-      return unsubscribe
-    }, [serviceId, showAlert])
+    const onFetchCustomerData = useFetchCustomerData(
+      serviceData,
+      setCustomerData,
+    )
 
     useEffect(onSubscribeToServiceDocument, [])
 
-    const customerData = useMemo(() => {
-      const customer = serviceData[SERVICE_DOC.CUSTOMER] || {}
-      return customer
-    }, [serviceData])
+    useEffect(() => {
+      onFetchCustomerData()
+    }, [onFetchCustomerData])
 
     return (
       <ServiceDetailsContext.Provider value={{ serviceData, customerData }}>
