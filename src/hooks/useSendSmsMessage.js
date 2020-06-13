@@ -1,12 +1,24 @@
 import { useCallback } from 'react'
 import { Linking, Platform } from 'react-native'
 
-export default () => {
-  const onSendSMSMessage = useCallback(async (phoneNumber, message) => {
-    const separator = Platform.OS === 'ios' ? '&' : '?'
-    const url = `sms:${phoneNumber}${separator}body=${message}`
-    await Linking.openURL(url)
-  }, [])
+import { getOnlyPhoneNumbers } from '@/helpers'
 
-  return onSendSMSMessage
+export default () => {
+  const onSendSmsMessage = useCallback(
+    async (phoneNumber = '', message = '') => {
+      const separator = Platform.OS === 'ios' ? '&' : '?'
+      const formattedPhoneNumber = getOnlyPhoneNumbers(phoneNumber)
+
+      const urlArray = [
+        `sms:${formattedPhoneNumber}`,
+        message ? `body=${message}` : '',
+      ]
+
+      const url = urlArray.join(separator)
+      await Linking.openURL(url)
+    },
+    [],
+  )
+
+  return onSendSmsMessage
 }

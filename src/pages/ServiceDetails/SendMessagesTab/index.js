@@ -67,19 +67,10 @@ const SendMessagesTab = ({ navigation }) => {
 
       const isMarketingStepEnabled = daysAfterServiceEnds >= numOfDays
 
-      const onSendWhatsMessage = () => {
-        onSendWhatsAppToCustomer(marketingStep, isMarketingStepEnabled)
-      }
-
-      const onSendEmail = () => {
-        onSendEmailToCustomer(marketingStep, isMarketingStepEnabled)
-      }
-
-      const onSendSms = () => {
-        onSendSmsToCustomer(marketingStep, isMarketingStepEnabled)
-      }
-
-      const onCall = () => onCallCustomer(isMarketingStepEnabled)
+      const onSendWhatsMessage = () => onSendWhatsAppToCustomer(marketingStep)
+      const onSendEmail = () => onSendEmailToCustomer(marketingStep)
+      const onSendSms = () => onSendSmsToCustomer(marketingStep)
+      const onCall = () => onCallCustomer()
 
       return (
         <ItemContainer>
@@ -90,9 +81,7 @@ const SendMessagesTab = ({ navigation }) => {
           )}
 
           <ItemHeader>
-            <MarketingStepName>
-              {t('itemStepName', { stepName: name })}
-            </MarketingStepName>
+            <MarketingStepName>{t('itemStepName', { name })}</MarketingStepName>
 
             <MarketingStepDays>
               {t('itemNumOfDays', { numOfDays })}

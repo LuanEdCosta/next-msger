@@ -38,11 +38,14 @@ const MarketingStepRegistration = () => {
       !emailMessage ||
       !emailMessage.trim() ||
       !whatsappMessage ||
-      !whatsappMessage.trim()
-    )
+      !whatsappMessage.trim() ||
+      !smsMessage.trim()
+    ) {
       return false
+    }
+
     return true
-  }, [emailMessage, marketingStepName, numOfDays, whatsappMessage])
+  }, [emailMessage, marketingStepName, numOfDays, smsMessage, whatsappMessage])
 
   const onClearData = useCallback(() => {
     setIsSaving('')
@@ -52,6 +55,7 @@ const MarketingStepRegistration = () => {
     setObservations('')
     setEmailMessage('')
     setWhatsappMessage('')
+    setSmsMessage('')
   }, [])
 
   const onSaveMarketingStep = useCallback(async () => {
