@@ -58,19 +58,46 @@ const SendMessagesTab = ({ navigation }) => {
     return differenceInDays
   }, [serviceData])
 
+  const onGetSentMessagesObject = useCallback(
+    (marketingStepId) => {
+      const defaultSentMessagesObject = {
+        [SERVICE_DOC.MESSAGES_SENT.EMAIL]: false,
+        [SERVICE_DOC.MESSAGES_SENT.WHATSAPP]: false,
+        [SERVICE_DOC.MESSAGES_SENT.SMS]: false,
+        [SERVICE_DOC.MESSAGES_SENT.CALL]: false,
+      }
+
+      if (!serviceData || !marketingStepId) return defaultSentMessagesObject
+      const marketingStepSentMsgs = serviceData[SERVICE_DOC.MESSAGES_SENT_KEY]
+      if (!marketingStepSentMsgs) return defaultSentMessagesObject
+      const sentMessagesObject = marketingStepSentMsgs[marketingStepId]
+      if (!sentMessagesObject) return defaultSentMessagesObject
+
+      return sentMessagesObject
+    },
+    [serviceData],
+  )
+
   const renderItem = useCallback(
     ({ item: marketingStep }) => {
       const {
+        [MARKETING_STEP_DOC.ID]: marketingStepId,
         [MARKETING_STEP_DOC.NAME]: name,
         [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: numOfDays,
       } = marketingStep
 
       const isMarketingStepEnabled = daysAfterServiceEnds >= numOfDays
+      const {
+        [SERVICE_DOC.MESSAGES_SENT.EMAIL]: wasSentEmail,
+        [SERVICE_DOC.MESSAGES_SENT.WHATSAPP]: wasSentWhats,
+        [SERVICE_DOC.MESSAGES_SENT.SMS]: wasSentSms,
+        [SERVICE_DOC.MESSAGES_SENT.CALL]: wasCalled,
+      } = onGetSentMessagesObject(marketingStepId)
 
       const onSendWhatsMessage = () => onSendWhatsAppToCustomer(marketingStep)
       const onSendEmail = () => onSendEmailToCustomer(marketingStep)
       const onSendSms = () => onSendSmsToCustomer(marketingStep)
-      const onCall = () => onCallCustomer()
+      const onCall = () => onCallCustomer(marketingStep)
 
       return (
         <ItemContainer>
@@ -89,20 +116,23 @@ const SendMessagesTab = ({ navigation }) => {
           </ItemHeader>
 
           <ItemContent isMarketingStepEnabled={isMarketingStepEnabled}>
-            <SendMessageButton onPress={onSendWhatsMessage} wasSent={false}>
-              <SendMessageIcon name="whatsapp" wasSent={false} />
+            <SendMessageButton
+              onPress={onSendWhatsMessage}
+              isMarked={wasSentWhats}
+            >
+              <SendMessageIcon name="whatsapp" isMarked={wasSentWhats} />
             </SendMessageButton>
 
-            <SendMessageButton onPress={onSendEmail}>
-              <SendMessageIcon name="envelope" />
+            <SendMessageButton onPress={onSendEmail} isMarked={wasSentEmail}>
+              <SendMessageIcon name="envelope" isMarked={wasSentEmail} />
             </SendMessageButton>
 
-            <SendMessageButton onPress={onSendSms}>
-              <SendMessageIcon name="sms" />
+            <SendMessageButton onPress={onSendSms} isMarked={wasSentSms}>
+              <SendMessageIcon name="sms" isMarked={wasSentSms} />
             </SendMessageButton>
 
-            <SendMessageButton onPress={onCall}>
-              <SendMessageIcon name="phone-volume" />
+            <SendMessageButton onPress={onCall} isMarked={wasCalled}>
+              <SendMessageIcon name="phone-volume" isMarked={wasCalled} />
             </SendMessageButton>
           </ItemContent>
         </ItemContainer>
@@ -111,6 +141,7 @@ const SendMessagesTab = ({ navigation }) => {
     [
       daysAfterServiceEnds,
       onCallCustomer,
+      onGetSentMessagesObject,
       onSendEmailToCustomer,
       onSendSmsToCustomer,
       onSendWhatsAppToCustomer,

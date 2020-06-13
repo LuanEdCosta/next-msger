@@ -61,13 +61,13 @@ export const SendMessageButton = styled(TouchableIcon).attrs({
   size: 56,
 })`
   margin: 8px;
-  background-color: ${({ wasSent }) =>
-    wasSent ? MAIN_COLORS.success : 'transparent'};
+  background-color: ${({ isMarked }) =>
+    isMarked ? MAIN_COLORS.success : 'transparent'};
 `
 
 export const SendMessageIcon = styled(FontAwesome5Icon).attrs(
-  ({ wasSent }) => ({
+  ({ isMarked }) => ({
     size: 32,
-    color: wasSent ? MAIN_COLORS.white : MAIN_COLORS.secondaryText,
+    color: isMarked ? MAIN_COLORS.white : MAIN_COLORS.secondaryText,
   }),
 )``

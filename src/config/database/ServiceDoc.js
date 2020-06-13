@@ -16,7 +16,14 @@ export default {
     NOTE: 'note',
     COMMENT: 'comment',
   },
+  MESSAGES_SENT: {
+    EMAIL: 'email',
+    WHATSAPP: 'whatsapp',
+    SMS: 'sms',
+    CALL: 'call',
+  },
   RATING_KEY: 'rating',
   SERVICE_TYPE_KEY: 'serviceType',
   CUSTOMER_KEY: 'customer',
+  MESSAGES_SENT_KEY: 'messagesSent',
 }
