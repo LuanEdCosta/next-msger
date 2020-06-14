@@ -1,20 +1,20 @@
 import { createDrawerNavigator } from 'react-navigation-drawer'
 
+import DRAWER_PAGES from '@/config/constants/DrawerPages'
+import Drawer from '@/components/Drawer'
 import Home from '@/pages/Home'
-import Dashboard from '@/pages/Dashboard'
 import CustomerRegistration from '@/pages/CustomerRegistration'
 import MarketingStepRegistration from '@/pages/MarketingStepRegistration'
 import ServiceRegistration from '@/pages/ServiceRegistration'
 import CustomerList from '@/pages/CustomerList'
 import ServiceList from '@/pages/ServiceList'
 import ServiceTypeList from '@/pages/ServiceTypeList'
-import Drawer from '@/components/Drawer'
-import DRAWER_PAGES from '@/config/constants/DrawerPages'
 import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
 import MarketingStepList from '@/pages/MarketingStepList'
 import UserProfile from '@/pages/UserProfile'
 import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
 
+import DashboardNavigator from './DashboardNavigator'
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
 const DrawerNavigator = createDrawerNavigator(
@@ -34,7 +34,7 @@ const DrawerNavigator = createDrawerNavigator(
       },
     },
     [DR.DASHBOARD]: {
-      screen: Dashboard,
+      screen: DashboardNavigator,
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'dashboard',
         [DRAWER_PAGES.DRAWER_ICON]: 'chart-pie',

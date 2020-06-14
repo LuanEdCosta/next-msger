@@ -16,7 +16,7 @@ export default () => {
       } = serviceData || {}
 
       // Check if already sent this message before
-      // If true fon't send again
+      // If true don't send again
       const marketingStepMessages = messagesSentObject[marketingStepId] || {}
       const alreadySentThisMessage = marketingStepMessages[messageType]
       if (alreadySentThisMessage) return
