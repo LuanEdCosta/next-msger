@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   labelStyle: {
     fontFamily: DEFAULT_FONT_FAMILY,
-    fontSize: FONT_SIZES.DEFAULT_TEXT,
+    fontSize: FONT_SIZES.FONT_SIZE_2,
   },
   indicatorStyle: {
     backgroundColor: MAIN_COLORS.accent,
