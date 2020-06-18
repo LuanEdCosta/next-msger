@@ -5,6 +5,9 @@ import CustomerDetails from '@/pages/CustomerDetails'
 import MarketingStepDetails from '@/pages/MarketingStepDetails'
 import CustomerReturnRegistration from '@/pages/CustomerReturnRegistration'
 import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
+import UserSecurity from '@/pages/UserSecurity'
+import UserPersonalData from '@/pages/UserPersonalData'
+import ChangePassword from '@/pages/ChangePassword'
 
 import DrawerNavigator from './DrawerNavigator'
 import ServiceDetailsNavigator from './ServiceDetailsNavigator'
@@ -24,6 +27,9 @@ const MainNavigator = createStackNavigator(
     [MAIN_ROUTES.RATE_SERVICE]: RateService,
     [MAIN_ROUTES.CUSTOMER_RETURN_REGISTRATION]: CustomerReturnRegistration,
     [MAIN_ROUTES.RETURN_REASON_REGISTRATION]: ReturnReasonRegistration,
+    [MAIN_ROUTES.USER_SECURITY]: UserSecurity,
+    [MAIN_ROUTES.USER_PERSONAL_DATA]: UserPersonalData,
+    [MAIN_ROUTES.CHANGE_PASSWORD]: ChangePassword,
   },
   {
     defaultNavigationOptions: {

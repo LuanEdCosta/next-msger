@@ -9,6 +9,7 @@ import { ButtonIcon } from '@/components/Fw5Icon'
 import { MAIN_COLORS } from '@/styles'
 import { APP_SWITCH_ROUTES } from '@/config/navigation/ScreenRoutes'
 
+import ProfileOptions from './ProfileOptions'
 import {
   Container,
   Scroll,
@@ -44,6 +45,7 @@ const UserProfile = ({ navigation }) => {
         <Content>
           <UserName>{name}</UserName>
           <UserEmail>{email}</UserEmail>
+          <ProfileOptions navigation={navigation} />
         </Content>
 
         <SignOutButton
