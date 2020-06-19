@@ -1,4 +1,6 @@
 {
   "pageTitle": "Seu Perfil",
-  "signOutButton": "Sair da Conta"
+  "signOutButton": "Sair da Conta",
+  "profileDataOption": "Dados do Perfil",
+  "securityOption": "Segurança"
 }

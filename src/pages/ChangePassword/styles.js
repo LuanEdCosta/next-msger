@@ -1,6 +1,13 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View``
+import { DefaultTextInput } from '@/components/TextInput'
+import Inp from '@/components/Input'
+import Button from '@/components/Button'
+
+export const Container = styled.View`
+  flex: 1;
+  background-color: white;
+`
 
 export const Scroll = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -9,4 +16,14 @@ export const Scroll = styled.ScrollView.attrs({
   },
 })`
   flex: 1;
+`
+
+export const Input = styled(Inp)`
+  margin-bottom: 16px;
+`
+
+export const TextInput = styled(DefaultTextInput)``
+
+export const ChangePasswordButton = styled(Button)`
+  margin-bottom: 24px;
 `
