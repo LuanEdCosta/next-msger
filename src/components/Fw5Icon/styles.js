@@ -9,6 +9,12 @@ export const Fw5Icon = styled(FontAwesome5Icon).attrs((props) => ({
   ...props,
 }))``
 
+export const Fw5IconPrimary = styled(FontAwesome5Icon).attrs((props) => ({
+  color: MAIN_COLORS.primaryText,
+  size: FONT_SIZES.FONT_SIZE_2,
+  ...props,
+}))``
+
 export const Fw5IconAccent = styled(FontAwesome5Icon).attrs((props) => ({
   color: MAIN_COLORS.accent,
   size: FONT_SIZES.FONT_SIZE_2,
