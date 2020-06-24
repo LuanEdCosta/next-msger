@@ -1,3 +1,5 @@
 {
-  "pageTitle": "Dados do Perfil"
+  "pageTitle": "Dados do Perfil",
+  "userName": "Seu Nome",
+  "userEmail": "Seu Email"
 }
