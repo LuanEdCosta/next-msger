@@ -8,6 +8,7 @@ import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
 import UserSecurity from '@/pages/UserSecurity'
 import UserPersonalData from '@/pages/UserPersonalData'
 import ChangePassword from '@/pages/ChangePassword'
+import EditUserName from '@/pages/EditUserName'
 
 import DrawerNavigator from './DrawerNavigator'
 import ServiceDetailsNavigator from './ServiceDetailsNavigator'
@@ -30,6 +31,7 @@ const MainNavigator = createStackNavigator(
     [MAIN_ROUTES.USER_SECURITY]: UserSecurity,
     [MAIN_ROUTES.USER_PERSONAL_DATA]: UserPersonalData,
     [MAIN_ROUTES.CHANGE_PASSWORD]: ChangePassword,
+    [MAIN_ROUTES.EDIT_USER_NAME]: EditUserName,
   },
   {
     defaultNavigationOptions: {

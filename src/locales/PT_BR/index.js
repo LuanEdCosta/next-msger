@@ -28,6 +28,7 @@ import Dashboard from './Dashboard.json'
 import UserSecurity from './UserSecurity.json'
 import UserPersonalData from './UserPersonalData.json'
 import ChangePassword from './ChangePassword.json'
+import EditUserProfile from './EditUserProfile.json'
 
 export default {
   Common,
@@ -60,4 +61,5 @@ export default {
   UserSecurity,
   UserPersonalData,
   ChangePassword,
+  EditUserProfile,
 }
