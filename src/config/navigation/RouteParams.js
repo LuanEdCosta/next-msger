@@ -16,3 +16,7 @@ export const EDIT_USER_NAME_PARAMS = {
   USER_NAME: 'USER_NAME',
   USER_ID: 'USER_ID',
 }
+
+export const EDIT_USER_EMAIL_PARAMS = {
+  USER_EMAIL: 'USER_EMAIL',
+}

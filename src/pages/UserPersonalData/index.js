@@ -8,7 +8,10 @@ import DetailItem from '@/components/DetailItem'
 import { USER_DOC } from '@/config/database'
 import { Fw5IconPrimary, Fw5Icon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
-import { EDIT_USER_NAME_PARAMS as EUNP } from '@/config/navigation/RouteParams'
+import {
+  EDIT_USER_NAME_PARAMS as EUNP,
+  EDIT_USER_EMAIL_PARAMS as EUEP,
+} from '@/config/navigation/RouteParams'
 
 import { Container, Scroll } from './styles'
 
@@ -24,6 +27,12 @@ const UserPersonalData = ({ navigation }) => {
       [EUNP.USER_NAME]: userName,
     })
   }, [currentUser.uid, navigation, userName])
+
+  const onNavigateToEditEmail = useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.EDIT_USER_EMAIL, {
+      [EUEP.USER_EMAIL]: currentUser.email,
+    })
+  }, [currentUser.email, navigation])
 
   return (
     <Container>
@@ -43,7 +52,7 @@ const UserPersonalData = ({ navigation }) => {
         />
 
         <DetailItem
-          onPress={() => {}}
+          onPress={onNavigateToEditEmail}
           title={t('userEmail')}
           text={currentUser.email}
           rightIconComponent={<Fw5Icon name="chevron-right" />}

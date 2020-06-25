@@ -1,59 +1,58 @@
 import React, { useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { EDIT_USER_NAME_PARAMS as EUNP } from '@/config/navigation/RouteParams'
+import { EDIT_USER_EMAIL_PARAMS as EUEP } from '@/config/navigation/RouteParams'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { DefaultTextInput } from '@/components/TextInput'
 import Label from '@/components/Label'
 import Header from '@/components/Header'
 import { WhiteSpinner } from '@/components/Spinner'
 
-import useEditUserName from './useEditUserName'
+import useEditUserEmail from './useEditUserEmail'
 import { Container, EditButton, EditInput, Scroll, Error } from './styles'
 
-const EditUserName = ({ navigation }) => {
-  const userNameToEdit = navigation.getParam(EUNP.USER_NAME, '')
-  const userId = navigation.getParam(EUNP.USER_ID, '')
+const EditUserEmail = ({ navigation }) => {
+  const userEmailToEdit = navigation.getParam(EUEP.USER_EMAIL, '')
 
   const { t } = useTranslation(['EditUserProfile', 'Common'])
   const [isEditing, setIsEditing] = useState(false)
-  const [name, setName] = useState(userNameToEdit)
+  const [email, setEmail] = useState(userEmailToEdit)
 
-  const onEditUserName = useEditUserName()
+  const onEditUserEmail = useEditUserEmail()
 
   const onPressSave = useCallback(async () => {
-    if (name === userNameToEdit) navigation.goBack()
-    if (!name.trim()) return
-    const isSuccessful = await onEditUserName(userId, name, setIsEditing)
+    if (email === userEmailToEdit) navigation.goBack()
+    if (!email.trim()) return
+    const isSuccessful = await onEditUserEmail(email, setIsEditing)
     if (isSuccessful) navigation.goBack()
-  }, [name, navigation, onEditUserName, userId, userNameToEdit])
+  }, [email, navigation, onEditUserEmail, userEmailToEdit])
 
   return (
     <Container>
       <Header
         i18Namespace="EditUserProfile"
-        i18Title="editUserNamePageTitle"
+        i18Title="editUserEmailPageTitle"
         isStackPage
       />
 
       <Scroll>
         <EditInput
-          errorComponent={<Error show={!name.trim()} />}
+          errorComponent={<Error show={!email.trim()} />}
           labelComponent={
             <Label
-              iconComponent={<Fw5IconAccent name="signature" solid />}
-              label={t('userName')}
+              iconComponent={<Fw5IconAccent name="envelope" solid />}
+              label={t('userEmail')}
               isRequired
             />
           }
           inputComponent={
             <DefaultTextInput
-              placeholder={t('userNamePh')}
-              autoCapitalize="words"
-              autoCompleteType="name"
+              placeholder={t('userEmailPh')}
+              keyboardType="email-address"
+              autoCompleteType="email"
               editable={!isEditing}
-              onChangeText={setName}
-              value={name}
+              onChangeText={setEmail}
+              value={email}
             />
           }
         />
@@ -71,8 +70,8 @@ const EditUserName = ({ navigation }) => {
   )
 }
 
-EditUserName.navigationOptions = () => ({
+EditUserEmail.navigationOptions = () => ({
   headerShown: false,
 })
 
-export default EditUserName
+export default EditUserEmail
