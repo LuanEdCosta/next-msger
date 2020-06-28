@@ -2,6 +2,7 @@ import styled from 'styled-components/native'
 
 import { MAIN_COLORS, FONT_SIZES } from '@/styles'
 import { DefaultText, UppercaseBoldText } from '@/components/Text'
+import { AccentSpinner } from '@/components/Spinner'
 
 export const Container = styled.View`
   border: 1px ${MAIN_COLORS.lightGrey};
@@ -21,7 +22,7 @@ export const TitleContainer = styled.View`
 `
 
 export const Title = styled(DefaultText)`
-  margin-left: ${({ hasIcon }) => (hasIcon ? 8 : 0)}px;
+  margin-left: ${({ hasIcon }) => (hasIcon ? 12 : 0)}px;
 `
 
 export const Value = styled(UppercaseBoldText)`
@@ -31,4 +32,8 @@ export const Value = styled(UppercaseBoldText)`
   text-align-vertical: center;
   flex: 1;
   padding: 0 10px;
+`
+
+export const Spinner = styled(AccentSpinner)`
+  flex: 1;
 `

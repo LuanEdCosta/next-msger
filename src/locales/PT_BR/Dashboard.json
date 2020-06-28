@@ -2,7 +2,7 @@
   "pageTitle": "Dashboard",
   "pageSubtitle": "Veja as Estatísticas da Empresa",
   "overviewTabLabel": "Visão Geral",
-  "numberOfServicesTabLabel": "Volume de Serviços",
+  "numberOfServicesTabLabel": "Qtd. de Serviços",
   "averageCustomerRatingTabLabel": "Avaliação dos Clientes",
   "numberOfReturnsTabLabel": "Volume de Retornos"
 }

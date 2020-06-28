@@ -61,7 +61,7 @@ const DashboardTabBar = (props) => {
       <DashboardTabs
         labels={labels}
         renderIcon={onRenderIcon}
-        scrollEnabled
+        scrollEnabled={false}
         {...propsClone}
       />
     </View>

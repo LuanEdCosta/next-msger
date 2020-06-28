@@ -18,4 +18,7 @@ export const DashboardTabs = styled(TabBar).attrs({
   barStyle: {
     elevation: 0,
   },
+  tabStyle: {
+    width: undefined,
+  },
 })``

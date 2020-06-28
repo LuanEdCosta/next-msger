@@ -24,11 +24,12 @@ import RateService from './RateService.json'
 import Glossary from './Glossary.json'
 import CustomerReturnRegistration from './CustomerReturnRegistration.json'
 import ReturnReasonRegistration from './ReturnReasonRegistration.json'
-import Dashboard from './Dashboard.json'
 import UserSecurity from './UserSecurity.json'
 import UserPersonalData from './UserPersonalData.json'
 import ChangePassword from './ChangePassword.json'
 import EditUserProfile from './EditUserProfile.json'
+import Dashboard from './Dashboard.json'
+import DashboardOverviewTab from './DashboardOverviewTab.json'
 
 export default {
   Common,
@@ -57,9 +58,10 @@ export default {
   Glossary,
   CustomerReturnRegistration,
   ReturnReasonRegistration,
-  Dashboard,
   UserSecurity,
   UserPersonalData,
   ChangePassword,
   EditUserProfile,
+  Dashboard,
+  DashboardOverviewTab,
 }

@@ -2,10 +2,10 @@ import React from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { Container, TitleContainer, Title, Value } from './styles'
+import { Container, TitleContainer, Title, Value, Spinner } from './styles'
 
 const StatisticCard = (props) => {
-  const { style, title, iconComponent, value } = props
+  const { style, title, iconComponent, value, isLoading } = props
 
   return (
     <Container style={style}>
@@ -13,7 +13,8 @@ const StatisticCard = (props) => {
         {iconComponent}
         <Title hasIcon={!!iconComponent}>{title}</Title>
       </TitleContainer>
-      <Value>{value}</Value>
+
+      {isLoading ? <Spinner /> : <Value>{value}</Value>}
     </Container>
   )
 }
@@ -23,6 +24,7 @@ StatisticCard.defaultProps = {
   title: null,
   iconComponent: null,
   value: null,
+  isLoading: false,
 }
 
 StatisticCard.propTypes = {
@@ -30,6 +32,7 @@ StatisticCard.propTypes = {
   title: PropTypes.string,
   iconComponent: PropTypes.element,
   value: PropTypes.string,
+  isLoading: PropTypes.bool,
 }
 
 export default StatisticCard
