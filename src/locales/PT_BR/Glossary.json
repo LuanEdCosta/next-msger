@@ -2,5 +2,7 @@
   "delete": "Excluir",
   "cancel": "Cancelar",
   "save": "Salvar",
-  "edit": "Editar"
+  "edit": "Editar",
+  "password": "Senha",
+  "confirm": "Confirmar"
 }

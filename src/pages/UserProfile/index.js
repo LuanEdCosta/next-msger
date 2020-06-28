@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { firebase } from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth'
 
 import Header from '@/components/Header'
 import { USER_DOC } from '@/config/database'
@@ -24,11 +24,11 @@ import {
 
 const UserProfile = ({ navigation }) => {
   const { t } = useTranslation('UserProfile')
-  const { email } = firebase.auth().currentUser || {}
+  const { email } = auth().currentUser || {}
   const { [USER_DOC.NAME]: name } = useSelector(({ User }) => User || {})
 
   const onLogout = useCallback(async () => {
-    await firebase.auth().signOut()
+    await auth().signOut()
     navigation.navigate(APP_SWITCH_ROUTES.LOGIN)
   }, [navigation])
 

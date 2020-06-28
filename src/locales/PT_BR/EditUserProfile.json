@@ -5,5 +5,9 @@
 
   "editUserEmailPageTitle": "Editar Email",
   "userEmail": "Email",
-  "userEmailPh": "Ex: carlos@gmail.com"
+  "userEmailPh": "Ex: carlos@gmail.com",
+  "confirmEmailEditingModalTitle": "Confirmação de Troca de Email",
+  "confirmEmailEditingDialogTitle": "Confirme a Edição do Seu Email",
+  "confirmEmailEditingDialogMessage": "Trocar o email é uma operação sensível e necessita que você digite sua senha novamente.",
+  "wrongPasswordErrorMessage": "Confira se o email a senha digitada estão corretos."
 }

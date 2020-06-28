@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import auth from '@react-native-firebase/auth'
@@ -19,20 +19,20 @@ const UserPersonalData = ({ navigation }) => {
   const { t } = useTranslation('UserPersonalData')
 
   const { [USER_DOC.NAME]: userName } = useSelector(({ User }) => User || {})
-  const currentUser = useMemo(() => auth().currentUser, [])
+  const { currentUser = {} } = auth()
 
   const onNavigateToEditName = useCallback(() => {
     navigation.navigate(MAIN_ROUTES.EDIT_USER_NAME, {
       [EUNP.USER_ID]: currentUser.uid,
       [EUNP.USER_NAME]: userName,
     })
-  }, [currentUser.uid, navigation, userName])
+  }, [currentUser, navigation, userName])
 
   const onNavigateToEditEmail = useCallback(() => {
     navigation.navigate(MAIN_ROUTES.EDIT_USER_EMAIL, {
       [EUEP.USER_EMAIL]: currentUser.email,
     })
-  }, [currentUser.email, navigation])
+  }, [currentUser, navigation])
 
   return (
     <Container>
