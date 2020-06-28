@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import auth from '@react-native-firebase/auth'
+import { NavigationEvents } from 'react-navigation'
 
 import Header from '@/components/Header'
 import DetailItem from '@/components/DetailItem'
@@ -19,7 +20,7 @@ const UserPersonalData = ({ navigation }) => {
   const { t } = useTranslation('UserPersonalData')
 
   const { [USER_DOC.NAME]: userName } = useSelector(({ User }) => User || {})
-  const { currentUser = {} } = auth()
+  const [currentUser, setCurrentUser] = useState({})
 
   const onNavigateToEditName = useCallback(() => {
     navigation.navigate(MAIN_ROUTES.EDIT_USER_NAME, {
@@ -34,8 +35,15 @@ const UserPersonalData = ({ navigation }) => {
     })
   }, [currentUser, navigation])
 
+  const onGetCurrentUserData = useCallback(() => {
+    const userData = auth().currentUser || {}
+    setCurrentUser(userData)
+  }, [])
+
   return (
     <Container>
+      <NavigationEvents onWillFocus={onGetCurrentUserData} />
+
       <Header
         i18Namespace="UserPersonalData"
         i18Title="pageTitle"

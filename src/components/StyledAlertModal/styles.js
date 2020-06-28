@@ -22,7 +22,7 @@ export const Scroll = styled.ScrollView.attrs({
 
 export const Dialog = styled.View`
   padding: 24px;
-  elevation: 16px;
+  elevation: 16;
   border-radius: 5px;
   width: 100%;
   background-color: ${({ bgColor }) => getColor(bgColor)};

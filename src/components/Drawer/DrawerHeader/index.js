@@ -1,5 +1,5 @@
 import React from 'react'
-import { firebase } from '@react-native-firebase/auth'
+import auth from '@react-native-firebase/auth'
 import { useSelector } from 'react-redux'
 
 import { USER_DOC } from '@/config/database'
@@ -7,7 +7,7 @@ import { USER_DOC } from '@/config/database'
 import { Container, Title, Subtitle } from './styles'
 
 const DrawerHeader = () => {
-  const { email } = firebase.auth().currentUser || {}
+  const { email } = auth().currentUser || {}
   const { [USER_DOC.NAME]: name } = useSelector(({ User }) => User || {})
 
   return (

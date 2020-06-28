@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import auth from '@react-native-firebase/auth'
+import { NavigationEvents } from 'react-navigation'
 
 import Header from '@/components/Header'
 import { USER_DOC } from '@/config/database'
@@ -24,16 +25,22 @@ import {
 
 const UserProfile = ({ navigation }) => {
   const { t } = useTranslation('UserProfile')
-  const { email } = auth().currentUser || {}
   const { [USER_DOC.NAME]: name } = useSelector(({ User }) => User || {})
+  const [currentUser, setCurrentUser] = useState({})
 
   const onLogout = useCallback(async () => {
     await auth().signOut()
     navigation.navigate(APP_SWITCH_ROUTES.LOGIN)
   }, [navigation])
 
+  const onGetCurrentUserData = useCallback(() => {
+    const userData = auth().currentUser || {}
+    setCurrentUser(userData)
+  }, [])
+
   return (
     <Container>
+      <NavigationEvents onWillFocus={onGetCurrentUserData} />
       <Header i18Namespace="UserProfile" i18Title="pageTitle" />
 
       <Scroll>
@@ -44,7 +51,7 @@ const UserProfile = ({ navigation }) => {
 
         <Content>
           <UserName>{name}</UserName>
-          <UserEmail>{email}</UserEmail>
+          <UserEmail>{currentUser.email}</UserEmail>
           <ProfileOptions navigation={navigation} />
         </Content>
 

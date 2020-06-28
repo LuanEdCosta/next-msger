@@ -26,7 +26,10 @@ const EditUserEmail = ({ navigation }) => {
   const onEditUserEmail = useEditUserEmail()
 
   const onPressSave = useCallback(async () => {
-    if (email === userEmailToEdit) navigation.goBack()
+    if (email === userEmailToEdit) {
+      navigation.goBack()
+      return
+    }
     if (!email.trim()) return
     setIsVisible(true)
   }, [email, navigation, userEmailToEdit])
