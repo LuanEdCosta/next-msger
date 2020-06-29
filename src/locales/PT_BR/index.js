@@ -30,6 +30,7 @@ import ChangePassword from './ChangePassword.json'
 import EditUserProfile from './EditUserProfile.json'
 import Dashboard from './Dashboard.json'
 import DashboardOverviewTab from './DashboardOverviewTab.json'
+import DashboardNumberOfServicesTab from './DashboardNumberOfServicesTab.json'
 
 export default {
   Common,
@@ -64,4 +65,5 @@ export default {
   EditUserProfile,
   Dashboard,
   DashboardOverviewTab,
+  DashboardNumberOfServicesTab,
 }
