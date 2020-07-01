@@ -1,20 +1,28 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
+import { withNavigation } from 'react-navigation'
 
-import { DASHBOARD_ROUTES as DSR } from '@/config/navigation/ScreenRoutes'
-import { Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
+import {
+  DASHBOARD_ROUTES as DSR,
+  MAIN_ROUTES,
+} from '@/config/navigation/ScreenRoutes'
+import { Fw5Icon, Fw5IconAccent, Fw5IconPrimary } from '@/components/Fw5Icon'
 import Header from '@/components/Header'
+import TouchableIcon from '@/components/TouchableIcon'
+import { DASHBOARD_FILTERS_PARAMS } from '@/config/navigation/RouteParams'
+
+import DashboardContext from '../context'
 
 import { Styles, DashboardTabs } from './styles'
 
 const DashboardTabBar = (props) => {
-  const { t } = useTranslation('Dashboard')
-
   const propsClone = { ...props }
-
   delete propsClone.getLabelText
   delete propsClone.renderIcon
+
+  const { t } = useTranslation('Dashboard')
+  const { setFilterDate } = useContext(DashboardContext)
 
   const icons = useMemo(
     () => ({
@@ -29,12 +37,8 @@ const DashboardTabBar = (props) => {
   const onRenderIcon = useCallback(
     ({ route, focused }) => {
       const iconName = icons[route.routeName]
-
-      return focused ? (
-        <Fw5IconAccent name={iconName} />
-      ) : (
-        <Fw5Icon name={iconName} />
-      )
+      if (focused) return <Fw5IconAccent name={iconName} />
+      return <Fw5Icon name={iconName} />
     },
     [icons],
   )
@@ -49,6 +53,14 @@ const DashboardTabBar = (props) => {
     [t],
   )
 
+  const onNavigateToDashboardFilters = useCallback(() => {
+    propsClone.navigation.navigate(MAIN_ROUTES.DASHBOARD_FILTERS, {
+      [DASHBOARD_FILTERS_PARAMS.ON_FILTER]: ({ filterDate }) => {
+        setFilterDate(filterDate)
+      },
+    })
+  }, [propsClone.navigation, setFilterDate])
+
   return (
     <View style={Styles.container}>
       <Header
@@ -56,7 +68,11 @@ const DashboardTabBar = (props) => {
         i18Title="pageTitle"
         i18Subtitle="pageSubtitle"
         hasShadow={false}
-      />
+      >
+        <TouchableIcon onPress={onNavigateToDashboardFilters}>
+          <Fw5IconPrimary name="sliders-h" />
+        </TouchableIcon>
+      </Header>
 
       <DashboardTabs
         labels={labels}
@@ -68,4 +84,4 @@ const DashboardTabBar = (props) => {
   )
 }
 
-export default DashboardTabBar
+export default withNavigation(DashboardTabBar)

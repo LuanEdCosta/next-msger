@@ -10,7 +10,7 @@ export default (setChartData, setIsFetchingChartData) => {
       setIsFetchingChartData(true)
 
       const firstDayOfMonth = moment()
-        .startOf('month')
+        .startOf('year')
         .utc()
         .toDate()
 

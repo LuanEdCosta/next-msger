@@ -20,3 +20,7 @@ export const EDIT_USER_NAME_PARAMS = {
 export const EDIT_USER_EMAIL_PARAMS = {
   USER_EMAIL: 'USER_EMAIL',
 }
+
+export const DASHBOARD_FILTERS_PARAMS = {
+  ON_FILTER: 'ON_FILTER',
+}

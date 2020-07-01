@@ -20,6 +20,7 @@ const Header = ({ navigation, ...props }) => {
     onActionPress,
     isStackPage,
     hasShadow,
+    children,
   } = props
 
   const { t } = useTranslation(i18Namespace)
@@ -45,6 +46,8 @@ const Header = ({ navigation, ...props }) => {
           <Subtitle numberOfLines={1}>{subtitle || t(i18Subtitle)}</Subtitle>
         )}
       </TextsContainer>
+
+      {children}
     </Container>
   )
 }
@@ -59,6 +62,7 @@ Header.defaultProps = {
   onActionPress: null,
   isStackPage: false,
   hasShadow: true,
+  children: null,
 }
 
 Header.propTypes = {
@@ -71,6 +75,7 @@ Header.propTypes = {
   onActionPress: PropTypes.func,
   subtitle: PropTypes.string,
   title: PropTypes.string,
+  children: PropTypes.node,
 }
 
 export default withNavigation(Header)

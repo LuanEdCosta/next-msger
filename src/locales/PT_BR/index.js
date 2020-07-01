@@ -31,6 +31,7 @@ import EditUserProfile from './EditUserProfile.json'
 import Dashboard from './Dashboard.json'
 import DashboardOverviewTab from './DashboardOverviewTab.json'
 import DashboardNumberOfServicesTab from './DashboardNumberOfServicesTab.json'
+import DashboardFilters from './DashboardFilters.json'
 
 export default {
   Common,
@@ -66,4 +67,5 @@ export default {
   Dashboard,
   DashboardOverviewTab,
   DashboardNumberOfServicesTab,
+  DashboardFilters,
 }

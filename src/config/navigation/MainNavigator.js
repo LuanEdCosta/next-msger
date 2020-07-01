@@ -10,6 +10,7 @@ import UserPersonalData from '@/pages/UserPersonalData'
 import ChangePassword from '@/pages/ChangePassword'
 import EditUserName from '@/pages/EditUserName'
 import EditUserEmail from '@/pages/EditUserEmail'
+import DashboardFilters from '@/pages/DashboardFilters'
 
 import DrawerNavigator from './DrawerNavigator'
 import ServiceDetailsNavigator from './ServiceDetailsNavigator'
@@ -34,6 +35,7 @@ const MainNavigator = createStackNavigator(
     [MAIN_ROUTES.CHANGE_PASSWORD]: ChangePassword,
     [MAIN_ROUTES.EDIT_USER_NAME]: EditUserName,
     [MAIN_ROUTES.EDIT_USER_EMAIL]: EditUserEmail,
+    [MAIN_ROUTES.DASHBOARD_FILTERS]: DashboardFilters,
   },
   {
     defaultNavigationOptions: {

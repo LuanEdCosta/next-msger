@@ -1,10 +1,13 @@
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 
-import DashboardTabBar from '@/pages/Dashboard/DashboardTabBar'
-import OverviewTab from '@/pages/Dashboard/OverviewTab'
-import NumberOfServicesTab from '@/pages/Dashboard/NumberOfServicesTab'
-// import NumberOfReturnsTab from '@/pages/Dashboard/NumberOfReturnsTab'
-// import AverageCustomerRatingTab from '@/pages/Dashboard/AverageCustomerRatingTab'
+import {
+  // AverageCustomerRatingTab,
+  DashboardTabBar,
+  // NumberOfReturnsTab,
+  NumberOfServicesTab,
+  OverviewTab,
+  withDashboardContext,
+} from '@/pages/Dashboard'
 
 import { DASHBOARD_ROUTES as DSR } from './ScreenRoutes'
 
@@ -22,4 +25,4 @@ const DashboardNavigator = createMaterialTopTabNavigator(
   },
 )
 
-export default DashboardNavigator
+export default withDashboardContext(DashboardNavigator)

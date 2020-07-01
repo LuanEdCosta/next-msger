@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { Dimensions } from 'react-native'
 import { BarChart } from 'react-native-chart-kit'
+import { useTranslation } from 'react-i18next'
 
 import { MAIN_COLORS } from '@/styles'
 import { useEffectWhenMount } from '@/hooks'
 import { DefaultRefreshControl } from '@/components/RefreshControl'
+import { Fw5IconAccent } from '@/components/Fw5Icon'
 
-import { Scroll, Content, Styles } from './styles'
+import { Scroll, Content, TitleContainer, Title, Styles } from './styles'
 import useFetchNumberOfServices from './useFetchNumberOfServices'
 
 const NumberOfServicesTab = () => {
+  const { t } = useTranslation('DashboardNumberOfServicesTab')
   const { width } = Dimensions.get('window')
 
   const [isFetchingChartData, setIsFetchingChartData] = useState(false)
@@ -31,15 +34,19 @@ const NumberOfServicesTab = () => {
         />
       }
     >
-      <Content>
-        {!!chartData && (
+      {!!chartData && (
+        <Content>
+          <TitleContainer>
+            <Fw5IconAccent name="clipboard-list" solid />
+            <Title>{t('chartTitle')}</Title>
+          </TitleContainer>
+
           <BarChart
             style={Styles.chart}
             data={chartData}
             width={width - 64}
-            height={350}
+            height={300}
             fromZero
-            showValuesOnTopOfBars
             showBarTops={false}
             chartConfig={{
               backgroundGradientFrom: MAIN_COLORS.white,
@@ -47,15 +54,13 @@ const NumberOfServicesTab = () => {
               color: () => MAIN_COLORS.accent,
               labelColor: () => MAIN_COLORS.primaryText,
               fillShadowGradientOpacity: 1,
-              backgroundGradientFromOpacity: 1,
-              backgroundGradientToOpacity: 1,
               propsForLabels: {
                 fontSize: 12,
               },
             }}
           />
-        )}
-      </Content>
+        </Content>
+      )}
     </Scroll>
   )
 }
