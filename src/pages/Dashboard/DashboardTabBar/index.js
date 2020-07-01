@@ -2,6 +2,7 @@ import React, { useMemo, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { withNavigation } from 'react-navigation'
+import moment from 'moment'
 
 import {
   DASHBOARD_ROUTES as DSR,
@@ -22,7 +23,12 @@ const DashboardTabBar = (props) => {
   delete propsClone.renderIcon
 
   const { t } = useTranslation('Dashboard')
-  const { setFilterDate } = useContext(DashboardContext)
+  const {
+    filterDate,
+    setFilterDate,
+    filterDateType,
+    setFilterDateType,
+  } = useContext(DashboardContext)
 
   const icons = useMemo(
     () => ({
@@ -54,20 +60,43 @@ const DashboardTabBar = (props) => {
   )
 
   const onNavigateToDashboardFilters = useCallback(() => {
+    const currentFilters = {
+      filterDate,
+      filterDateType,
+    }
+
+    const onUpdateFilters = (filters) => {
+      setFilterDate(filters.filterDate)
+      setFilterDateType(filters.filterDateType)
+    }
+
     propsClone.navigation.navigate(MAIN_ROUTES.DASHBOARD_FILTERS, {
-      [DASHBOARD_FILTERS_PARAMS.ON_FILTER]: ({ filterDate }) => {
-        setFilterDate(filterDate)
-      },
+      [DASHBOARD_FILTERS_PARAMS.CURRENT_FILTERS]: currentFilters,
+      [DASHBOARD_FILTERS_PARAMS.ON_FILTER]: onUpdateFilters,
     })
-  }, [propsClone.navigation, setFilterDate])
+  }, [
+    filterDate,
+    filterDateType,
+    propsClone.navigation,
+    setFilterDate,
+    setFilterDateType,
+  ])
 
   return (
     <View style={Styles.container}>
       <Header
         i18Namespace="Dashboard"
         i18Title="pageTitle"
-        i18Subtitle="pageSubtitle"
         hasShadow={false}
+        subtitle={t('pageSubtitle', {
+          startDate: moment(filterDate),
+          interpolation: {
+            escapeValue: false,
+            format(str) {
+              return decodeURI(encodeURI(str))
+            },
+          },
+        })}
       >
         <TouchableIcon onPress={onNavigateToDashboardFilters}>
           <Fw5IconPrimary name="sliders-h" />

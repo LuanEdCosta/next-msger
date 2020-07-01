@@ -5,12 +5,15 @@ import DashboardContext from './context'
 
 export default (DefaultNavigator) => {
   const CustomNavigator = (props) => {
+    const [filterDateType, setFilterDateType] = useState(2)
     const [filterDate, setFilterDate] = useState(() => {
       return moment().startOf('month')
     })
 
     return (
-      <DashboardContext.Provider value={{ filterDate, setFilterDate }}>
+      <DashboardContext.Provider
+        value={{ filterDate, setFilterDate, filterDateType, setFilterDateType }}
+      >
         <DefaultNavigator {...props} />
       </DashboardContext.Provider>
     )

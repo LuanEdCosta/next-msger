@@ -1,3 +1,11 @@
 {
-  "pageTitle": "Filtros do Dashboard"
+  "pageTitle": "Filtros do Dashboard",
+  "filterButton": "Filtrar",
+  "dateFilterLabel": "Período / Filtro de Data",
+  "dateTypes": {
+    "today": "Hoje",
+    "currentWeek": "Esta Semana",
+    "currentMonth": "Este Mês",
+    "currentYear": "Este Ano"
+  }
 }

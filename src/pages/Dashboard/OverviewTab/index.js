@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Fw5Icon } from '@/components/Fw5Icon'
+
+import DashboardContext from '../context'
 
 import { Container, DashboardCard, DashboardCardContainer } from './styles'
 import useFetchStatistics from './useFetchStatistics'
 
 const OverviewTab = () => {
   const { t } = useTranslation('DashboardOverviewTab')
+  const { filterDate } = useContext(DashboardContext)
   const onFetchStatistics = useFetchStatistics()
 
   const [isLoadingStatistics, setIsLoadingStatistics] = useState(true)
@@ -17,7 +20,7 @@ const OverviewTab = () => {
     const onFetchStatisticsOnMount = async () => {
       try {
         setIsLoadingStatistics(true)
-        const fetchedStatistics = await onFetchStatistics()
+        const fetchedStatistics = await onFetchStatistics(filterDate)
         setStatistics(fetchedStatistics)
       } catch (e) {
         setStatistics({})
@@ -27,7 +30,7 @@ const OverviewTab = () => {
     }
 
     onFetchStatisticsOnMount()
-  }, [onFetchStatistics])
+  }, [filterDate, onFetchStatistics])
 
   return (
     <Container>

@@ -1,6 +1,6 @@
 {
   "pageTitle": "Dashboard",
-  "pageSubtitle": "Veja as Estatísticas da Empresa",
+  "pageSubtitle": "Dados desde {{startDate, L}}",
   "overviewTabLabel": "Visão Geral",
   "numberOfServicesTabLabel": "Nº de Serviços",
   "averageCustomerRatingTabLabel": "Avaliação dos Clientes",

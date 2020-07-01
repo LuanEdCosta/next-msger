@@ -4,13 +4,12 @@ import moment from 'moment'
 
 import { COLLECTIONS, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
 
-export default (setChartData, setIsFetchingChartData) => {
+export default (setChartData, setIsFetchingChartData, filterDate) => {
   const onFetchNumberOfServices = useCallback(async () => {
     try {
       setIsFetchingChartData(true)
 
-      const firstDayOfMonth = moment()
-        .startOf('year')
+      const filterTimestamp = moment(filterDate)
         .utc()
         .toDate()
 
@@ -18,7 +17,7 @@ export default (setChartData, setIsFetchingChartData) => {
 
       const services = await firestore()
         .collection(COLLECTIONS.SERVICES)
-        .where(SERVICE_DOC.CREATED_AT, '>=', firstDayOfMonth)
+        .where(SERVICE_DOC.CREATED_AT, '>=', filterTimestamp)
         .get()
 
       const serviceTypes = await firestore()
@@ -54,7 +53,7 @@ export default (setChartData, setIsFetchingChartData) => {
     } finally {
       setIsFetchingChartData(false)
     }
-  }, [setChartData, setIsFetchingChartData])
+  }, [filterDate, setChartData, setIsFetchingChartData])
 
   return onFetchNumberOfServices
 }
