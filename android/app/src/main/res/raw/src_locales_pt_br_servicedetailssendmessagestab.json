@@ -1,9 +1,0 @@
-{
-  "anyMarketingStepFound": "Nenhuma Etapa de Marketing",
-  "marketingStepHint": "É necessário cadastrar uma etapa de marketing para poder enviar mensagens em serviços. Toque no botão abaixo e cadastre uma etapa em menos de dois minutos!",
-  "newMarketingStepButton": "Cadastrar Etapa",
-  "itemStepName": "Etapa: {{name}}",
-  "itemNumOfDays": "{{numOfDays}} Dias Após a Finalização do Serviço",
-  "listHint": "Toque em um ícone para falar com o cliente por algum canal. Se um ícone estiver colorido o canal já foi utilizado.",
-  "notReadyToSendMessages": "Fazem apenas {{numOfDays}} dias que o serviço foi finalizado"
-}

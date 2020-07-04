@@ -1,8 +1,0 @@
-{
-  "emailLabel": "Seu Email",
-  "emailPlaceholder": "Ex: lucas@gmail.com",
-  "passwordLabel": "Sua Senha",
-  "passwordPlaceholder": "******",
-  "loginButton": "Entrar",
-  "wrongEmailOrPassword": "Email ou Senha Incorretos"
-}

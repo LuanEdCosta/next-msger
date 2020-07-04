@@ -1,9 +1,0 @@
-{
-  "nameLabel": "Nome do Cliente",
-  "namePlaceholder": "Ex: Lucas da Silva",
-  "emailLabel": "Email",
-  "emailPlaceholder": "Ex: lucas@gmail.com",
-  "whatsappLabel": "WhatsApp/Celular",
-  "phoneLabel": "Telefone",
-  "saveButton": "Salvar"
-}
