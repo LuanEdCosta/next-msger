@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useState } from 'react'
 import firestore from '@react-native-firebase/firestore'
 import { firebase } from '@react-native-firebase/auth'
+import crashlytics from '@react-native-firebase/crashlytics'
 
 import { useDispatchCallback } from '@/hooks'
 import { setUserData, deleteUserData } from '@/store/actions'
@@ -11,17 +12,31 @@ export default () => {
   const onSetUserData = useDispatchCallback(setUserData)
   const onDeleteUserData = useDispatchCallback(deleteUserData)
 
+  const onSetCrashlyticsAttributes = useCallback(async (user) => {
+    crashlytics().log('-- User Signed in --')
+    const { username, email } = user
+    await Promise.all([
+      crashlytics().setUserId(user.uid),
+      crashlytics().setAttributes({
+        username,
+        email,
+      }),
+    ])
+  }, [])
+
   const onSubscribeToAuthChanges = useCallback(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) setUserId(user.uid)
-      else {
+      if (user) {
+        setUserId(user.uid)
+        onSetCrashlyticsAttributes(user)
+      } else {
         setUserId(null)
         onDeleteUserData()
       }
     })
 
     return unsubscribe
-  }, [onDeleteUserData])
+  }, [onDeleteUserData, onSetCrashlyticsAttributes])
 
   const onSubscribeToUserCollection = useCallback(() => {
     const unsubscribe = firestore()
@@ -30,10 +45,11 @@ export default () => {
       .onSnapshot({
         next(doc) {
           if (!doc.exists) return
-          onSetUserData({
+          const userData = {
             ...doc.data(),
             [USER_DOC.ID]: doc.id,
-          })
+          }
+          onSetUserData(userData)
         },
       })
 

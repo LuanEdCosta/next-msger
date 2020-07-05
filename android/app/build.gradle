@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 import com.android.build.OutputFile
 
@@ -162,6 +164,11 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            // https://rnfirebase.io/crashlytics/android-setup#4-optional-enable-crashlytics-ndk-reporting
+            firebaseCrashlytics {
+                nativeSymbolUploadEnabled true
+            }
         }
     }
     // applicationVariants are e.g. debug, release
@@ -205,5 +212,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-
-apply plugin: 'com.google.gms.google-services'
