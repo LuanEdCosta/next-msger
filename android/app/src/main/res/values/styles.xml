@@ -1,25 +1,26 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColor">@color/primaryText</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="android:colorPrimary">@color/colorPrimary</item>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:textColor">@color/primaryText</item>
+    <item name="android:colorAccent">@color/colorAccent</item>
+    <item name="android:colorPrimary">@color/colorPrimary</item>
 
-        <item name="android:statusBarColor">@color/colorAccent</item>
-        <item name="android:windowBackground">@drawable/splash</item>
+    <item name="android:statusBarColor">@color/colorAccent</item>
+    <item name="colorControlActivated">@color/colorPrimary</item>
+    <item name="android:windowBackground">@drawable/splashscreen</item>
 
-        <item name="android:datePickerDialogTheme">@style/DialogDatePicker.Theme</item>
-        <item name="android:timePickerDialogTheme">@style/DialogDatePicker.Theme</item>
-    </style>
+    <item name="android:datePickerDialogTheme">@style/DialogDatePicker.Theme</item>
+    <item name="android:timePickerDialogTheme">@style/DialogDatePicker.Theme</item>
+  </style>
 
-    <style name="DialogDatePicker.Theme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/primaryText</item>
-        <item name="android:textColorPrimary">@color/primaryText</item>
-    </style>
+  <style name="DialogDatePicker.Theme" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:textColor">@color/primaryText</item>
+    <item name="android:textColorPrimary">@color/primaryText</item>
+  </style>
 
-    <style name="DialogTimePicker.Theme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/primaryText</item>
-        <item name="android:textColorPrimary">@color/primaryText</item>
-    </style>
+  <style name="DialogTimePicker.Theme" parent="Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:textColor">@color/primaryText</item>
+    <item name="android:textColorPrimary">@color/primaryText</item>
+  </style>
 </resources>

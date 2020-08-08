@@ -5,9 +5,9 @@
     <item>
         <bitmap
           android:gravity="center"
-          android:src="@mipmap/icon"
-          android:width="500dp"
-          android:height="500dp"
+          android:src="@drawable/splash"
+          android:width="250dp"
+          android:height="250dp"
         />
     </item>
 </layer-list>
