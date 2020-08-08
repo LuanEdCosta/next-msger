@@ -68,3 +68,11 @@ index.android.bundle
 # Firebase
 *google-services.json
 firebase.json
+
+# Play Store
+keystore.properties
+
+# Assets and generated files in android
+android/app/src/main/res/raw/
+android/app/src/main/res/drawable*/src_assets*
+android/app/src/main/res/drawable*/node_modules*

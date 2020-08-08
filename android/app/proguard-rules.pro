@@ -8,3 +8,6 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+# https://github.com/react-native-community/react-native-svg/issues/1061#issuecomment-517031073
+-keep public class com.horcrux.svg.** {*;}
