@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth'
 import { useTranslation } from 'react-i18next'
 
 import { useErrorAlert } from '@/hooks'
-import { APP_SWITCH_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { NAVIGATOR_ROUTES } from '@/config/navigation/ScreenRoutes'
 
 export default (setIsChangingPassword, navigation) => {
   const { t } = useTranslation('ChangePassword')
@@ -24,7 +24,7 @@ export default (setIsChangingPassword, navigation) => {
         await auth().signOut()
 
         setIsChangingPassword(false)
-        navigation.navigate(APP_SWITCH_ROUTES.LOGIN)
+        navigation.navigate(NAVIGATOR_ROUTES.LOGIN_NAVIGATOR)
       } catch (e) {
         showError(t('changePasswordFailedMsg'), t('changePasswordFailed'))
         setIsChangingPassword(false)

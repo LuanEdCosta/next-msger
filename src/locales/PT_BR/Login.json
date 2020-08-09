@@ -4,5 +4,6 @@
   "passwordLabel": "Sua Senha",
   "passwordPlaceholder": "******",
   "loginButton": "Entrar",
-  "wrongEmailOrPassword": "Email ou Senha Incorretos"
+  "wrongEmailOrPassword": "Email ou Senha Incorretos",
+  "forgotPassword": "Esqueceu sua Senha?"
 }

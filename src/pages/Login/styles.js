@@ -1,9 +1,9 @@
 import styled from 'styled-components/native'
 
 import { UppercaseBoldText, DefaultText } from '@/components/Text'
+import { MAIN_COLORS, FONT_SIZES } from '@/styles'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
-import { MAIN_COLORS, FONT_SIZES } from '@/styles'
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -69,4 +69,11 @@ export const LoginErrorContainer = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 16px;
+`
+
+export const ForgotPassword = styled(DefaultText)`
+  align-self: flex-end;
+  padding: 8px;
+  margin-bottom: 8px;
+  text-decoration: underline;
 `

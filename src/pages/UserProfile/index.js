@@ -8,7 +8,7 @@ import Header from '@/components/Header'
 import { USER_DOC } from '@/config/database'
 import { ButtonIcon } from '@/components/Fw5Icon'
 import { MAIN_COLORS } from '@/styles'
-import { APP_SWITCH_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { NAVIGATOR_ROUTES } from '@/config/navigation/ScreenRoutes'
 
 import ProfileOptions from './ProfileOptions'
 import {
@@ -30,7 +30,7 @@ const UserProfile = ({ navigation }) => {
 
   const onLogout = useCallback(async () => {
     await auth().signOut()
-    navigation.navigate(APP_SWITCH_ROUTES.LOGIN)
+    navigation.navigate(NAVIGATOR_ROUTES.LOGIN_NAVIGATOR)
   }, [navigation])
 
   const onGetCurrentUserData = useCallback(() => {

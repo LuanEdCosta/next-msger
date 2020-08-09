@@ -3,13 +3,13 @@ import { firebase } from '@react-native-firebase/auth'
 
 import {
   DRAWER_ROUTES as DWR,
-  APP_SWITCH_ROUTES as APR,
+  NAVIGATOR_ROUTES as NR,
 } from '@/config/navigation/ScreenRoutes'
 
 const AuthLoading = ({ navigation }) => {
   const onCheckIfUserIsLogged = useCallback(() => {
     const { currentUser } = firebase.auth()
-    navigation.navigate(currentUser ? DWR.HOME : APR.LOGIN)
+    navigation.navigate(currentUser ? DWR.HOME : NR.LOGIN_NAVIGATOR)
   }, [navigation])
 
   useEffect(onCheckIfUserIsLogged, [])

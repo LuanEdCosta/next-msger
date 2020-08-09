@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react'
-import { StatusBar } from 'react-native'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5'
 import { firebase } from '@react-native-firebase/auth'
 import { useTranslation } from 'react-i18next'
+import { TouchableWithoutFeedback } from 'react-native'
 
 import LoginImage from '@/assets/images/Login.jpg'
 import LogoImage from '@/assets/images/Logo.png'
@@ -10,7 +10,8 @@ import { DefaultTextInput } from '@/components/TextInput'
 import { WhiteSpinner } from '@/components/Spinner'
 import Label from '@/components/Label'
 import { MAIN_COLORS } from '@/styles'
-import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { DRAWER_ROUTES, LOGIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { FORGOT_PASSWORD_PARAMS } from '@/config/navigation/RouteParams'
 
 import {
   Container,
@@ -25,6 +26,7 @@ import {
   LoginInput,
   LoginErrorText,
   LoginErrorContainer,
+  ForgotPassword,
 } from './styles'
 
 const Login = ({ navigation }) => {
@@ -48,6 +50,12 @@ const Login = ({ navigation }) => {
   const onTogglePasswordVisibility = useCallback(() => {
     setIsShowingPassword(!isShowingPassword)
   }, [isShowingPassword])
+
+  const onNavigateToRecoverPassPage = useCallback(() => {
+    navigation.navigate(LOGIN_ROUTES.FORGOT_PASSWORD, {
+      [FORGOT_PASSWORD_PARAMS.LOGIN_EMAIL]: email,
+    })
+  }, [email, navigation])
 
   const onLogin = useCallback(async () => {
     try {
@@ -76,7 +84,6 @@ const Login = ({ navigation }) => {
 
   return (
     <LoginBackground source={LoginImage}>
-      <StatusBar hidden />
       <Container>
         <Scroll>
           <LoginBox>
@@ -84,6 +91,7 @@ const Login = ({ navigation }) => {
               <AppLogo source={LogoImage} />
               <AppName>{t('Common:appName')}</AppName>
             </AppNameContainer>
+
             <LoginBoxContent>
               {isShowingError && (
                 <LoginErrorContainer>
@@ -153,6 +161,10 @@ const Login = ({ navigation }) => {
                   />
                 }
               />
+
+              <TouchableWithoutFeedback onPress={onNavigateToRecoverPassPage}>
+                <ForgotPassword>{t('forgotPassword')}</ForgotPassword>
+              </TouchableWithoutFeedback>
 
               <LoginButton
                 text={t('loginButton')}
