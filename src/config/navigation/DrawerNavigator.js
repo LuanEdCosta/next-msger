@@ -14,7 +14,6 @@ import MarketingStepList from '@/pages/MarketingStepList'
 import UserProfile from '@/pages/UserProfile'
 import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
 
-import DashboardNavigator from './DashboardNavigator'
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
 const DrawerNavigator = createDrawerNavigator(
@@ -31,13 +30,6 @@ const DrawerNavigator = createDrawerNavigator(
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'userProfile',
         [DRAWER_PAGES.DRAWER_ICON]: 'user-circle',
-      },
-    },
-    [DR.DASHBOARD]: {
-      screen: DashboardNavigator,
-      params: {
-        [DRAWER_PAGES.DRAWER_LABEL]: 'dashboard',
-        [DRAWER_PAGES.DRAWER_ICON]: 'chart-pie',
       },
     },
     [DR.CUSTOMER_REGISTRATION]: {

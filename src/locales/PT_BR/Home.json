@@ -1,12 +1,8 @@
 {
-  "nothingToShow": "Nada a mostrar",
   "registerCustomerActButton": "Cadastrar Cliente",
   "registerServiceType": "Cadastrar Tipo de Serviço",
   "registerMarketingStep": "Cadastrar Etapa de Marketing",
   "registerService": "Cadastrar Serviço",
-  "homeActionsTitle": "Acesso Rápido",
-  "statisticsTitle": "Visão Geral do Mês",
-  "numOfServicesThisMonth": "Número de serviços incluídos neste mês",
-  "numOfCustomersThisMonth": "Número de clientes incluídos neste mês",
-  "goToDashboard": "Ver Estatísticas"
+  "welcomeTitle": "Bem-vindo ao $t(Common:appName)",
+  "welcomeMessage": "Não perca tempo! Cadastre agora seus clientes, serviços e aumente suas vendas!"
 }
