@@ -12,6 +12,7 @@ import Label from '@/components/Label'
 import { MAIN_COLORS } from '@/styles'
 import { DRAWER_ROUTES, LOGIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { FORGOT_PASSWORD_PARAMS } from '@/config/navigation/RouteParams'
+import { Fw5IconAccent } from '@/components/Fw5Icon'
 
 import {
   Container,
@@ -23,10 +24,12 @@ import {
   AppName,
   LoginButton,
   LoginBoxContent,
-  LoginInput,
+  EmailInput,
+  PasswordInput,
   LoginErrorText,
   LoginErrorContainer,
   ForgotPassword,
+  CreateAccountButton,
 } from './styles'
 
 const Login = ({ navigation }) => {
@@ -82,6 +85,10 @@ const Login = ({ navigation }) => {
     setIsShowingError(false)
   }, [email, password])
 
+  const onCreateCompany = useCallback(() => {
+    navigation.navigate(LOGIN_ROUTES.COMPANY_REGISTRATION)
+  }, [navigation])
+
   return (
     <LoginBackground source={LoginImage}>
       <Container>
@@ -104,7 +111,7 @@ const Login = ({ navigation }) => {
                 </LoginErrorContainer>
               )}
 
-              <LoginInput
+              <EmailInput
                 labelComponent={<Label label={t('emailLabel')} />}
                 onLeftIconPress={onFocusEmailInput}
                 inputComponent={
@@ -131,7 +138,7 @@ const Login = ({ navigation }) => {
                 }
               />
 
-              <LoginInput
+              <PasswordInput
                 labelComponent={<Label label={t('passwordLabel')} />}
                 onLeftIconPress={onFocusPasswordInput}
                 onActionPress={onTogglePasswordVisibility}
@@ -175,12 +182,18 @@ const Login = ({ navigation }) => {
                     <WhiteSpinner />
                   ) : (
                     <FontAwesomeIcon
-                      size={14}
+                      size={16}
                       name="chevron-right"
                       color="white"
                     />
                   )
                 }
+              />
+
+              <CreateAccountButton
+                onPress={onCreateCompany}
+                text={t('createCompanyButton')}
+                iconComponent={<Fw5IconAccent size={16} name="plus-circle" />}
               />
             </LoginBoxContent>
           </LoginBox>

@@ -25,7 +25,7 @@ export const InputIconContainer = styled.View`
   justify-content: center;
 `
 
-export const AcionContainer = styled.View``
+export const ActionContainer = styled.View``
 
 export const ActionIconTouchable = styled.View`
   min-height: ${inputHeight};

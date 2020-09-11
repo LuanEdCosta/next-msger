@@ -24,7 +24,6 @@ export const LoginBox = styled.View`
   background-color: white;
   border-radius: 5px;
   overflow: hidden;
-  max-height: 400px;
   margin: 0 24px;
 `
 
@@ -52,13 +51,12 @@ export const LoginBoxContent = styled.View`
   padding: 16px;
 `
 
-export const LoginButton = styled(Button)`
-  margin-top: 8px;
-`
-
-export const LoginInput = styled(Input)`
+export const EmailInput = styled(Input)`
   margin-bottom: 16px;
 `
+
+export const PasswordInput = styled(Input)``
+
 export const LoginErrorText = styled(DefaultText)`
   color: ${MAIN_COLORS.danger};
   flex: 1;
@@ -68,12 +66,27 @@ export const LoginErrorText = styled(DefaultText)`
 export const LoginErrorContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 `
 
 export const ForgotPassword = styled(DefaultText)`
-  align-self: flex-end;
-  padding: 8px;
-  margin-bottom: 8px;
   text-decoration: underline;
+  align-self: flex-end;
+  margin-bottom: 16px;
+  padding: 8px;
+`
+
+export const LoginButton = styled(Button)`
+  height: 50px;
+  margin-bottom: 8px;
+`
+
+export const CreateAccountButton = styled(Button).attrs({
+  textStyle: {
+    color: MAIN_COLORS.accent,
+  },
+})`
+  height: 50px;
+  background: white;
+  border: 2px ${MAIN_COLORS.accent};
 `

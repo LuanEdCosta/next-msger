@@ -1,5 +1,7 @@
 {
   "appName": "Next Msger",
   "typeToSearch": "Digite para pesquisar...",
-  "saveModifications": "Salvar Modificações"
+  "saveModifications": "Salvar Modificações",
+  "cnpjPh": "00.000.000/0000-00",
+  "cpfPh": "000.000.000-00"
 }

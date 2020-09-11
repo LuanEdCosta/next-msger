@@ -5,7 +5,7 @@ import crashlytics from '@react-native-firebase/crashlytics'
 
 import { useDispatchCallback } from '@/hooks'
 import { setUserData, deleteUserData } from '@/store/actions'
-import { USER_DOC } from '@/config/database'
+import { COLLECTIONS, USER_DOC } from '@/config/database'
 
 export default () => {
   const [userId, setUserId] = useState(null)
@@ -40,7 +40,7 @@ export default () => {
 
   const onSubscribeToUserCollection = useCallback(() => {
     const unsubscribe = firestore()
-      .collection('users')
+      .collection(COLLECTIONS.USERS)
       .doc(userId)
       .onSnapshot({
         next(doc) {

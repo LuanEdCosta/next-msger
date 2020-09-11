@@ -6,4 +6,5 @@ export default {
   SERVICES: 'services',
   CUSTOMER_RETURNS: 'customerReturns',
   RETURN_REASONS: 'returnReasons',
+  COMPANIES: 'companies',
 }

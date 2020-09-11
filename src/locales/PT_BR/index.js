@@ -33,6 +33,7 @@ import DashboardOverviewTab from './DashboardOverviewTab.json'
 import DashboardNumberOfServicesTab from './DashboardNumberOfServicesTab.json'
 import DashboardFilters from './DashboardFilters.json'
 import ForgotPassword from './ForgotPassword.json'
+import CompanyRegistration from './CompanyRegistration.json'
 
 export default {
   Common,
@@ -70,4 +71,5 @@ export default {
   DashboardNumberOfServicesTab,
   DashboardFilters,
   ForgotPassword,
+  CompanyRegistration,
 }

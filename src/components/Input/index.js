@@ -7,7 +7,7 @@ import Touchable from '@/components/Touchable'
 
 import {
   InputContainer,
-  AcionContainer,
+  ActionContainer,
   InputIconContainer,
   ActionIconTouchable,
   TextInputComponent,
@@ -26,6 +26,8 @@ const Input = (props) => {
     onLeftIconPress,
     showInputIcon,
     showAction,
+    showErrorComponent = true,
+    showLabelComponent = true,
   } = props
 
   const onLeftIconPressed = useCallback(() => {
@@ -34,10 +36,13 @@ const Input = (props) => {
 
   return (
     <View style={style}>
-      {labelComponent}
+      {!!showLabelComponent && labelComponent}
 
-      <InputContainer hasLabel={!!labelComponent} hasError={!!errorComponent}>
-        {showInputIcon && !!inputIconComponent && (
+      <InputContainer
+        hasLabel={!!showLabelComponent && !!labelComponent}
+        hasError={!!showErrorComponent && !!errorComponent}
+      >
+        {!!showInputIcon && !!inputIconComponent && (
           <TouchableWithoutFeedback onPress={onLeftIconPressed}>
             <InputIconContainer>{inputIconComponent}</InputIconContainer>
           </TouchableWithoutFeedback>
@@ -45,16 +50,16 @@ const Input = (props) => {
 
         <TextInputComponent>{inputComponent}</TextInputComponent>
 
-        {showAction && !!actionIconComponent && (
-          <AcionContainer>
+        {!!showAction && !!actionIconComponent && (
+          <ActionContainer>
             <Touchable onPress={onActionPress} disabled={actionDisabled}>
               <ActionIconTouchable>{actionIconComponent}</ActionIconTouchable>
             </Touchable>
-          </AcionContainer>
+          </ActionContainer>
         )}
       </InputContainer>
 
-      {errorComponent}
+      {!!showErrorComponent && errorComponent}
     </View>
   )
 }

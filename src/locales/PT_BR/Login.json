@@ -5,5 +5,6 @@
   "passwordPlaceholder": "******",
   "loginButton": "Entrar",
   "wrongEmailOrPassword": "Email ou Senha Incorretos",
-  "forgotPassword": "Esqueceu sua Senha?"
+  "forgotPassword": "Esqueceu sua Senha?",
+  "createCompanyButton": "Cadastrar Empresa"
 }
