@@ -50,13 +50,8 @@ const SaveButton = () => {
         [SERVICE_TYPE_DOC.NAME]: serviceTypeName,
       } = selectedServiceType
 
-      const startUtcTimestamp = moment(startDate)
-        .utc()
-        .valueOf()
-
-      const endUtcTimestamp = moment(endDate)
-        .utc()
-        .valueOf()
+      const startUtcTimestamp = moment(startDate).utc().valueOf()
+      const endUtcTimestamp = moment(endDate).utc().valueOf()
 
       await firestore()
         .collection(COLLECTIONS.SERVICES)

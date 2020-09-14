@@ -66,10 +66,7 @@ const ServiceTypeList = ({ navigation }) => {
   const onDeleteServiceType = useCallback(
     async (id) => {
       try {
-        await firestore()
-          .collection(COLLECTIONS.SERVICE_TYPES)
-          .doc(id)
-          .delete()
+        await firestore().collection(COLLECTIONS.SERVICE_TYPES).doc(id).delete()
       } catch (e) {
         showAlert()
       }
