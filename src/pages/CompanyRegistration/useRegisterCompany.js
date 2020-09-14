@@ -49,6 +49,7 @@ export default () => {
             [COMPANY_DOC.OWNER_CPF]: companyOwnerCpf,
             [COMPANY_DOC.OWNER_NAME]: companyOwnerName,
             [COMPANY_DOC.OWNER_PHONE]: companyOwnerPhone,
+            [COMPANY_DOC.CREATED_AT]: firestore.Timestamp.now(),
           })
           .set(userDocumentRef, {
             [USER_DOC.COMPANY_ID]: companyDocumentRef.id,

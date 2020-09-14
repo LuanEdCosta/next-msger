@@ -6,4 +6,5 @@ export default {
   OWNER_PHONE: 'ownerPhone',
   OWNER_CPF: 'ownerCpf',
   EMAIL: 'email',
+  CREATED_AT: 'createdAt',
 }
