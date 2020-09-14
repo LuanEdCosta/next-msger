@@ -14,6 +14,7 @@ import { CUSTOMER_DOC, COLLECTIONS } from '@/config/database'
 import Label from '@/components/Label'
 import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
 import InputError from '@/components/InputError'
+import { useUserData } from '@/hooks'
 
 import context from '../context'
 
@@ -32,6 +33,7 @@ const SelectCustomer = () => {
 
   const { t } = useTranslation(['ServiceRegistration', 'Error'])
   const [isShowingModal, setIsShowingModal] = useState(false)
+  const { companyId } = useUserData()
 
   const customerName = useMemo(() => {
     if (selectedCustomer) return selectedCustomer[CUSTOMER_DOC.NAME]
@@ -40,6 +42,8 @@ const SelectCustomer = () => {
 
   const onSubscribeToCustomersCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.CUSTOMERS)
       .onSnapshot((querySnapshot) => {
         const users = querySnapshot.docs.map((doc) => {
@@ -53,7 +57,7 @@ const SelectCustomer = () => {
       })
 
     return unsubscribe
-  }, [isLoadingCustomers, setCustomerList, setIsLoadingCustomers])
+  }, [companyId, isLoadingCustomers, setCustomerList, setIsLoadingCustomers])
 
   useEffect(onSubscribeToCustomersCollection, [])
 

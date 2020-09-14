@@ -10,7 +10,7 @@ import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import Fab from '@/components/Fab'
 import SearchBar from '@/components/SearchBar'
-import { useArraySearch } from '@/hooks'
+import { useArraySearch, useUserData } from '@/hooks'
 
 import {
   Container,
@@ -21,8 +21,10 @@ import {
 
 const MarketingStepList = ({ navigation }) => {
   const { t } = useTranslation('MarketingStepList')
-  const [marketingStepsList, setMarketingStepsList] = useState([])
+  const { companyId } = useUserData()
+
   const [isLoading, setIsLoading] = useState(true)
+  const [marketingStepsList, setMarketingStepsList] = useState([])
 
   const {
     searchText,
@@ -40,6 +42,8 @@ const MarketingStepList = ({ navigation }) => {
 
   const onSubscribeToMarketingStepCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.MARKETING_STEPS)
       .orderBy(MARKETING_STEP_DOC.NUMBER_OF_DAYS)
       .onSnapshot((querySnapshot) => {

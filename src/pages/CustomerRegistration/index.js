@@ -10,13 +10,14 @@ import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 
 import { Container, Scroll, CustomerInput } from './styles'
 
 const CustomerRegistration = () => {
   const { t } = useTranslation(['CustomerRegistration', 'InputMasks'])
   const showErrorAlert = useErrorAlert()
+  const { companyId } = useUserData()
 
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -49,6 +50,8 @@ const CustomerRegistration = () => {
 
     try {
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.CUSTOMERS)
         .add({
           [CUSTOMER_DOC.NAME]: name,
@@ -65,6 +68,7 @@ const CustomerRegistration = () => {
       setIsSaving(false)
     }
   }, [
+    companyId,
     email,
     isShowingErrors,
     name,

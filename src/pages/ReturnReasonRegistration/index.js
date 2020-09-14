@@ -10,7 +10,7 @@ import { DefaultTextInput } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, RETURN_REASON_DOC } from '@/config/database'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 import { RETURN_REASON_PARAMS } from '@/config/navigation/RouteParams'
 
 import { Container, Scroll, ReasonNameInput } from './styles'
@@ -23,6 +23,7 @@ const ReturnReasonRegistration = ({ navigation }) => {
 
   const { t } = useTranslation(['ReturnReasonRegistration', 'InputMasks'])
   const showErrorAlert = useErrorAlert()
+  const { companyId } = useUserData()
 
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -35,6 +36,8 @@ const ReturnReasonRegistration = ({ navigation }) => {
     setIsSaving(true)
     try {
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.RETURN_REASONS)
         .add({
           [RETURN_REASON_DOC.NAME]: reasonName,
@@ -47,7 +50,7 @@ const ReturnReasonRegistration = ({ navigation }) => {
       showErrorAlert()
     }
     setIsSaving(false)
-  }, [isShowingErrors, reasonName, showErrorAlert])
+  }, [companyId, isShowingErrors, reasonName, showErrorAlert])
 
   return (
     <Container>

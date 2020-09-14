@@ -2,9 +2,10 @@ import { useCallback } from 'react'
 import firestore from '@react-native-firebase/firestore'
 
 import { SERVICE_DOC, COLLECTIONS } from '@/config/database'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 
 export default (serviceId, setIsDeleting) => {
+  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const onDeleteRating = useCallback(async () => {
@@ -12,6 +13,8 @@ export default (serviceId, setIsDeleting) => {
 
     try {
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICES)
         .doc(serviceId)
         .update({
@@ -23,7 +26,7 @@ export default (serviceId, setIsDeleting) => {
       setIsDeleting(false)
       showAlert()
     }
-  }, [serviceId, setIsDeleting, showAlert])
+  }, [companyId, serviceId, setIsDeleting, showAlert])
 
   return onDeleteRating
 }

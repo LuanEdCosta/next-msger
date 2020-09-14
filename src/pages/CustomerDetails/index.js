@@ -5,7 +5,7 @@ import firestore from '@react-native-firebase/firestore'
 import Header from '@/components/Header'
 import { CUSTOMER_DOC, COLLECTIONS } from '@/config/database'
 import { Fw5Icon, ButtonIcon } from '@/components/Fw5Icon'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
 
@@ -20,6 +20,7 @@ import {
 
 const CustomerDetails = ({ navigation }) => {
   const customerId = navigation.getParam(CUSTOMER_DOC.ID)
+  const { companyId } = useUserData()
 
   const { t } = useTranslation('CustomerDetails')
   const showAlert = useErrorAlert()
@@ -29,6 +30,8 @@ const CustomerDetails = ({ navigation }) => {
 
   const onSubscribeToCustomerDocument = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.CUSTOMERS)
       .doc(customerId)
       .onSnapshot({
@@ -45,14 +48,17 @@ const CustomerDetails = ({ navigation }) => {
       })
 
     return unsubscribe
-  }, [customerId, navigation, showAlert])
+  }, [companyId, customerId, navigation, showAlert])
 
   useEffect(onSubscribeToCustomerDocument, [])
 
   const onDeleteCustomer = useCallback(async () => {
-    setIsDeleting(true)
     try {
+      setIsDeleting(true)
+
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.CUSTOMERS)
         .doc(customerId)
         .delete()
@@ -60,9 +66,10 @@ const CustomerDetails = ({ navigation }) => {
       navigation.goBack()
     } catch (e) {
       showAlert()
+    } finally {
+      setIsDeleting(false)
     }
-    setIsDeleting(false)
-  }, [customerId, navigation, showAlert])
+  }, [companyId, customerId, navigation, showAlert])
 
   return (
     <Container>

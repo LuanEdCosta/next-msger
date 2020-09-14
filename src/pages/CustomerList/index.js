@@ -10,15 +10,16 @@ import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import Fab from '@/components/Fab'
 import SearchBar from '@/components/SearchBar'
-import { useArraySearch } from '@/hooks'
+import { useArraySearch, useUserData } from '@/hooks'
 import { getOnlyPhoneNumbers } from '@/helpers'
 
 import { Container, CustomerItem, CustomerItemText, Styles } from './styles'
 
 const CustomerList = ({ navigation }) => {
+  const { companyId } = useUserData()
   const { t } = useTranslation('CustomerList')
-  const [customerList, setCustomerList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [customerList, setCustomerList] = useState([])
 
   const {
     searchText,
@@ -41,6 +42,8 @@ const CustomerList = ({ navigation }) => {
 
   const onSubscribeToCustomersCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.CUSTOMERS)
       .onSnapshot((querySnapshot) => {
         const users = querySnapshot.docs.map((doc) => {
@@ -54,7 +57,7 @@ const CustomerList = ({ navigation }) => {
       })
 
     return unsubscribe
-  }, [isLoading])
+  }, [companyId, isLoading])
 
   useEffect(onSubscribeToCustomersCollection, [])
 

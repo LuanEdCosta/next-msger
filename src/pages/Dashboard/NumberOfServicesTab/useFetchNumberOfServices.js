@@ -3,24 +3,29 @@ import firestore from '@react-native-firebase/firestore'
 import moment from 'moment'
 
 import { COLLECTIONS, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
+import { useUserData } from '@/hooks'
 
 export default (setChartData, setIsFetchingChartData, filterDate) => {
+  const { companyId } = useUserData()
+
   const onFetchNumberOfServices = useCallback(async () => {
     try {
       setIsFetchingChartData(true)
 
-      const filterTimestamp = moment(filterDate)
-        .utc()
-        .toDate()
+      const filterTimestamp = moment(filterDate).utc().toDate()
 
       // -----------------------------------------------------------------------
 
       const services = await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICES)
         .where(SERVICE_DOC.CREATED_AT, '>=', filterTimestamp)
         .get()
 
       const serviceTypes = await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICE_TYPES)
         .get()
 

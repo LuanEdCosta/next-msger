@@ -15,6 +15,7 @@ import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { RETURN_REASON_PARAMS } from '@/config/navigation/RouteParams'
+import { useUserData } from '@/hooks'
 
 import context from '../context'
 
@@ -34,6 +35,7 @@ const SelectReason = () => {
   } = useContext(context)
 
   const [isShowingModal, setIsShowingModal] = useState(false)
+  const { companyId } = useUserData()
 
   const reasonName = useMemo(() => {
     if (selectedReason) return selectedReason[RETURN_REASON_DOC.NAME]
@@ -48,6 +50,8 @@ const SelectReason = () => {
 
   const onSubscribeToReasonsCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.RETURN_REASONS)
       .onSnapshot((querySnapshot) => {
         const reasons = querySnapshot.docs.map((doc) => {
@@ -66,7 +70,7 @@ const SelectReason = () => {
       })
 
     return unsubscribe
-  }, [isLoadingReasons, setReasonList, setIsLoadingReasons])
+  }, [companyId, setReasonList, isLoadingReasons, setIsLoadingReasons])
 
   useEffect(onSubscribeToReasonsCollection, [])
 

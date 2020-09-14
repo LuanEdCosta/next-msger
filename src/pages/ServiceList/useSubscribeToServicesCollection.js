@@ -2,10 +2,15 @@ import { useCallback } from 'react'
 import firestore from '@react-native-firebase/firestore'
 
 import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
+import { useUserData } from '@/hooks'
 
 export default (setIsLoading, setServiceList) => {
+  const { companyId } = useUserData()
+
   const onSubscribeToServicesCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.SERVICES)
       .onSnapshot((querySnapshot) => {
         const services = querySnapshot.docs
@@ -25,7 +30,7 @@ export default (setIsLoading, setServiceList) => {
       })
 
     return unsubscribe
-  }, [setIsLoading, setServiceList])
+  }, [companyId, setIsLoading, setServiceList])
 
   return onSubscribeToServicesCollection
 }

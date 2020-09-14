@@ -9,12 +9,13 @@ import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 
 import { Container, Scroll, MarketingStepInput, SaveButton } from './styles'
 
 const MarketingStepRegistration = () => {
   const { t } = useTranslation('MarketingStepRegistration')
+  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const [isSaving, setIsSaving] = useState(false)
@@ -61,10 +62,13 @@ const MarketingStepRegistration = () => {
   const onSaveMarketingStep = useCallback(async () => {
     if (!isShowingErrors) setIsShowingErrors(true)
     if (!onValidateRegistration()) return
-    setIsSaving(true)
 
     try {
+      setIsSaving(true)
+
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.MARKETING_STEPS)
         .add({
           [MARKETING_STEP_DOC.NAME]: marketingStepName,
@@ -81,9 +85,11 @@ const MarketingStepRegistration = () => {
       setMarketingStepName('')
     } catch (e) {
       showAlert()
+    } finally {
+      setIsSaving(false)
     }
-    setIsSaving(false)
   }, [
+    companyId,
     emailMessage,
     isShowingErrors,
     marketingStepName,

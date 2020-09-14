@@ -8,7 +8,7 @@ import { SERVICE_DOC, COLLECTIONS } from '@/config/database'
 import { DefaultTextInput } from '@/components/TextInput'
 import { WhiteSpinner } from '@/components/Spinner'
 import Header from '@/components/Header'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 import Label from '@/components/Label'
 
 import {
@@ -29,6 +29,7 @@ const RateService = ({ navigation }) => {
   )
 
   const { t } = useTranslation('RateService')
+  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const [note, setNote] = useState(currentNote)
@@ -40,6 +41,8 @@ const RateService = ({ navigation }) => {
 
     try {
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICES)
         .doc(serviceId)
         .update({
@@ -55,7 +58,7 @@ const RateService = ({ navigation }) => {
       setIsSaving(false)
       showAlert()
     }
-  }, [comment, navigation, note, serviceId, showAlert])
+  }, [comment, companyId, navigation, note, serviceId, showAlert])
 
   const isAbleToSave = useMemo(() => {
     return !!note && note > 0

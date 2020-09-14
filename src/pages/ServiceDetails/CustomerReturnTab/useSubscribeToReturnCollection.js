@@ -2,10 +2,15 @@ import firestore from '@react-native-firebase/firestore'
 import { useCallback } from 'react'
 
 import { COLLECTIONS, CUSTOMER_RETURN_DOC } from '@/config/database'
+import { useUserData } from '@/hooks'
 
 export default (setReturnsList, setIsLoading, serviceId) => {
+  const { companyId } = useUserData()
+
   const onSubscribeToReturnCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.CUSTOMER_RETURNS)
       .where(CUSTOMER_RETURN_DOC.SERVICE_ID, '==', serviceId)
       .onSnapshot((querySnapshot) => {
@@ -20,7 +25,7 @@ export default (setReturnsList, setIsLoading, serviceId) => {
       })
 
     return unsubscribe
-  }, [serviceId, setIsLoading, setReturnsList])
+  }, [companyId, serviceId, setIsLoading, setReturnsList])
 
   return onSubscribeToReturnCollection
 }

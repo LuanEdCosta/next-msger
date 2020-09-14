@@ -1,14 +1,17 @@
 import { useCallback } from 'react'
 import firestore from '@react-native-firebase/firestore'
 
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
 
 export default (serviceId, setServiceData) => {
+  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const onSubscribeToServiceDocument = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.SERVICES)
       .doc(serviceId)
       .onSnapshot({
@@ -22,7 +25,7 @@ export default (serviceId, setServiceData) => {
       })
 
     return unsubscribe
-  }, [serviceId, setServiceData, showAlert])
+  }, [companyId, serviceId, setServiceData, showAlert])
 
   return onSubscribeToServiceDocument
 }

@@ -11,7 +11,7 @@ import {
   CUSTOMER_DOC,
   SERVICE_TYPE_DOC,
 } from '@/config/database'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 
 import context from '../context'
 
@@ -32,6 +32,7 @@ const SaveButton = () => {
 
   const { t } = useTranslation('ServiceRegistration')
   const showErrorAlert = useErrorAlert()
+  const { companyId } = useUserData()
 
   const onSave = useCallback(async () => {
     setIsShowingErrors(true)
@@ -54,6 +55,8 @@ const SaveButton = () => {
       const endUtcTimestamp = moment(endDate).utc().valueOf()
 
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICES)
         .add({
           [SERVICE_DOC.START_DATE]: startUtcTimestamp,
@@ -77,6 +80,7 @@ const SaveButton = () => {
       setIsSaving(false)
     }
   }, [
+    companyId,
     endDate,
     isAbleToSave,
     onClearForm,

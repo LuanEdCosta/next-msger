@@ -2,10 +2,15 @@ import firestore from '@react-native-firebase/firestore'
 import { useCallback } from 'react'
 
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
+import { useUserData } from '@/hooks'
 
 export default (setIsLoading, setMarketingStepsList) => {
+  const { companyId } = useUserData()
+
   const onSubscribeToMarketingStepCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.MARKETING_STEPS)
       .orderBy(MARKETING_STEP_DOC.NUMBER_OF_DAYS)
       .onSnapshot((querySnapshot) => {
@@ -20,7 +25,7 @@ export default (setIsLoading, setMarketingStepsList) => {
       })
 
     return unsubscribe
-  }, [setIsLoading, setMarketingStepsList])
+  }, [companyId, setIsLoading, setMarketingStepsList])
 
   return onSubscribeToMarketingStepCollection
 }

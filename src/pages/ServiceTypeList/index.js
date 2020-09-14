@@ -11,7 +11,7 @@ import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import Fab from '@/components/Fab'
 import SearchBar from '@/components/SearchBar'
-import { useArraySearch, useErrorAlert } from '@/hooks'
+import { useArraySearch, useErrorAlert, useUserData } from '@/hooks'
 
 import {
   Container,
@@ -24,6 +24,7 @@ import {
 
 const ServiceTypeList = ({ navigation }) => {
   const { t } = useTranslation('ServiceTypeList')
+  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const [serviceTypeList, setServiceTypeList] = useState([])
@@ -46,6 +47,8 @@ const ServiceTypeList = ({ navigation }) => {
 
   const onSubscribeToCustomersCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.SERVICE_TYPES)
       .onSnapshot((querySnapshot) => {
         const serviceTypes = querySnapshot.docs.map((doc) => {
@@ -59,19 +62,24 @@ const ServiceTypeList = ({ navigation }) => {
       })
 
     return unsubscribe
-  }, [isLoading])
+  }, [companyId, isLoading])
 
   useEffect(onSubscribeToCustomersCollection, [])
 
   const onDeleteServiceType = useCallback(
     async (id) => {
       try {
-        await firestore().collection(COLLECTIONS.SERVICE_TYPES).doc(id).delete()
+        await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
+          .collection(COLLECTIONS.SERVICE_TYPES)
+          .doc(id)
+          .delete()
       } catch (e) {
         showAlert()
       }
     },
-    [showAlert],
+    [companyId, showAlert],
   )
 
   const renderItem = useCallback(

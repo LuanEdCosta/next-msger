@@ -15,6 +15,7 @@ import { SERVICE_TYPE_DOC, COLLECTIONS } from '@/config/database'
 import Label from '@/components/Label'
 import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
 import InputError from '@/components/InputError'
+import { useUserData } from '@/hooks'
 
 import context from '../context'
 
@@ -33,6 +34,7 @@ const SelectServiceType = () => {
 
   const { t } = useTranslation(['ServiceRegistration', 'Error'])
   const [isShowingModal, setIsShowingModal] = useState(false)
+  const { companyId } = useUserData()
 
   const customerName = useMemo(() => {
     if (selectedServiceType) return selectedServiceType[SERVICE_TYPE_DOC.NAME]
@@ -41,6 +43,8 @@ const SelectServiceType = () => {
 
   const onSubscribeToServiceTypeCollection = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.SERVICE_TYPES)
       .onSnapshot((querySnapshot) => {
         const serviceTypes = querySnapshot.docs.map((doc) => {
@@ -59,7 +63,12 @@ const SelectServiceType = () => {
       })
 
     return unsubscribe
-  }, [isLoadingServiceTypes, setServiceTypeList, setIsLoadingServiceTypes])
+  }, [
+    companyId,
+    setServiceTypeList,
+    isLoadingServiceTypes,
+    setIsLoadingServiceTypes,
+  ])
 
   useEffect(onSubscribeToServiceTypeCollection, [])
 

@@ -6,7 +6,7 @@ import moment from 'moment'
 import Header from '@/components/Header'
 import { MARKETING_STEP_DOC, COLLECTIONS } from '@/config/database'
 import { Fw5Icon, ButtonIcon } from '@/components/Fw5Icon'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
 
@@ -21,6 +21,7 @@ import {
 
 const MarketingStepDetails = ({ navigation }) => {
   const marketingStepId = navigation.getParam(MARKETING_STEP_DOC.ID)
+  const { companyId } = useUserData()
 
   const { t } = useTranslation('MarketingStepDetails')
   const showAlert = useErrorAlert()
@@ -30,6 +31,8 @@ const MarketingStepDetails = ({ navigation }) => {
 
   const onSubscribeToMarketingStepDocument = useCallback(() => {
     const unsubscribe = firestore()
+      .collection(COLLECTIONS.COMPANIES)
+      .doc(companyId)
       .collection(COLLECTIONS.MARKETING_STEPS)
       .doc(marketingStepId)
       .onSnapshot({
@@ -46,14 +49,17 @@ const MarketingStepDetails = ({ navigation }) => {
       })
 
     return unsubscribe
-  }, [marketingStepId, navigation, showAlert])
+  }, [companyId, marketingStepId, navigation, showAlert])
 
   useEffect(onSubscribeToMarketingStepDocument, [])
 
   const onDeleteMarketingStep = useCallback(async () => {
-    setIsDeleting(true)
     try {
+      setIsDeleting(true)
+
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.MARKETING_STEPS)
         .doc(marketingStepId)
         .delete()
@@ -61,9 +67,10 @@ const MarketingStepDetails = ({ navigation }) => {
       navigation.goBack()
     } catch (e) {
       showAlert()
+    } finally {
+      setIsDeleting(false)
     }
-    setIsDeleting(false)
-  }, [marketingStepId, navigation, showAlert])
+  }, [companyId, marketingStepId, navigation, showAlert])
 
   return (
     <Container>

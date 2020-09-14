@@ -10,13 +10,14 @@ import { DefaultTextInput } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
-import { useErrorAlert } from '@/hooks'
+import { useErrorAlert, useUserData } from '@/hooks'
 
 import { Container, Scroll, ServiceTypeInput } from './styles'
 
 const ServiceTypeRegistration = () => {
   const { t } = useTranslation(['ServiceTypeRegistration', 'InputMasks'])
   const showErrorAlert = useErrorAlert()
+  const { companyId } = useUserData()
 
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
@@ -29,6 +30,8 @@ const ServiceTypeRegistration = () => {
     setIsSaving(true)
     try {
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICE_TYPES)
         .add({
           [SERVICE_TYPE_DOC.NAME]: serviceTypeName,
@@ -41,7 +44,7 @@ const ServiceTypeRegistration = () => {
       showErrorAlert()
     }
     setIsSaving(false)
-  }, [isShowingErrors, serviceTypeName, showErrorAlert])
+  }, [companyId, isShowingErrors, serviceTypeName, showErrorAlert])
 
   return (
     <Container>

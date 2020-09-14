@@ -2,13 +2,15 @@ import { useCallback, useContext } from 'react'
 import firestore from '@react-native-firebase/firestore'
 
 import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
+import { useUserData } from '@/hooks'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
 export default () => {
   const { serviceData } = useContext(ServiceDetailsContext)
+  const { companyId } = useUserData()
 
-  const onSaveMesageSending = useCallback(
+  const onSaveMessageSending = useCallback(
     async (marketingStepId, messageType) => {
       const {
         [SERVICE_DOC.ID]: serviceId,
@@ -22,6 +24,8 @@ export default () => {
       if (alreadySentThisMessage) return
 
       await firestore()
+        .collection(COLLECTIONS.COMPANIES)
+        .doc(companyId)
         .collection(COLLECTIONS.SERVICES)
         .doc(serviceId)
         .update({
@@ -34,8 +38,8 @@ export default () => {
           },
         })
     },
-    [serviceData],
+    [companyId, serviceData],
   )
 
-  return onSaveMesageSending
+  return onSaveMessageSending
 }

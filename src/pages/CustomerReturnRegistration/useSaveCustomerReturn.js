@@ -7,6 +7,7 @@ import {
   CUSTOMER_RETURN_DOC,
   RETURN_REASON_DOC,
 } from '@/config/database'
+import { useUserData } from '@/hooks'
 
 import CustomerReturnContext from './context'
 
@@ -30,6 +31,8 @@ export default () => {
     selectedReason,
   } = useContext(CustomerReturnContext)
 
+  const { companyId } = useUserData()
+
   const onSaveCustomerReturn = useCallback(async () => {
     setIsShowingErrors(true)
     if (!selectedReason || !returnDate) return
@@ -37,14 +40,8 @@ export default () => {
 
     try {
       const now = firestore.FieldValue.serverTimestamp()
-
-      const returnDateTimestamp = moment(returnDate)
-        .utc()
-        .valueOf()
-
-      const returnHourTimestamp = moment(returnHour)
-        .utc()
-        .valueOf()
+      const returnDateTimestamp = moment(returnDate).utc().valueOf()
+      const returnHourTimestamp = moment(returnHour).utc().valueOf()
 
       const {
         [RETURN_REASON_DOC.ID]: reasonId,
@@ -66,11 +63,15 @@ export default () => {
       if (isEditing) {
         delete dataToSave[CUSTOMER_RETURN_DOC.CREATED_AT]
         await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
           .collection(COLLECTIONS.CUSTOMER_RETURNS)
           .doc(returnIdParam)
           .update(dataToSave)
       } else {
         await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
           .collection(COLLECTIONS.CUSTOMER_RETURNS)
           .add(dataToSave)
       }
@@ -83,14 +84,15 @@ export default () => {
     }
   }, [
     setIsShowingErrors,
+    selectedReason,
     returnDate,
     setIsSaving,
     returnHour,
-    selectedReason,
     serviceId,
     observations,
     isEditing,
     navigation,
+    companyId,
     returnIdParam,
     showAlert,
   ])
