@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import { Alert } from 'react-native'
 
-import { SERVICE_DOC, CUSTOMER_RETURN_DOC } from '@/config/database'
+import {
+  SERVICE_DOC,
+  CUSTOMER_RETURN_DOC,
+  RETURN_REASON_DOC,
+} from '@/config/database'
 import { MessagePanelIcon, FabIcon, Fw5Icon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import MessagePanel from '@/components/MessagePanel'
@@ -72,13 +76,13 @@ const CustomerReturnTab = ({ navigation }) => {
     ({ item }) => {
       const {
         [CUSTOMER_RETURN_DOC.ID]: id,
-        [CUSTOMER_RETURN_DOC.REASON_KEY]: reason,
+        [CUSTOMER_RETURN_DOC.REASON]: reason,
         [CUSTOMER_RETURN_DOC.RETURN_DATE]: returnDate,
         [CUSTOMER_RETURN_DOC.RETURN_HOUR]: returnHour,
         [CUSTOMER_RETURN_DOC.OBSERVATIONS]: observations,
       } = item
 
-      const { [CUSTOMER_RETURN_DOC.REASON.NAME]: reasonName } = reason
+      const { [RETURN_REASON_DOC.NAME]: reasonName } = reason
 
       const onDeleteReturn = () => onConfirmToDelete(id)
       const onEditReturn = () => onNavigateToEditReturn(item)

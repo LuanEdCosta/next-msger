@@ -17,7 +17,7 @@ export default (WrappedComponent) => (props) => {
 
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
   const returnIdParam = navigation.getParam(CUSTOMER_RETURN_DOC.ID, undefined)
-  const reasonParam = navigation.getParam(CUSTOMER_RETURN_DOC.REASON_KEY, null)
+  const reasonParam = navigation.getParam(CUSTOMER_RETURN_DOC.REASON, null)
 
   const isEditing = navigation.getParam(
     CUSTOMER_RETURN_REGISTRATION_PARAMS.IS_EDITING,
@@ -47,9 +47,8 @@ export default (WrappedComponent) => (props) => {
   const [selectedReason, setSelectedReason] = useState(
     reasonParam
       ? {
-          [RETURN_REASON_DOC.ID]: reasonParam[CUSTOMER_RETURN_DOC.REASON.ID],
-          [RETURN_REASON_DOC.NAME]:
-            reasonParam[CUSTOMER_RETURN_DOC.REASON.NAME],
+          [RETURN_REASON_DOC.ID]: reasonParam[RETURN_REASON_DOC.ID],
+          [RETURN_REASON_DOC.NAME]: reasonParam[RETURN_REASON_DOC.NAME],
         }
       : null,
   )
