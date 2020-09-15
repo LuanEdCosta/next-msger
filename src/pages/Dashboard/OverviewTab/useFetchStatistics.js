@@ -42,7 +42,7 @@ export default () => {
       const onlyRatedServices = numberOfServicesSnapshot.docs.filter(
         (documentSnapshot) => {
           const data = documentSnapshot.data() || {}
-          return !!data[SERVICE_DOC.RATING_KEY]
+          return !!data[SERVICE_DOC.RATING]
         },
       )
 

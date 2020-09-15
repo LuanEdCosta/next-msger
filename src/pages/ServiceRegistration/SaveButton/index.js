@@ -5,13 +5,8 @@ import moment from 'moment'
 
 import { ButtonIcon } from '@/components/Fw5Icon'
 import { WhiteSpinner } from '@/components/Spinner'
-import {
-  COLLECTIONS,
-  SERVICE_DOC,
-  CUSTOMER_DOC,
-  SERVICE_TYPE_DOC,
-} from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
+import { COLLECTIONS, SERVICE_DOC } from '@/config/database'
 
 import context from '../context'
 
@@ -40,17 +35,6 @@ const SaveButton = () => {
     setIsSaving(true)
 
     try {
-      const {
-        [CUSTOMER_DOC.ID]: customerId,
-        [CUSTOMER_DOC.NAME]: customerName,
-        [CUSTOMER_DOC.EMAIL]: customerEmail,
-      } = selectedCustomer
-
-      const {
-        [SERVICE_TYPE_DOC.ID]: serviceTypeId,
-        [SERVICE_TYPE_DOC.NAME]: serviceTypeName,
-      } = selectedServiceType
-
       const startUtcTimestamp = moment(startDate).utc().valueOf()
       const endUtcTimestamp = moment(endDate).utc().valueOf()
 
@@ -62,15 +46,8 @@ const SaveButton = () => {
           [SERVICE_DOC.START_DATE]: startUtcTimestamp,
           [SERVICE_DOC.END_DATE]: endUtcTimestamp,
           [SERVICE_DOC.CREATED_AT]: firestore.FieldValue.serverTimestamp(),
-          [SERVICE_DOC.CUSTOMER_KEY]: {
-            [SERVICE_DOC.CUSTOMER.ID]: customerId,
-            [SERVICE_DOC.CUSTOMER.NAME]: customerName,
-            [SERVICE_DOC.CUSTOMER.EMAIL]: customerEmail,
-          },
-          [SERVICE_DOC.SERVICE_TYPE_KEY]: {
-            [SERVICE_DOC.SERVICE_TYPE.ID]: serviceTypeId,
-            [SERVICE_DOC.SERVICE_TYPE.NAME]: serviceTypeName,
-          },
+          [SERVICE_DOC.CUSTOMER]: selectedCustomer,
+          [SERVICE_DOC.SERVICE_TYPE]: selectedServiceType,
         })
 
       onClearForm()

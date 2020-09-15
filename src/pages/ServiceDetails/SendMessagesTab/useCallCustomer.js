@@ -4,7 +4,7 @@ import { useErrorAlert, usePhoneCall } from '@/hooks'
 import {
   CUSTOMER_DOC,
   MARKETING_STEP_DOC,
-  SERVICE_DOC,
+  SERVICE_SENT_MSGS,
 } from '@/config/database'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
@@ -13,7 +13,7 @@ import useSaveMessageSending from './useSaveMessageSending'
 
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
-  const onSaveMesageSending = useSaveMessageSending()
+  const onSaveMesSageSending = useSaveMessageSending()
   const onPhoneCall = usePhoneCall()
   const showAlert = useErrorAlert()
 
@@ -21,19 +21,14 @@ export default () => {
     async (marketingStep) => {
       try {
         const { [MARKETING_STEP_DOC.ID]: marketingStepId } = marketingStep
-
         const { [CUSTOMER_DOC.WHATSAPP]: whatsNumber } = customerData
         await onPhoneCall(whatsNumber)
-
-        await onSaveMesageSending(
-          marketingStepId,
-          SERVICE_DOC.MESSAGES_SENT.CALL,
-        )
+        await onSaveMesSageSending(marketingStepId, SERVICE_SENT_MSGS.CALL)
       } catch (e) {
         showAlert()
       }
     },
-    [customerData, onPhoneCall, onSaveMesageSending, showAlert],
+    [customerData, onPhoneCall, onSaveMesSageSending, showAlert],
   )
 
   return onCallCustomer

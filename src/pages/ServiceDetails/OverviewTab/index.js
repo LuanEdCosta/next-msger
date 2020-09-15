@@ -2,7 +2,7 @@ import React, { useMemo, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
-import { SERVICE_DOC } from '@/config/database'
+import { CUSTOMER_DOC, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
 import { Fw5Icon } from '@/components/Fw5Icon'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
@@ -20,12 +20,12 @@ const OverviewTab = () => {
   const { t } = useTranslation('ServiceDetailsOverviewTab')
   const { serviceData } = useContext(ServiceDetailsContext)
 
-  const customer = useMemo(() => serviceData[SERVICE_DOC.CUSTOMER_KEY] || {}, [
+  const customer = useMemo(() => serviceData[SERVICE_DOC.CUSTOMER] || {}, [
     serviceData,
   ])
 
   const serviceType = useMemo(
-    () => serviceData[SERVICE_DOC.SERVICE_TYPE_KEY] || {},
+    () => serviceData[SERVICE_DOC.SERVICE_TYPE] || {},
     [serviceData],
   )
 
@@ -56,7 +56,7 @@ const OverviewTab = () => {
           <DataItemTitle text={t('serviceTypeName')}>
             <Fw5Icon name="file-alt" solid />
           </DataItemTitle>
-          <DataItemText text={serviceType[SERVICE_DOC.SERVICE_TYPE.NAME]} />
+          <DataItemText text={serviceType[SERVICE_TYPE_DOC.NAME]} />
         </DataItem>
       </DataGroup>
 
@@ -67,7 +67,21 @@ const OverviewTab = () => {
           <DataItemTitle text={t('customerName')}>
             <Fw5Icon name="user" solid />
           </DataItemTitle>
-          <DataItemText text={customer[SERVICE_DOC.CUSTOMER.NAME]} />
+          <DataItemText text={customer[CUSTOMER_DOC.NAME]} />
+        </DataItem>
+
+        <DataItem>
+          <DataItemTitle text={t('customerEmail')}>
+            <Fw5Icon name="envelope" solid />
+          </DataItemTitle>
+          <DataItemText text={customer[CUSTOMER_DOC.EMAIL]} />
+        </DataItem>
+
+        <DataItem>
+          <DataItemTitle text={t('customerCellphone')}>
+            <Fw5Icon name="mobile" solid />
+          </DataItemTitle>
+          <DataItemText text={customer[CUSTOMER_DOC.PHONE]} />
         </DataItem>
       </DataGroup>
     </Container>

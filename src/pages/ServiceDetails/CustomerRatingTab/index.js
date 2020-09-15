@@ -12,7 +12,7 @@ const CustomerRatingTab = ({ navigation }) => {
   const { serviceData } = useContext(ServiceDetailsContext)
 
   const hasRating = useMemo(() => {
-    return serviceData && serviceData[SERVICE_DOC.RATING_KEY]
+    return serviceData && serviceData[SERVICE_DOC.RATING]
   }, [serviceData])
 
   return (

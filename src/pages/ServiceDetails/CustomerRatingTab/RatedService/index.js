@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { RATE_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
 import { Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
-import { SERVICE_DOC } from '@/config/database'
+import { SERVICE_DOC, SERVICE_RATING } from '@/config/database'
 import { MAIN_COLORS } from '@/styles'
 
 import ServiceDetailsContext from '../../ServiceDetailsContext'
@@ -32,10 +32,10 @@ const RatedService = ({ navigation }) => {
   const onDeleteRating = useDeleteServiceRating(serviceId, setIsDeleting)
 
   const {
-    [SERVICE_DOC.RATING.NOTE]: note,
-    [SERVICE_DOC.RATING.COMMENT]: comment,
+    [SERVICE_RATING.NOTE]: note,
+    [SERVICE_RATING.COMMENT]: comment,
   } = useMemo(() => {
-    return serviceData[SERVICE_DOC.RATING_KEY] || {}
+    return serviceData[SERVICE_DOC.RATING] || {}
   }, [serviceData])
 
   const onEditRating = useCallback(() => {

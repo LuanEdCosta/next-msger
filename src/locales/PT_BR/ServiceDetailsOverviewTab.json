@@ -4,5 +4,7 @@
   "startDate": "Data de Inicio",
   "endDate": "Data de Término",
   "serviceTypeName": "Tipo do Serviço",
-  "customerName": "Nome"
+  "customerName": "Nome",
+  "customerEmail": "Email",
+  "customerCellphone": "Celular"
 }

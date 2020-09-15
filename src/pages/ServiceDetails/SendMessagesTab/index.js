@@ -8,7 +8,11 @@ import React, {
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
-import { MARKETING_STEP_DOC, SERVICE_DOC } from '@/config/database'
+import {
+  MARKETING_STEP_DOC,
+  SERVICE_DOC,
+  SERVICE_SENT_MSGS,
+} from '@/config/database'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
@@ -61,14 +65,14 @@ const SendMessagesTab = ({ navigation }) => {
   const onGetSentMessagesObject = useCallback(
     (marketingStepId) => {
       const defaultSentMessagesObject = {
-        [SERVICE_DOC.MESSAGES_SENT.EMAIL]: false,
-        [SERVICE_DOC.MESSAGES_SENT.WHATSAPP]: false,
-        [SERVICE_DOC.MESSAGES_SENT.SMS]: false,
-        [SERVICE_DOC.MESSAGES_SENT.CALL]: false,
+        [SERVICE_SENT_MSGS.EMAIL]: false,
+        [SERVICE_SENT_MSGS.WHATSAPP]: false,
+        [SERVICE_SENT_MSGS.SMS]: false,
+        [SERVICE_SENT_MSGS.CALL]: false,
       }
 
       if (!serviceData || !marketingStepId) return defaultSentMessagesObject
-      const marketingStepSentMsgs = serviceData[SERVICE_DOC.MESSAGES_SENT_KEY]
+      const marketingStepSentMsgs = serviceData[SERVICE_DOC.SENT_MESSAGES]
       if (!marketingStepSentMsgs) return defaultSentMessagesObject
       const sentMessagesObject = marketingStepSentMsgs[marketingStepId]
       if (!sentMessagesObject) return defaultSentMessagesObject
@@ -88,10 +92,10 @@ const SendMessagesTab = ({ navigation }) => {
 
       const isMarketingStepEnabled = daysAfterServiceEnds >= numOfDays
       const {
-        [SERVICE_DOC.MESSAGES_SENT.EMAIL]: wasSentEmail,
-        [SERVICE_DOC.MESSAGES_SENT.WHATSAPP]: wasSentWhats,
-        [SERVICE_DOC.MESSAGES_SENT.SMS]: wasSentSms,
-        [SERVICE_DOC.MESSAGES_SENT.CALL]: wasCalled,
+        [SERVICE_SENT_MSGS.EMAIL]: wasSentEmail,
+        [SERVICE_SENT_MSGS.WHATSAPP]: wasSentWhats,
+        [SERVICE_SENT_MSGS.SMS]: wasSentSms,
+        [SERVICE_SENT_MSGS.CALL]: wasCalled,
       } = onGetSentMessagesObject(marketingStepId)
 
       const onSendWhatsMessage = () => onSendWhatsAppToCustomer(marketingStep)

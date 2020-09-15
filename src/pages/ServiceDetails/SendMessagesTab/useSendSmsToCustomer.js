@@ -4,7 +4,7 @@ import { useErrorAlert, useSendSmsMessage } from '@/hooks'
 import {
   CUSTOMER_DOC,
   MARKETING_STEP_DOC,
-  SERVICE_DOC,
+  SERVICE_SENT_MSGS,
 } from '@/config/database'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
@@ -13,7 +13,7 @@ import useSaveMessageSending from './useSaveMessageSending'
 
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
-  const onSaveMesageSending = useSaveMessageSending()
+  const onSaveMessageSending = useSaveMessageSending()
   const onSendSmsMessage = useSendSmsMessage()
   const showAlert = useErrorAlert()
 
@@ -27,16 +27,12 @@ export default () => {
 
         const { [CUSTOMER_DOC.WHATSAPP]: whatsNumber } = customerData
         await onSendSmsMessage(whatsNumber, smsMessage)
-
-        await onSaveMesageSending(
-          marketingStepId,
-          SERVICE_DOC.MESSAGES_SENT.SMS,
-        )
+        await onSaveMessageSending(marketingStepId, SERVICE_SENT_MSGS.SMS)
       } catch (e) {
         showAlert()
       }
     },
-    [customerData, onSaveMesageSending, onSendSmsMessage, showAlert],
+    [customerData, onSaveMessageSending, onSendSmsMessage, showAlert],
   )
 
   return onSendSmsToCustomer

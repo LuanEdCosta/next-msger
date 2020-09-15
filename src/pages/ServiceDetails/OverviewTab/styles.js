@@ -8,10 +8,10 @@ import { MAIN_COLORS } from '@/styles'
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
+    padding: 16,
   },
 })`
   flex: 1;
-  padding: 16px;
   background-color: white;
 `
 

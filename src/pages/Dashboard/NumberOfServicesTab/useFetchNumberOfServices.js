@@ -39,8 +39,8 @@ export default (setChartData, setIsFetchingChartData, filterDate) => {
       const data = serviceTypes.docs.map((serviceTypeDocument) => {
         const servicesOfThisType = services.docs.filter((serviceDocument) => {
           const service = serviceDocument.data() || {}
-          const type = service[SERVICE_DOC.SERVICE_TYPE_KEY]
-          const typeId = type[SERVICE_DOC.SERVICE_TYPE.ID]
+          const type = service[SERVICE_DOC.SERVICE_TYPE]
+          const typeId = type[SERVICE_TYPE_DOC.ID]
           return typeId === serviceTypeDocument.id
         })
 
@@ -58,7 +58,7 @@ export default (setChartData, setIsFetchingChartData, filterDate) => {
     } finally {
       setIsFetchingChartData(false)
     }
-  }, [filterDate, setChartData, setIsFetchingChartData])
+  }, [companyId, filterDate, setChartData, setIsFetchingChartData])
 
   return onFetchNumberOfServices
 }

@@ -4,7 +4,7 @@ import { useErrorAlert, useSendEmailMessage } from '@/hooks'
 import {
   CUSTOMER_DOC,
   MARKETING_STEP_DOC,
-  SERVICE_DOC,
+  SERVICE_SENT_MSGS,
 } from '@/config/database'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
@@ -13,7 +13,7 @@ import useSaveMessageSending from './useSaveMessageSending'
 
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
-  const onSaveMesageSending = useSaveMessageSending()
+  const onSaveMessageSending = useSaveMessageSending()
   const onSendEmailMessage = useSendEmailMessage()
   const showAlert = useErrorAlert()
 
@@ -27,16 +27,12 @@ export default () => {
 
         const { [CUSTOMER_DOC.EMAIL]: customerEmail } = customerData
         await onSendEmailMessage(customerEmail, '', emailMessage)
-
-        await onSaveMesageSending(
-          marketingStepId,
-          SERVICE_DOC.MESSAGES_SENT.EMAIL,
-        )
+        await onSaveMessageSending(marketingStepId, SERVICE_SENT_MSGS.EMAIL)
       } catch (e) {
         showAlert()
       }
     },
-    [customerData, onSaveMesageSending, onSendEmailMessage, showAlert],
+    [customerData, onSaveMessageSending, onSendEmailMessage, showAlert],
   )
 
   return onSendEmailToCustomer

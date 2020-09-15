@@ -3,7 +3,11 @@ export { default as CUSTOMER_DOC } from './CustomerDoc'
 export { default as SERVICE_TYPE_DOC } from './ServiceTypeDoc'
 export { default as USER_DOC } from './UserDoc'
 export { default as MARKETING_STEP_DOC } from './MarketingStepDoc'
-export { default as SERVICE_DOC } from './ServiceDoc'
 export { default as CUSTOMER_RETURN_DOC } from './CustomerReturnDoc'
 export { default as RETURN_REASON_DOC } from './ReturnReasonDoc'
 export { default as COMPANY_DOC } from './CompanyDoc'
+export {
+  default as SERVICE_DOC,
+  SERVICE_SENT_MSGS,
+  SERVICE_RATING,
+} from './ServiceDoc'

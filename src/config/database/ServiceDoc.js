@@ -3,27 +3,20 @@ export default {
   START_DATE: 'startDate',
   END_DATE: 'endDate',
   CREATED_AT: 'createdAt',
-  CUSTOMER: {
-    ID: 'customerId',
-    NAME: 'name',
-    EMAIL: 'email',
-  },
-  SERVICE_TYPE: {
-    ID: 'serviceTypeId',
-    NAME: 'name',
-  },
-  RATING: {
-    NOTE: 'note',
-    COMMENT: 'comment',
-  },
-  MESSAGES_SENT: {
-    EMAIL: 'email',
-    WHATSAPP: 'whatsapp',
-    SMS: 'sms',
-    CALL: 'call',
-  },
-  RATING_KEY: 'rating',
-  SERVICE_TYPE_KEY: 'serviceType',
-  CUSTOMER_KEY: 'customer',
-  MESSAGES_SENT_KEY: 'messagesSent',
+  CUSTOMER: 'customer',
+  SERVICE_TYPE: 'serviceType',
+  SENT_MESSAGES: 'sentMessages',
+  RATING: 'rating',
+}
+
+export const SERVICE_SENT_MSGS = {
+  EMAIL: 'email',
+  WHATSAPP: 'whatsapp',
+  SMS: 'sms',
+  CALL: 'call',
+}
+
+export const SERVICE_RATING = {
+  NOTE: 'note',
+  COMMENT: 'comment',
 }

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Fw5Icon, Fw5IconAccent, ButtonIcon } from '@/components/Fw5Icon'
 import { RATE_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
-import { SERVICE_DOC, COLLECTIONS } from '@/config/database'
+import { SERVICE_DOC, COLLECTIONS, SERVICE_RATING } from '@/config/database'
 import { DefaultTextInput } from '@/components/TextInput'
 import { WhiteSpinner } from '@/components/Spinner'
 import Header from '@/components/Header'
@@ -46,9 +46,9 @@ const RateService = ({ navigation }) => {
         .collection(COLLECTIONS.SERVICES)
         .doc(serviceId)
         .update({
-          [SERVICE_DOC.RATING_KEY]: {
-            [SERVICE_DOC.RATING.NOTE]: note,
-            [SERVICE_DOC.RATING.COMMENT]: comment,
+          [SERVICE_DOC.RATING]: {
+            [SERVICE_RATING.NOTE]: note,
+            [SERVICE_RATING.COMMENT]: comment,
           },
         })
 

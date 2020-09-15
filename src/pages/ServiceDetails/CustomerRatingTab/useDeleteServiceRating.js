@@ -18,7 +18,7 @@ export default (serviceId, setIsDeleting) => {
         .collection(COLLECTIONS.SERVICES)
         .doc(serviceId)
         .update({
-          [SERVICE_DOC.RATING_KEY]: null,
+          [SERVICE_DOC.RATING]: null,
         })
 
       setIsDeleting(false)

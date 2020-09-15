@@ -14,7 +14,7 @@ export default () => {
     async (marketingStepId, messageType) => {
       const {
         [SERVICE_DOC.ID]: serviceId,
-        [SERVICE_DOC.MESSAGES_SENT_KEY]: messagesSentObject = {},
+        [SERVICE_DOC.SENT_MESSAGES]: messagesSentObject = {},
       } = serviceData || {}
 
       // Check if already sent this message before
@@ -29,7 +29,7 @@ export default () => {
         .collection(COLLECTIONS.SERVICES)
         .doc(serviceId)
         .update({
-          [SERVICE_DOC.MESSAGES_SENT_KEY]: {
+          [SERVICE_DOC.SENT_MESSAGES]: {
             ...messagesSentObject,
             [marketingStepId]: {
               ...marketingStepMessages,

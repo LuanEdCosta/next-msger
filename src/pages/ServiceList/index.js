@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
 import Header from '@/components/Header'
-import { SERVICE_DOC } from '@/config/database'
+import { CUSTOMER_DOC, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
 import MessagePanel from '@/components/MessagePanel'
 import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
@@ -30,18 +30,18 @@ const ServiceList = ({ navigation }) => {
     keysToFilter: [
       SERVICE_DOC.START_DATE,
       SERVICE_DOC.END_DATE,
-      SERVICE_DOC.CUSTOMER_KEY,
-      SERVICE_DOC.SERVICE_TYPE_KEY,
+      SERVICE_DOC.CUSTOMER,
+      SERVICE_DOC.SERVICE_TYPE,
     ],
     formatTexts: {
       [SERVICE_DOC.START_DATE]: (val) => moment(val).format('LL'),
       [SERVICE_DOC.END_DATE]: (val) => moment(val).format('LL'),
-      [SERVICE_DOC.CUSTOMER_KEY]: (customer) => {
-        if (customer) return customer[SERVICE_DOC.CUSTOMER.NAME]
+      [SERVICE_DOC.CUSTOMER]: (customer) => {
+        if (customer) return customer[CUSTOMER_DOC.NAME]
         return ''
       },
-      [SERVICE_DOC.SERVICE_TYPE_KEY]: (serviceType) => {
-        if (serviceType) return serviceType[SERVICE_DOC.SERVICE_TYPE.NAME]
+      [SERVICE_DOC.SERVICE_TYPE]: (serviceType) => {
+        if (serviceType) return serviceType[SERVICE_TYPE_DOC.NAME]
         return ''
       },
     },
@@ -60,8 +60,8 @@ const ServiceList = ({ navigation }) => {
         [SERVICE_DOC.ID]: id,
         [SERVICE_DOC.END_DATE]: endDate,
         [SERVICE_DOC.START_DATE]: startDate,
-        [SERVICE_DOC.CUSTOMER_KEY]: customer,
-        [SERVICE_DOC.SERVICE_TYPE_KEY]: serviceType,
+        [SERVICE_DOC.CUSTOMER]: customer,
+        [SERVICE_DOC.SERVICE_TYPE]: serviceType,
       } = item
 
       const onPress = () => {
@@ -75,11 +75,11 @@ const ServiceList = ({ navigation }) => {
           onPress={onPress}
           iconComponent={<Fw5Icon name="chevron-right" />}
         >
-          <ServiceItemText text={customer[SERVICE_DOC.CUSTOMER.NAME]} isTitle>
+          <ServiceItemText text={customer[CUSTOMER_DOC.NAME]} isTitle>
             <Fw5Icon name="user-circle" solid />
           </ServiceItemText>
 
-          <ServiceItemText text={serviceType[SERVICE_DOC.SERVICE_TYPE.NAME]}>
+          <ServiceItemText text={serviceType[SERVICE_TYPE_DOC.NAME]}>
             <Fw5Icon name="file-alt" solid />
           </ServiceItemText>
 

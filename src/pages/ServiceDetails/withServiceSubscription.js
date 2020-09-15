@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { SERVICE_DOC } from '@/config/database'
 
 import ServiceDetailsHeader from './ServiceDetailsHeader'
 import ServiceDetailsContext from './ServiceDetailsContext'
 import useServiceSubscription from './useServiceSubscription'
-import useFetchCustomerData from './useFetchCustomerData'
 
 export default (DefaultNavigator) => {
   const CustomNavigator = (props) => {
@@ -13,23 +12,18 @@ export default (DefaultNavigator) => {
     const serviceId = navigation.getParam(SERVICE_DOC.ID)
 
     const [serviceData, setServiceData] = useState({})
-    const [customerData, setCustomerData] = useState({})
+
+    const customerData = useMemo(() => {
+      const customer = serviceData[SERVICE_DOC.CUSTOMER] || {}
+      return customer
+    }, [serviceData])
 
     const onSubscribeToServiceDocument = useServiceSubscription(
       serviceId,
       setServiceData,
     )
 
-    const onFetchCustomerData = useFetchCustomerData(
-      serviceData,
-      setCustomerData,
-    )
-
     useEffect(onSubscribeToServiceDocument, [])
-
-    useEffect(() => {
-      onFetchCustomerData()
-    }, [onFetchCustomerData])
 
     return (
       <ServiceDetailsContext.Provider value={{ serviceData, customerData }}>

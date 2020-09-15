@@ -5,7 +5,7 @@ import { PHONE_COUNTRY_CODES } from '@/config/constants'
 import {
   CUSTOMER_DOC,
   MARKETING_STEP_DOC,
-  SERVICE_DOC,
+  SERVICE_SENT_MSGS,
 } from '@/config/database'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
@@ -15,7 +15,7 @@ import useSaveMessageSending from './useSaveMessageSending'
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
   const onSendWhatsAppMessage = useSendWhatsAppMessage()
-  const onSaveMesageSending = useSaveMessageSending()
+  const onSaveMessageSending = useSaveMessageSending()
   const showAlert = useErrorAlert()
 
   const onSendWhatsAppToCustomer = useCallback(
@@ -35,15 +35,12 @@ export default () => {
           countryCode: PHONE_COUNTRY_CODES.BRAZIL,
         })
 
-        await onSaveMesageSending(
-          marketingStepId,
-          SERVICE_DOC.MESSAGES_SENT.WHATSAPP,
-        )
+        await onSaveMessageSending(marketingStepId, SERVICE_SENT_MSGS.WHATSAPP)
       } catch (e) {
         showAlert()
       }
     },
-    [customerData, onSaveMesageSending, onSendWhatsAppMessage, showAlert],
+    [customerData, onSaveMessageSending, onSendWhatsAppMessage, showAlert],
   )
 
   return onSendWhatsAppToCustomer
