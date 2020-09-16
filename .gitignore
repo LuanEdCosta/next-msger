@@ -76,3 +76,6 @@ keystore.properties
 android/app/src/main/res/raw/
 android/app/src/main/res/drawable*/src_assets*
 android/app/src/main/res/drawable*/node_modules*
+
+# Admob config files
+src/config/ads/AdmobConstants.js
