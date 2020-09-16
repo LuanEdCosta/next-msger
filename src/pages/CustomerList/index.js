@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
@@ -9,11 +10,11 @@ import MessagePanel from '@/components/MessagePanel'
 import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import Fab from '@/components/Fab'
-import SearchBar from '@/components/SearchBar'
 import { useArraySearch, useUserData } from '@/hooks'
 import { getOnlyPhoneNumbers } from '@/helpers'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
-import { Container, CustomerItem, CustomerItemText, Styles } from './styles'
+import { Container, CustomerItem, CustomerItemText, Search } from './styles'
 
 const CustomerList = ({ navigation }) => {
   const { companyId } = useUserData()
@@ -120,8 +121,7 @@ const CustomerList = ({ navigation }) => {
       />
 
       <FlatList
-        contentContainerStyle={Styles.list}
-        ListHeaderComponentStyle={Styles.listHeader}
+        contentContainerStyle={{ paddingBottom: 80 }}
         data={itemsToShow}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
@@ -133,13 +133,23 @@ const CustomerList = ({ navigation }) => {
           />
         }
         ListHeaderComponent={
-          <SearchBar
-            placeholder={t('searchPlaceholder')}
-            setSearchText={onChangeSearchText}
-            searchText={searchText}
-            isSearching={isSearching}
-            hasFilters={false}
-          />
+          <>
+            <BannerAd
+              unitId={ADMOB_BANNER_ID}
+              size={BannerAdSize.SMART_BANNER}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+            />
+
+            <Search
+              placeholder={t('searchPlaceholder')}
+              setSearchText={onChangeSearchText}
+              searchText={searchText}
+              isSearching={isSearching}
+              hasFilters={false}
+            />
+          </>
         }
       />
     </Container>

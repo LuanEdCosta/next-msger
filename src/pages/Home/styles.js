@@ -24,3 +24,9 @@ export const WelcomeTitle = styled(PrimaryText)`
 `
 
 export const WelcomeMessage = styled(DefaultText)``
+
+export const AdContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`

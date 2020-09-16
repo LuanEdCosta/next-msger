@@ -1,7 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
 import HomeActionButtons from './HomeActionButtons'
 import {
@@ -10,6 +12,7 @@ import {
   Content,
   WelcomeTitle,
   WelcomeMessage,
+  AdContainer,
 } from './styles'
 
 const Home = () => {
@@ -23,7 +26,18 @@ const Home = () => {
           <WelcomeTitle>{t('welcomeTitle')}</WelcomeTitle>
           <WelcomeMessage>{t('welcomeMessage')}</WelcomeMessage>
         </Content>
+
         <HomeActionButtons />
+
+        <AdContainer>
+          <BannerAd
+            unitId={ADMOB_BANNER_ID}
+            size={BannerAdSize.MEDIUM_RECTANGLE}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </AdContainer>
       </Scroll>
     </Container>
   )

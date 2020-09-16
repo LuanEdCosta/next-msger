@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
 import Button from '@/components/Button'
@@ -11,8 +12,9 @@ import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
-import { Container, Scroll, CustomerInput } from './styles'
+import { Container, Scroll, CustomerInput, Content } from './styles'
 
 const CustomerRegistration = () => {
   const { t } = useTranslation(['CustomerRegistration', 'InputMasks'])
@@ -82,119 +84,132 @@ const CustomerRegistration = () => {
   return (
     <Container>
       <Header i18Namespace="NavigationDrawer" i18Title="customerRegistration" />
+
       <Scroll>
-        <CustomerInput
-          errorComponent={<InputError show={isShowingErrors && !name.trim()} />}
-          labelComponent={
-            <Label
-              label={t('nameLabel')}
-              isRequired
-              iconComponent={<Fw5IconAccent name="signature" solid />}
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              placeholder={t('namePlaceholder')}
-              returnKeyType="next"
-              autoCapitalize="words"
-              autoCompleteType="name"
-              blurOnSubmit={false}
-              onChangeText={setName}
-              value={name}
-              onSubmitEditing={() => {
-                emailInput.current.focus()
-              }}
-            />
-          }
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
 
-        <CustomerInput
-          errorComponent={
-            <InputError show={isShowingErrors && !email.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('emailLabel')}
-              isRequired
-              iconComponent={<Fw5IconAccent name="envelope" solid />}
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              ref={emailInput}
-              placeholder={t('emailPlaceholder')}
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCompleteType="email"
-              blurOnSubmit={false}
-              onChangeText={setEmail}
-              value={email}
-              onSubmitEditing={() => {
-                whatsappInput.focus()
-              }}
-            />
-          }
-        />
+        <Content>
+          <CustomerInput
+            errorComponent={
+              <InputError show={isShowingErrors && !name.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('nameLabel')}
+                isRequired
+                iconComponent={<Fw5IconAccent name="signature" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                placeholder={t('namePlaceholder')}
+                returnKeyType="next"
+                autoCapitalize="words"
+                autoCompleteType="name"
+                blurOnSubmit={false}
+                onChangeText={setName}
+                value={name}
+                onSubmitEditing={() => {
+                  emailInput.current.focus()
+                }}
+              />
+            }
+          />
 
-        <CustomerInput
-          errorComponent={
-            <InputError show={isShowingErrors && !whatsapp.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('whatsappLabel')}
-              isRequired
-              iconComponent={<Fw5IconAccent name="mobile" solid />}
-            />
-          }
-          inputComponent={
-            <DefaultTextInputMask
-              type="cel-phone"
-              placeholder={t('InputMasks:cellphonePlaceholder')}
-              returnKeyType="next"
-              blurOnSubmit={false}
-              onChangeText={setWhatsapp}
-              value={whatsapp}
-              refInput={(ref) => {
-                whatsappInput = ref
-              }}
-              onSubmitEditing={() => {
-                phoneInput.focus()
-              }}
-            />
-          }
-        />
+          <CustomerInput
+            errorComponent={
+              <InputError show={isShowingErrors && !email.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('emailLabel')}
+                isRequired
+                iconComponent={<Fw5IconAccent name="envelope" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={emailInput}
+                placeholder={t('emailPlaceholder')}
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCompleteType="email"
+                blurOnSubmit={false}
+                onChangeText={setEmail}
+                value={email}
+                onSubmitEditing={() => {
+                  whatsappInput.focus()
+                }}
+              />
+            }
+          />
 
-        <CustomerInput
-          labelComponent={
-            <Label
-              label={t('phoneLabel')}
-              iconComponent={<Fw5IconAccent name="phone" solid />}
-            />
-          }
-          inputComponent={
-            <DefaultTextInputMask
-              type="cel-phone"
-              placeholder={t('InputMasks:phonePlaceholder')}
-              returnKeyType="next"
-              blurOnSubmit={false}
-              onChangeText={setPhone}
-              value={phone}
-              refInput={(ref) => {
-                phoneInput = ref
-              }}
-            />
-          }
-        />
+          <CustomerInput
+            errorComponent={
+              <InputError show={isShowingErrors && !whatsapp.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('whatsappLabel')}
+                isRequired
+                iconComponent={<Fw5IconAccent name="mobile" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInputMask
+                type="cel-phone"
+                placeholder={t('InputMasks:cellphonePlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setWhatsapp}
+                value={whatsapp}
+                refInput={(ref) => {
+                  whatsappInput = ref
+                }}
+                onSubmitEditing={() => {
+                  phoneInput.focus()
+                }}
+              />
+            }
+          />
 
-        <Button
-          text={t('saveButton')}
-          onPress={onSaveCustomer}
-          disabled={isSaving}
-          iconComponent={
-            isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('phoneLabel')}
+                iconComponent={<Fw5IconAccent name="phone" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInputMask
+                type="cel-phone"
+                placeholder={t('InputMasks:phonePlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setPhone}
+                value={phone}
+                refInput={(ref) => {
+                  phoneInput = ref
+                }}
+              />
+            }
+          />
+
+          <Button
+            text={t('saveButton')}
+            onPress={onSaveCustomer}
+            disabled={isSaving}
+            iconComponent={
+              isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

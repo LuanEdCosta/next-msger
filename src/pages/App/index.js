@@ -3,12 +3,15 @@ import { Provider } from 'react-redux'
 
 import StatusBar from '@/components/StatusBar'
 import Navigation from '@/config/navigation'
+import { configAdmob } from '@/config/ads'
 import Store from '@/store'
 
 import '@/locales'
 import Global from './Global'
 import { Container } from './styles'
 import useTrackScreenNavigations from './useTrackScreenNavigations'
+
+configAdmob()
 
 const App = () => {
   const onTrackScreenNavigations = useTrackScreenNavigations()

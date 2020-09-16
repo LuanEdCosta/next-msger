@@ -15,7 +15,9 @@ export default () => {
     const currentRouteName = onGetActiveRouteName(currentState)
     const previousRouteName = onGetActiveRouteName(prevState)
     if (previousRouteName !== currentRouteName) {
-      analytics().setCurrentScreen(currentRouteName, currentRouteName)
+      analytics().logEvent('screen_navigation', {
+        currentRouteName,
+      })
     }
   }, [])
 
