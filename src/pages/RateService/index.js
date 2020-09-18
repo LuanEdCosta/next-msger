@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react'
-import firestore from '@react-native-firebase/firestore'
 import { useTranslation } from 'react-i18next'
+import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import { Fw5Icon, Fw5IconAccent, ButtonIcon } from '@/components/Fw5Icon'
 import { RATE_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
@@ -10,6 +11,7 @@ import { WhiteSpinner } from '@/components/Spinner'
 import Header from '@/components/Header'
 import { useErrorAlert, useUserData } from '@/hooks'
 import Label from '@/components/Label'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
 import {
   Container,
@@ -17,6 +19,7 @@ import {
   RatingStars,
   SaveButton,
   CommentInput,
+  Content,
 } from './styles'
 
 const RateService = ({ navigation }) => {
@@ -74,59 +77,69 @@ const RateService = ({ navigation }) => {
       />
 
       <Scroll>
-        <Label
-          label={t('noteLabel')}
-          iconComponent={<Fw5IconAccent name="grin-stars" />}
-          description={t('noteHint')}
-          isRequired
-        />
-
-        <RatingStars
-          note={note}
-          setNote={setNote}
-          onRenderIcon={({ isSelected }) => {
-            return isSelected ? (
-              <Fw5IconAccent name="star" size={40} solid />
-            ) : (
-              <Fw5Icon name="star" size={40} solid={false} />
-            )
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
           }}
         />
 
-        <CommentInput
-          labelComponent={
-            <Label
-              label={t('commentLabel')}
-              iconComponent={<Fw5IconAccent name="comment" />}
-              description={t('commentMaxLength', {
-                length: comment.length,
-              })}
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              style={{ textAlignVertical: 'top' }}
-              placeholder={t('commentPh')}
-              autoCapitalize="sentences"
-              onChangeText={setComment}
-              value={comment}
-              maxLength={500}
-              numberOfLines={5}
-              multiline
-              autoCorrect
-            />
-          }
-        />
+        <Content>
+          <Label
+            label={t('noteLabel')}
+            iconComponent={<Fw5IconAccent name="grin-stars" />}
+            description={t('noteHint')}
+            isRequired
+          />
 
-        <SaveButton
-          onPress={onSaveRating}
-          disabled={!isAbleToSave || isSaving}
-          backgroundColor={isAbleToSave ? 'accent' : 'secondaryText'}
-          text={t(isEditing ? 'saveButtonWhenEditing' : 'saveButton')}
-          iconComponent={
-            isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+          <RatingStars
+            note={note}
+            setNote={setNote}
+            onRenderIcon={({ isSelected }) => {
+              return isSelected ? (
+                <Fw5IconAccent name="star" size={40} solid />
+              ) : (
+                <Fw5Icon name="star" size={40} solid={false} />
+              )
+            }}
+          />
+
+          <CommentInput
+            labelComponent={
+              <Label
+                label={t('commentLabel')}
+                iconComponent={<Fw5IconAccent name="comment" />}
+                description={t('commentMaxLength', {
+                  length: comment.length,
+                })}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                style={{ textAlignVertical: 'top' }}
+                placeholder={t('commentPh')}
+                autoCapitalize="sentences"
+                onChangeText={setComment}
+                value={comment}
+                maxLength={500}
+                numberOfLines={5}
+                multiline
+                autoCorrect
+              />
+            }
+          />
+
+          <SaveButton
+            onPress={onSaveRating}
+            disabled={!isAbleToSave || isSaving}
+            backgroundColor={isAbleToSave ? 'accent' : 'secondaryText'}
+            text={t(isEditing ? 'saveButtonWhenEditing' : 'saveButton')}
+            iconComponent={
+              isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

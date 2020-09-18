@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import auth from '@react-native-firebase/auth'
 import { useTranslation } from 'react-i18next'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
 import { useErrorAlert } from '@/hooks'
@@ -9,6 +10,7 @@ import Label from '@/components/Label'
 import { WhiteSpinner } from '@/components/Spinner'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { FORGOT_PASSWORD_PARAMS } from '@/config/navigation/RouteParams'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
 import {
   Container,
@@ -43,6 +45,14 @@ const ForgotPassword = ({ navigation }) => {
       <Header i18Namespace="ForgotPassword" i18Title="pageTitle" isStackPage />
 
       <Scroll>
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+
         <Explanation>{t('explanation')}</Explanation>
 
         <EmailInput

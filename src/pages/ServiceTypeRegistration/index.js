@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
+import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
+import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
+import { DefaultTextInput } from '@/components/TextInput'
+import { useErrorAlert, useUserData } from '@/hooks'
+import { WhiteSpinner } from '@/components/Spinner'
+import InputError from '@/components/InputError'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 import Header from '@/components/Header'
 import Button from '@/components/Button'
-import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
-import { DefaultTextInput } from '@/components/TextInput'
-import InputError from '@/components/InputError'
-import { WhiteSpinner } from '@/components/Spinner'
-import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
-import { useErrorAlert, useUserData } from '@/hooks'
 
-import { Container, Scroll, ServiceTypeInput } from './styles'
+import { Container, Scroll, ServiceTypeInput, Content } from './styles'
 
 const ServiceTypeRegistration = () => {
   const { t } = useTranslation(['ServiceTypeRegistration', 'InputMasks'])
@@ -54,37 +56,47 @@ const ServiceTypeRegistration = () => {
       />
 
       <Scroll>
-        <ServiceTypeInput
-          errorComponent={
-            <InputError show={isShowingErrors && !serviceTypeName.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('serviceTypeLabel')}
-              iconComponent={<Fw5IconAccent name="file-alt" solid />}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              placeholder={t('serviceTypePlaceholder')}
-              autoCapitalize="words"
-              textContentType="none"
-              onChangeText={setServiceTypeName}
-              value={serviceTypeName}
-              autoCorrect
-            />
-          }
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
 
-        <Button
-          text={t('saveButton')}
-          onPress={onSaveServiceType}
-          disabled={isSaving}
-          iconComponent={
-            isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+        <Content>
+          <ServiceTypeInput
+            errorComponent={
+              <InputError show={isShowingErrors && !serviceTypeName.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('serviceTypeLabel')}
+                iconComponent={<Fw5IconAccent name="file-alt" solid />}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                placeholder={t('serviceTypePlaceholder')}
+                autoCapitalize="words"
+                textContentType="none"
+                onChangeText={setServiceTypeName}
+                value={serviceTypeName}
+                autoCorrect
+              />
+            }
+          />
+
+          <Button
+            text={t('saveButton')}
+            onPress={onSaveServiceType}
+            disabled={isSaving}
+            iconComponent={
+              isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

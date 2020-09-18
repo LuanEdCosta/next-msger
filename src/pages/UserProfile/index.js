@@ -3,11 +3,13 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import auth from '@react-native-firebase/auth'
 import { NavigationEvents } from 'react-navigation'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
+import { MAIN_COLORS } from '@/styles'
 import Header from '@/components/Header'
 import { USER_DOC } from '@/config/database'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 import { ButtonIcon } from '@/components/Fw5Icon'
-import { MAIN_COLORS } from '@/styles'
 import { NAVIGATOR_ROUTES } from '@/config/navigation/ScreenRoutes'
 
 import ProfileOptions from './ProfileOptions'
@@ -21,6 +23,7 @@ import {
   UserName,
   UserEmail,
   SignOutButton,
+  AdContainer,
 } from './styles'
 
 const UserProfile = ({ navigation }) => {
@@ -54,6 +57,16 @@ const UserProfile = ({ navigation }) => {
           <UserEmail>{currentUser.email}</UserEmail>
           <ProfileOptions navigation={navigation} />
         </Content>
+
+        <AdContainer>
+          <BannerAd
+            unitId={ADMOB_BANNER_ID}
+            size={BannerAdSize.MEDIUM_RECTANGLE}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </AdContainer>
 
         <SignOutButton
           text={t('signOutButton')}

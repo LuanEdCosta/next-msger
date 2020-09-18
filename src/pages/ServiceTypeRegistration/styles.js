@@ -1,20 +1,16 @@
 import styled from 'styled-components/native'
-import { StyleSheet } from 'react-native'
 
 import Input from '@/components/Input'
 
-const Styles = StyleSheet.create({
-  scroll: {
-    flexGrow: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 24,
-    paddingBottom: 24,
-  },
-})
-
 export const Scroll = styled.ScrollView.attrs({
-  contentContainerStyle: Styles.scroll,
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
 })``
+
+export const Content = styled.View`
+  padding: 24px 16px;
+`
 
 export const Container = styled.SafeAreaView`
   flex: 1;

@@ -12,3 +12,8 @@ export const Scroll = styled.ScrollView.attrs({
 })`
   flex: 1;
 `
+
+export const AdContainer = styled.View`
+  margin: 16px;
+  align-items: center;
+`

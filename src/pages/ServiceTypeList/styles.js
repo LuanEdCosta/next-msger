@@ -1,19 +1,10 @@
 import styled from 'styled-components/native'
-import { StyleSheet } from 'react-native'
 
 import ListItem from '@/components/ListItem'
-import ListItemText from '@/components/ListItem/ListItemText'
+import SearchBar from '@/components/SearchBar'
+import MessagePanel from '@/components/MessagePanel'
 import TouchableIcon from '@/components/TouchableIcon'
-
-export const Styles = StyleSheet.create({
-  list: {
-    padding: 16,
-    paddingBottom: 80,
-  },
-  listHeader: {
-    paddingBottom: 16,
-  },
-})
+import ListItemText from '@/components/ListItem/ListItemText'
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -32,9 +23,17 @@ export const ServiceTypeItemText = styled(ListItemText)`
 export const ServiceTypeItemWrapper = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 8px;
+  margin: 0 16px 8px 16px;
 `
 
 export const DeleteButton = styled(TouchableIcon)`
   margin-left: 8px;
+`
+
+export const Search = styled(SearchBar)`
+  margin: 16px;
+`
+
+export const EmptyMessage = styled(MessagePanel)`
+  margin: 0 16px;
 `

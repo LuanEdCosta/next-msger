@@ -2,6 +2,7 @@ import styled from 'styled-components/native'
 
 import ListItem from '@/components/ListItem'
 import SearchBar from '@/components/SearchBar'
+import MessagePanel from '@/components/MessagePanel'
 import ListItemText from '@/components/ListItem/ListItemText'
 
 export const Container = styled.SafeAreaView`
@@ -19,4 +20,8 @@ export const CustomerItemText = styled(ListItemText)`
 
 export const Search = styled(SearchBar)`
   margin: 16px;
+`
+
+export const EmptyMessage = styled(MessagePanel)`
+  margin: 0 16px;
 `

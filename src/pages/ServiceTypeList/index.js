@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { FlatList } from 'react-native-gesture-handler'
-import { useTranslation } from 'react-i18next'
-import firestore from '@react-native-firebase/firestore'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
+import { FlatList } from 'react-native-gesture-handler'
+import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
-import Header from '@/components/Header'
-import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
-import MessagePanel from '@/components/MessagePanel'
 import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
-import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
-import Fab from '@/components/Fab'
-import SearchBar from '@/components/SearchBar'
 import { useArraySearch, useErrorAlert, useUserData } from '@/hooks'
+import { COLLECTIONS, SERVICE_TYPE_DOC } from '@/config/database'
+import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { ADMOB_BANNER_ID } from '@/config/ads'
+import Header from '@/components/Header'
+import Fab from '@/components/Fab'
 
 import {
   Container,
@@ -19,7 +19,8 @@ import {
   ServiceTypeItemText,
   ServiceTypeItemWrapper,
   DeleteButton,
-  Styles,
+  Search,
+  EmptyMessage,
 } from './styles'
 
 const ServiceTypeList = ({ navigation }) => {
@@ -130,26 +131,34 @@ const ServiceTypeList = ({ navigation }) => {
       />
 
       <FlatList
-        contentContainerStyle={Styles.list}
-        ListHeaderComponentStyle={Styles.listHeader}
         data={itemsToShow}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
-          <MessagePanel
+          <EmptyMessage
             text={t('anyServiceTypeFound')}
             isLoading={isLoading}
             iconComponent={<MessagePanelIcon name="file-alt" />}
           />
         }
         ListHeaderComponent={
-          <SearchBar
-            placeholder={t('searchPlaceholder')}
-            setSearchText={onChangeSearchText}
-            searchText={searchText}
-            isSearching={isSearching}
-            hasFilters={false}
-          />
+          <>
+            <BannerAd
+              unitId={ADMOB_BANNER_ID}
+              size={BannerAdSize.SMART_BANNER}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+            />
+
+            <Search
+              placeholder={t('searchPlaceholder')}
+              setSearchText={onChangeSearchText}
+              searchText={searchText}
+              isSearching={isSearching}
+              hasFilters={false}
+            />
+          </>
         }
       />
     </Container>

@@ -1,19 +1,25 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { FlatList } from 'react-native-gesture-handler'
-import { useTranslation } from 'react-i18next'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
+import { FlatList } from 'react-native-gesture-handler'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
-import Header from '@/components/Header'
 import { CUSTOMER_DOC, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
-import MessagePanel from '@/components/MessagePanel'
-import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
-import Fab from '@/components/Fab'
-import SearchBar from '@/components/SearchBar'
+import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 import { useArraySearch } from '@/hooks'
+import Header from '@/components/Header'
+import Fab from '@/components/Fab'
 
-import { Container, ServiceItem, ServiceItemText, Styles } from './styles'
 import useSubscribeToServicesCollection from './useSubscribeToServicesCollection'
+import {
+  Container,
+  ServiceItem,
+  ServiceItemText,
+  Search,
+  EmptyMessage,
+} from './styles'
 
 const ServiceList = ({ navigation }) => {
   const { t } = useTranslation('ServiceList')
@@ -112,26 +118,34 @@ const ServiceList = ({ navigation }) => {
       />
 
       <FlatList
-        contentContainerStyle={Styles.list}
-        ListHeaderComponentStyle={Styles.listHeader}
         data={itemsToShow}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
-          <MessagePanel
+          <EmptyMessage
             text={t('anyServiceFound')}
             isLoading={isLoading}
             iconComponent={<MessagePanelIcon name="clipboard-list" />}
           />
         }
         ListHeaderComponent={
-          <SearchBar
-            placeholder={t('searchPlaceholder')}
-            setSearchText={onChangeSearchText}
-            searchText={searchText}
-            isSearching={isSearching}
-            hasFilters={false}
-          />
+          <>
+            <BannerAd
+              unitId={ADMOB_BANNER_ID}
+              size={BannerAdSize.SMART_BANNER}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+            />
+
+            <Search
+              placeholder={t('searchPlaceholder')}
+              setSearchText={onChangeSearchText}
+              searchText={searchText}
+              isSearching={isSearching}
+              hasFilters={false}
+            />
+          </>
         }
       />
     </Container>

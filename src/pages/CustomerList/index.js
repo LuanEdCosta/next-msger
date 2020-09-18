@@ -4,17 +4,22 @@ import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
-import Header from '@/components/Header'
-import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
-import MessagePanel from '@/components/MessagePanel'
-import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
-import Fab from '@/components/Fab'
+import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
+import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import { useArraySearch, useUserData } from '@/hooks'
 import { getOnlyPhoneNumbers } from '@/helpers'
 import { ADMOB_BANNER_ID } from '@/config/ads'
+import Header from '@/components/Header'
+import Fab from '@/components/Fab'
 
-import { Container, CustomerItem, CustomerItemText, Search } from './styles'
+import {
+  Container,
+  CustomerItem,
+  CustomerItemText,
+  Search,
+  EmptyMessage,
+} from './styles'
 
 const CustomerList = ({ navigation }) => {
   const { companyId } = useUserData()
@@ -126,7 +131,7 @@ const CustomerList = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
-          <MessagePanel
+          <EmptyMessage
             text={t('anyCustomerFound')}
             isLoading={isLoading}
             iconComponent={<MessagePanelIcon name="users" />}

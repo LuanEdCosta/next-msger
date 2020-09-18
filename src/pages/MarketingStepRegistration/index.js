@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
@@ -10,8 +11,15 @@ import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
-import { Container, Scroll, MarketingStepInput, SaveButton } from './styles'
+import {
+  Container,
+  Scroll,
+  MarketingStepInput,
+  SaveButton,
+  Content,
+} from './styles'
 
 const MarketingStepRegistration = () => {
   const { t } = useTranslation('MarketingStepRegistration')
@@ -118,180 +126,190 @@ const MarketingStepRegistration = () => {
       />
 
       <Scroll>
-        <MarketingStepInput
-          errorComponent={
-            <InputError show={isShowingErrors && !marketingStepName.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('nameLabel')}
-              iconComponent={<Fw5IconAccent name="file-alt" solid />}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              placeholder={t('namePlaceholder')}
-              autoCapitalize="words"
-              textContentType="none"
-              returnKeyType="next"
-              onChangeText={setMarketingStepName}
-              value={marketingStepName}
-              onSubmitEditing={onFocusNumOfDaysInput}
-              blurOnSubmit={false}
-              autoCorrect
-            />
-          }
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
 
-        <MarketingStepInput
-          errorComponent={
-            <InputError show={isShowingErrors && !numOfDays.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('numOfDaysLabel')}
-              iconComponent={<Fw5IconAccent name="calendar-day" solid />}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInputMask
-              refInput={(ref) => {
-                numOfDaysInput = ref
-              }}
-              type="only-numbers"
-              returnKeyType="next"
-              placeholder={t('numOfDaysPlaceholder')}
-              onSubmitEditing={onFocusEmailMessageInput}
-              onChangeText={setNumOfDays}
-              value={numOfDays}
-              blurOnSubmit={false}
-            />
-          }
-        />
+        <Content>
+          <MarketingStepInput
+            errorComponent={
+              <InputError show={isShowingErrors && !marketingStepName.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('nameLabel')}
+                iconComponent={<Fw5IconAccent name="file-alt" solid />}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                placeholder={t('namePlaceholder')}
+                autoCapitalize="words"
+                textContentType="none"
+                returnKeyType="next"
+                onChangeText={setMarketingStepName}
+                value={marketingStepName}
+                onSubmitEditing={onFocusNumOfDaysInput}
+                blurOnSubmit={false}
+                autoCorrect
+              />
+            }
+          />
 
-        <MarketingStepInput
-          errorComponent={
-            <InputError show={isShowingErrors && !emailMessage.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('emailMsgLabel')}
-              iconComponent={<Fw5IconAccent name="envelope" solid />}
-              description={t('emailMsgMaxLength', {
-                length: emailMessage.length,
-              })}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              ref={emailMessageInput}
-              style={{ textAlignVertical: 'top' }}
-              placeholder={t('emailMsgPlaceholder')}
-              autoCapitalize="sentences"
-              onChangeText={setEmailMessage}
-              value={emailMessage}
-              maxLength={500}
-              numberOfLines={5}
-              multiline
-              autoCorrect
-            />
-          }
-        />
+          <MarketingStepInput
+            errorComponent={
+              <InputError show={isShowingErrors && !numOfDays.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('numOfDaysLabel')}
+                iconComponent={<Fw5IconAccent name="calendar-day" solid />}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInputMask
+                refInput={(ref) => {
+                  numOfDaysInput = ref
+                }}
+                type="only-numbers"
+                returnKeyType="next"
+                placeholder={t('numOfDaysPlaceholder')}
+                onSubmitEditing={onFocusEmailMessageInput}
+                onChangeText={setNumOfDays}
+                value={numOfDays}
+                blurOnSubmit={false}
+              />
+            }
+          />
 
-        <MarketingStepInput
-          errorComponent={
-            <InputError show={isShowingErrors && !whatsappMessage.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('whatsappMsgLabel')}
-              iconComponent={<Fw5IconAccent name="whatsapp" />}
-              description={t('whatsappMsgMaxLength', {
-                length: whatsappMessage.length,
-              })}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              style={{ textAlignVertical: 'top' }}
-              placeholder={t('whatsappMsgPlaceholder')}
-              autoCapitalize="sentences"
-              onChangeText={setWhatsappMessage}
-              value={whatsappMessage}
-              maxLength={500}
-              numberOfLines={5}
-              multiline
-              autoCorrect
-            />
-          }
-        />
+          <MarketingStepInput
+            errorComponent={
+              <InputError show={isShowingErrors && !emailMessage.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('emailMsgLabel')}
+                iconComponent={<Fw5IconAccent name="envelope" solid />}
+                description={t('emailMsgMaxLength', {
+                  length: emailMessage.length,
+                })}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={emailMessageInput}
+                style={{ textAlignVertical: 'top' }}
+                placeholder={t('emailMsgPlaceholder')}
+                autoCapitalize="sentences"
+                onChangeText={setEmailMessage}
+                value={emailMessage}
+                maxLength={500}
+                numberOfLines={5}
+                multiline
+                autoCorrect
+              />
+            }
+          />
 
-        <MarketingStepInput
-          errorComponent={
-            <InputError show={isShowingErrors && !smsMessage.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('smsMsgLabel')}
-              iconComponent={<Fw5IconAccent name="sms" />}
-              description={t('smsMsgMaxLength', {
-                length: smsMessage.length,
-              })}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              style={{ textAlignVertical: 'top' }}
-              placeholder={t('smsMsgPlaceholder')}
-              autoCapitalize="sentences"
-              onChangeText={setSmsMessage}
-              value={smsMessage}
-              maxLength={500}
-              numberOfLines={5}
-              multiline
-              autoCorrect
-            />
-          }
-        />
+          <MarketingStepInput
+            errorComponent={
+              <InputError show={isShowingErrors && !whatsappMessage.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('whatsappMsgLabel')}
+                iconComponent={<Fw5IconAccent name="whatsapp" />}
+                description={t('whatsappMsgMaxLength', {
+                  length: whatsappMessage.length,
+                })}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                style={{ textAlignVertical: 'top' }}
+                placeholder={t('whatsappMsgPlaceholder')}
+                autoCapitalize="sentences"
+                onChangeText={setWhatsappMessage}
+                value={whatsappMessage}
+                maxLength={500}
+                numberOfLines={5}
+                multiline
+                autoCorrect
+              />
+            }
+          />
 
-        <MarketingStepInput
-          labelComponent={
-            <Label
-              label={t('observationsLabel')}
-              iconComponent={<Fw5IconAccent name="file-alt" solid />}
-              description={t('observationsMaxLength', {
-                length: observations.length,
-              })}
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              style={{ textAlignVertical: 'top' }}
-              placeholder={t('observationsPlaceholder')}
-              autoCapitalize="sentences"
-              onChangeText={setObservations}
-              value={observations}
-              maxLength={150}
-              numberOfLines={3}
-              multiline
-              autoCorrect
-            />
-          }
-        />
+          <MarketingStepInput
+            errorComponent={
+              <InputError show={isShowingErrors && !smsMessage.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('smsMsgLabel')}
+                iconComponent={<Fw5IconAccent name="sms" />}
+                description={t('smsMsgMaxLength', {
+                  length: smsMessage.length,
+                })}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                style={{ textAlignVertical: 'top' }}
+                placeholder={t('smsMsgPlaceholder')}
+                autoCapitalize="sentences"
+                onChangeText={setSmsMessage}
+                value={smsMessage}
+                maxLength={500}
+                numberOfLines={5}
+                multiline
+                autoCorrect
+              />
+            }
+          />
 
-        <SaveButton
-          text={t('saveButton')}
-          onPress={onSaveMarketingStep}
-          disabled={isSaving}
-          iconComponent={
-            isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+          <MarketingStepInput
+            labelComponent={
+              <Label
+                label={t('observationsLabel')}
+                iconComponent={<Fw5IconAccent name="file-alt" solid />}
+                description={t('observationsMaxLength', {
+                  length: observations.length,
+                })}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                style={{ textAlignVertical: 'top' }}
+                placeholder={t('observationsPlaceholder')}
+                autoCapitalize="sentences"
+                onChangeText={setObservations}
+                value={observations}
+                maxLength={150}
+                numberOfLines={3}
+                multiline
+                autoCorrect
+              />
+            }
+          />
+
+          <SaveButton
+            text={t('saveButton')}
+            onPress={onSaveMarketingStep}
+            disabled={isSaving}
+            iconComponent={
+              isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

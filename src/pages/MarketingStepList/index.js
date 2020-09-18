@@ -1,22 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { FlatList } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
+import { FlatList } from 'react-native-gesture-handler'
 import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
-import Header from '@/components/Header'
-import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
-import MessagePanel from '@/components/MessagePanel'
-import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
-import Fab from '@/components/Fab'
-import SearchBar from '@/components/SearchBar'
+import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
+import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
 import { useArraySearch, useUserData } from '@/hooks'
+import { ADMOB_BANNER_ID } from '@/config/ads'
+import Header from '@/components/Header'
+import Fab from '@/components/Fab'
 
 import {
   Container,
   MarketingStepItem,
   MarketingStepItemText,
-  Styles,
+  Search,
+  EmptyMessage,
 } from './styles'
 
 const MarketingStepList = ({ navigation }) => {
@@ -58,7 +59,7 @@ const MarketingStepList = ({ navigation }) => {
       })
 
     return unsubscribe
-  }, [isLoading])
+  }, [companyId, isLoading])
 
   useEffect(onSubscribeToMarketingStepCollection, [])
 
@@ -120,26 +121,35 @@ const MarketingStepList = ({ navigation }) => {
       />
 
       <FlatList
-        contentContainerStyle={Styles.list}
-        ListHeaderComponentStyle={Styles.listHeader}
+        contentContainerStyle={{ flexGrow: 1 }}
         data={itemsToShow}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         ListEmptyComponent={
-          <MessagePanel
+          <EmptyMessage
             text={t('anyMarketingStepFound')}
             isLoading={isLoading}
             iconComponent={<MessagePanelIcon name="list-ol" />}
           />
         }
         ListHeaderComponent={
-          <SearchBar
-            placeholder={t('searchPlaceholder')}
-            setSearchText={onChangeSearchText}
-            searchText={searchText}
-            isSearching={isSearching}
-            hasFilters={false}
-          />
+          <>
+            <BannerAd
+              unitId={ADMOB_BANNER_ID}
+              size={BannerAdSize.SMART_BANNER}
+              requestOptions={{
+                requestNonPersonalizedAdsOnly: true,
+              }}
+            />
+
+            <Search
+              placeholder={t('searchPlaceholder')}
+              setSearchText={onChangeSearchText}
+              searchText={searchText}
+              isSearching={isSearching}
+              hasFilters={false}
+            />
+          </>
         }
       />
     </Container>

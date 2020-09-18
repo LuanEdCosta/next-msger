@@ -20,3 +20,8 @@ export const Option = styled(NavigationOption)`
   border-width: 1px;
   border-radius: 5px;
 `
+
+export const AdContainer = styled.View`
+  align-items: center;
+  margin: 16px;
+`

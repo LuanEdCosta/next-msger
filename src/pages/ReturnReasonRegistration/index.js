@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
 import Button from '@/components/Button'
@@ -12,8 +13,9 @@ import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, RETURN_REASON_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
 import { RETURN_REASON_PARAMS } from '@/config/navigation/RouteParams'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
-import { Container, Scroll, ReasonNameInput } from './styles'
+import { Container, Scroll, ReasonNameInput, Content } from './styles'
 
 const ReturnReasonRegistration = ({ navigation }) => {
   const isStackPage = navigation.getParam(
@@ -61,37 +63,47 @@ const ReturnReasonRegistration = ({ navigation }) => {
       />
 
       <Scroll>
-        <ReasonNameInput
-          errorComponent={
-            <InputError show={isShowingErrors && !reasonName.trim()} />
-          }
-          labelComponent={
-            <Label
-              label={t('reasonNameLabel')}
-              iconComponent={<Fw5IconAccent name="signature" solid />}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              placeholder={t('reasonNamePh')}
-              autoCapitalize="words"
-              textContentType="none"
-              onChangeText={setReasonName}
-              value={reasonName}
-              autoCorrect
-            />
-          }
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
 
-        <Button
-          text={t('saveButton')}
-          onPress={onSaveReturnReason}
-          disabled={isSaving}
-          iconComponent={
-            isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+        <Content>
+          <ReasonNameInput
+            errorComponent={
+              <InputError show={isShowingErrors && !reasonName.trim()} />
+            }
+            labelComponent={
+              <Label
+                label={t('reasonNameLabel')}
+                iconComponent={<Fw5IconAccent name="signature" solid />}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                placeholder={t('reasonNamePh')}
+                autoCapitalize="words"
+                textContentType="none"
+                onChangeText={setReasonName}
+                value={reasonName}
+                autoCorrect
+              />
+            }
+          />
+
+          <Button
+            text={t('saveButton')}
+            onPress={onSaveReturnReason}
+            disabled={isSaving}
+            iconComponent={
+              isSaving ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

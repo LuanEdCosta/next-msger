@@ -12,10 +12,13 @@ export const Container = styled.View`
 export const Scroll = styled.ScrollView.attrs({
   contentContainerStyle: {
     flexGrow: 1,
-    padding: 16,
   },
 })`
   flex: 1;
+`
+
+export const Content = styled.View`
+  padding: 16px;
 `
 
 export const EditButton = styled(Button)`

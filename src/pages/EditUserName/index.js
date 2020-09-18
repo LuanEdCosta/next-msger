@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import { EDIT_USER_NAME_PARAMS as EUNP } from '@/config/navigation/RouteParams'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
@@ -7,9 +8,17 @@ import { DefaultTextInput } from '@/components/TextInput'
 import Label from '@/components/Label'
 import Header from '@/components/Header'
 import { WhiteSpinner } from '@/components/Spinner'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
 import useEditUserName from './useEditUserName'
-import { Container, EditButton, EditInput, Scroll, Error } from './styles'
+import {
+  Container,
+  EditButton,
+  EditInput,
+  Scroll,
+  Error,
+  Content,
+} from './styles'
 
 const EditUserName = ({ navigation }) => {
   const userNameToEdit = navigation.getParam(EUNP.USER_NAME, '')
@@ -37,35 +46,45 @@ const EditUserName = ({ navigation }) => {
       />
 
       <Scroll>
-        <EditInput
-          errorComponent={<Error show={!name.trim()} />}
-          labelComponent={
-            <Label
-              iconComponent={<Fw5IconAccent name="signature" solid />}
-              label={t('userName')}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              placeholder={t('userNamePh')}
-              autoCapitalize="words"
-              autoCompleteType="name"
-              editable={!isEditing}
-              onChangeText={setName}
-              value={name}
-            />
-          }
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
 
-        <EditButton
-          text={t('Common:saveModifications')}
-          onPress={onPressSave}
-          disabled={isEditing}
-          iconComponent={
-            isEditing ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+        <Content>
+          <EditInput
+            errorComponent={<Error show={!name.trim()} />}
+            labelComponent={
+              <Label
+                iconComponent={<Fw5IconAccent name="signature" solid />}
+                label={t('userName')}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                placeholder={t('userNamePh')}
+                autoCapitalize="words"
+                autoCompleteType="name"
+                editable={!isEditing}
+                onChangeText={setName}
+                value={name}
+              />
+            }
+          />
+
+          <EditButton
+            text={t('Common:saveModifications')}
+            onPress={onPressSave}
+            disabled={isEditing}
+            iconComponent={
+              isEditing ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

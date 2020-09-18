@@ -1,16 +1,25 @@
 import React, { useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import { EDIT_USER_EMAIL_PARAMS as EUEP } from '@/config/navigation/RouteParams'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { DefaultTextInput } from '@/components/TextInput'
-import Label from '@/components/Label'
-import Header from '@/components/Header'
 import { WhiteSpinner } from '@/components/Spinner'
+import { ADMOB_BANNER_ID } from '@/config/ads'
+import Header from '@/components/Header'
+import Label from '@/components/Label'
 
-import useEditUserEmail from './useEditUserEmail'
-import { Container, EditButton, EditInput, Scroll, Error } from './styles'
 import CurrentPasswordModal from './CurrentPasswordModal'
+import useEditUserEmail from './useEditUserEmail'
+import {
+  Container,
+  EditButton,
+  EditInput,
+  Scroll,
+  Error,
+  Content,
+} from './styles'
 
 const EditUserEmail = ({ navigation }) => {
   const userEmailToEdit = navigation.getParam(EUEP.USER_EMAIL, '')
@@ -70,35 +79,45 @@ const EditUserEmail = ({ navigation }) => {
       />
 
       <Scroll>
-        <EditInput
-          errorComponent={<Error show={!email.trim()} />}
-          labelComponent={
-            <Label
-              iconComponent={<Fw5IconAccent name="envelope" solid />}
-              label={t('userEmail')}
-              isRequired
-            />
-          }
-          inputComponent={
-            <DefaultTextInput
-              placeholder={t('userEmailPh')}
-              keyboardType="email-address"
-              autoCompleteType="email"
-              editable={!isEditing}
-              onChangeText={setEmail}
-              value={email}
-            />
-          }
+        <BannerAd
+          unitId={ADMOB_BANNER_ID}
+          size={BannerAdSize.SMART_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
         />
 
-        <EditButton
-          text={t('Common:saveModifications')}
-          onPress={onPressSave}
-          disabled={isEditing}
-          iconComponent={
-            isEditing ? <WhiteSpinner /> : <ButtonIcon name="check" />
-          }
-        />
+        <Content>
+          <EditInput
+            errorComponent={<Error show={!email.trim()} />}
+            labelComponent={
+              <Label
+                iconComponent={<Fw5IconAccent name="envelope" solid />}
+                label={t('userEmail')}
+                isRequired
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                placeholder={t('userEmailPh')}
+                keyboardType="email-address"
+                autoCompleteType="email"
+                editable={!isEditing}
+                onChangeText={setEmail}
+                value={email}
+              />
+            }
+          />
+
+          <EditButton
+            text={t('Common:saveModifications')}
+            onPress={onPressSave}
+            disabled={isEditing}
+            iconComponent={
+              isEditing ? <WhiteSpinner /> : <ButtonIcon name="check" />
+            }
+          />
+        </Content>
       </Scroll>
     </Container>
   )

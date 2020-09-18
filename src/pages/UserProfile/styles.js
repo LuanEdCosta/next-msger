@@ -53,3 +53,7 @@ export const UserEmail = styled(DefaultText)`
 export const SignOutButton = styled(Button)`
   margin: 16px;
 `
+
+export const AdContainer = styled.View`
+  align-items: center;
+`

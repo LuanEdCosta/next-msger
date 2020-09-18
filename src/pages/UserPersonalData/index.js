@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import auth from '@react-native-firebase/auth'
 import { NavigationEvents } from 'react-navigation'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
-import DetailItem from '@/components/DetailItem'
 import { USER_DOC } from '@/config/database'
+import { ADMOB_BANNER_ID } from '@/config/ads'
+import DetailItem from '@/components/DetailItem'
 import { Fw5IconPrimary, Fw5Icon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import {
@@ -14,7 +16,7 @@ import {
   EDIT_USER_EMAIL_PARAMS as EUEP,
 } from '@/config/navigation/RouteParams'
 
-import { Container, Scroll } from './styles'
+import { Container, Scroll, AdContainer } from './styles'
 
 const UserPersonalData = ({ navigation }) => {
   const { t } = useTranslation('UserPersonalData')
@@ -66,6 +68,16 @@ const UserPersonalData = ({ navigation }) => {
           rightIconComponent={<Fw5Icon name="chevron-right" />}
           titleIconComponent={<Fw5IconPrimary name="envelope" solid />}
         />
+
+        <AdContainer>
+          <BannerAd
+            unitId={ADMOB_BANNER_ID}
+            size={BannerAdSize.MEDIUM_RECTANGLE}
+            requestOptions={{
+              requestNonPersonalizedAdsOnly: true,
+            }}
+          />
+        </AdContainer>
       </Scroll>
     </Container>
   )

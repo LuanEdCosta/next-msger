@@ -11,9 +11,13 @@ export const Container = styled.SafeAreaView`
 
 export const Scroll = styled.ScrollView.attrs({
   contentContainerStyle: {
-    padding: 16,
+    flexGrow: 1,
   },
 })``
+
+export const Content = styled.View`
+  padding: 16px;
+`
 
 export const DataItem = styled(ListItem)`
   margin-bottom: 16px;
