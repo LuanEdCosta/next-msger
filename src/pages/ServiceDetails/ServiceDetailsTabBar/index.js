@@ -1,9 +1,11 @@
 import React, { useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import { SERVICE_DETAILS_ROUTES as SDR } from '@/config/navigation/ScreenRoutes'
 import { Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
 import TabBar from '@/components/TabBar'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 
 const ServiceDetailsTabBar = (props) => {
   const { t } = useTranslation('ServiceDetails')
@@ -48,12 +50,22 @@ const ServiceDetailsTabBar = (props) => {
   )
 
   return (
-    <TabBar
-      labels={labels}
-      renderIcon={onRenderIcon}
-      scrollEnabled
-      {...propsClone}
-    />
+    <>
+      <TabBar
+        labels={labels}
+        renderIcon={onRenderIcon}
+        scrollEnabled
+        {...propsClone}
+      />
+
+      <BannerAd
+        unitId={ADMOB_BANNER_ID}
+        size={BannerAdSize.SMART_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
+    </>
   )
 }
 
