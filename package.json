@@ -8,8 +8,13 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "clear_modules": "npx rimraf .\\**\\node_modules"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "build:android": "npx react-native bundle --dev false --platform android --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/MktApp/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "release:android": "cd android && ./gradlew assembleRelease",
+    "debug:android": "cd android && ./gradlew assembleDebug",
+    "clean:android": "cd android && ./gradlew clean"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.11.0",
