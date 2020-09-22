@@ -10,10 +10,8 @@ import { Fw5Icon } from '../Fw5Icon'
 import { Container, ErrorText } from './styles'
 
 const InputError = (props) => {
-  const { style, text, show, iconComponent } = props
+  const { style, text, iconComponent } = props
   const { t } = useTranslation('Error')
-
-  if (!show) return null
 
   return (
     <Container style={style}>
@@ -27,14 +25,12 @@ InputError.defaultProps = {
   iconComponent: (
     <Fw5Icon name="exclamation-circle" color={MAIN_COLORS.danger} />
   ),
-  show: false,
   style: null,
   text: null,
 }
 
 InputError.propTypes = {
   iconComponent: PropTypes.element,
-  show: PropTypes.bool,
   style: ViewPropTypes.style,
   text: PropTypes.string,
 }

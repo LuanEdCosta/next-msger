@@ -20,5 +20,5 @@ export const AddNewReturnReason = styled(Button).attrs({
 })`
   height: 40px;
   align-self: flex-end;
-  margin-top: 8px;
+  margin-top: 16px;
 `

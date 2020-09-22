@@ -31,7 +31,7 @@ const SelectCustomer = () => {
     isShowingErrors,
   } = useContext(context)
 
-  const { t } = useTranslation(['ServiceRegistration', 'Error'])
+  const { t } = useTranslation('ServiceRegistration')
   const [isShowingModal, setIsShowingModal] = useState(false)
   const { companyId } = useUserData()
 
@@ -75,12 +75,8 @@ const SelectCustomer = () => {
             isRequired
           />
         }
-        errorComponent={
-          <InputError
-            show={isShowingErrors && !selectedCustomer}
-            text={t('Error:emptyField')}
-          />
-        }
+        showErrorComponent={isShowingErrors && !selectedCustomer}
+        errorComponent={<InputError />}
       />
 
       <SearchableListModal

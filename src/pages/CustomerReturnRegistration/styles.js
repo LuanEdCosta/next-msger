@@ -18,7 +18,7 @@ export const Scroll = styled.ScrollView.attrs({
 `
 
 export const Content = styled.View`
-  padding: 24px 16px;
+  padding: 16px;
 `
 
 export const SelectHour = styled(Select)`
@@ -26,9 +26,9 @@ export const SelectHour = styled(Select)`
 `
 
 export const ObservationsInput = styled(Input)`
-  margin-top: 24px;
+  margin-top: 16px;
 `
 
 export const SaveButton = styled(Button)`
-  margin-top: 24px;
+  margin-top: 16px;
 `

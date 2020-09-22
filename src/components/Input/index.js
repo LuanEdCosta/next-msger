@@ -26,8 +26,8 @@ const Input = (props) => {
     onLeftIconPress,
     showInputIcon,
     showAction,
-    showErrorComponent = true,
-    showLabelComponent = true,
+    showErrorComponent,
+    showLabelComponent,
   } = props
 
   const onLeftIconPressed = useCallback(() => {
@@ -76,6 +76,8 @@ Input.defaultProps = {
   showAction: true,
   showInputIcon: true,
   style: null,
+  showErrorComponent: false,
+  showLabelComponent: true,
 }
 
 Input.propTypes = {
@@ -90,6 +92,8 @@ Input.propTypes = {
   showAction: PropTypes.bool,
   showInputIcon: PropTypes.bool,
   style: ViewPropTypes.style,
+  showErrorComponent: PropTypes.bool,
+  showLabelComponent: PropTypes.bool,
 }
 
 export default Input

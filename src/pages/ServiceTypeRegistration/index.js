@@ -66,9 +66,8 @@ const ServiceTypeRegistration = () => {
 
         <Content>
           <ServiceTypeInput
-            errorComponent={
-              <InputError show={isShowingErrors && !serviceTypeName.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !serviceTypeName.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('serviceTypeLabel')}

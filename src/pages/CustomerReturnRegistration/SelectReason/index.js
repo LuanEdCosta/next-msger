@@ -88,12 +88,8 @@ const SelectReason = () => {
             isRequired
           />
         }
-        errorComponent={
-          <InputError
-            show={isShowingErrors && !selectedReason}
-            text={t('Error:emptyField')}
-          />
-        }
+        showErrorComponent={isShowingErrors && !selectedReason}
+        errorComponent={<InputError />}
       />
 
       <AddNewReturnReason

@@ -18,5 +18,5 @@ export const CustomerInput = styled(Input)`
 `
 
 export const Content = styled.View`
-  padding: 24px 16px;
+  padding: 16px;
 `

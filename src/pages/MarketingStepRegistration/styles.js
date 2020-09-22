@@ -10,7 +10,7 @@ export const Scroll = styled.ScrollView.attrs({
 })``
 
 export const Content = styled.View`
-  padding: 24px 16px;
+  padding: 16px;
 `
 
 export const Container = styled.SafeAreaView`
@@ -22,6 +22,4 @@ export const MarketingStepInput = styled(Input)`
   margin-bottom: 16px;
 `
 
-export const SaveButton = styled(Button)`
-  margin-top: 8px;
-`
+export const SaveButton = styled(Button)``

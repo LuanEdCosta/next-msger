@@ -136,9 +136,8 @@ const MarketingStepRegistration = () => {
 
         <Content>
           <MarketingStepInput
-            errorComponent={
-              <InputError show={isShowingErrors && !marketingStepName.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !marketingStepName.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('nameLabel')}
@@ -162,9 +161,8 @@ const MarketingStepRegistration = () => {
           />
 
           <MarketingStepInput
-            errorComponent={
-              <InputError show={isShowingErrors && !numOfDays.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !numOfDays.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('numOfDaysLabel')}
@@ -189,9 +187,8 @@ const MarketingStepRegistration = () => {
           />
 
           <MarketingStepInput
-            errorComponent={
-              <InputError show={isShowingErrors && !emailMessage.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !emailMessage.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('emailMsgLabel')}
@@ -219,9 +216,8 @@ const MarketingStepRegistration = () => {
           />
 
           <MarketingStepInput
-            errorComponent={
-              <InputError show={isShowingErrors && !whatsappMessage.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !whatsappMessage.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('whatsappMsgLabel')}
@@ -248,9 +244,8 @@ const MarketingStepRegistration = () => {
           />
 
           <MarketingStepInput
-            errorComponent={
-              <InputError show={isShowingErrors && !smsMessage.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !smsMessage.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('smsMsgLabel')}

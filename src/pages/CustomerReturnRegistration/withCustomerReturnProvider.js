@@ -41,7 +41,7 @@ export default (WrappedComponent) => (props) => {
 
   // ---------------------------------------------------------------------------
 
-  const { t } = useTranslation(['CustomerReturnRegistration', 'Error'])
+  const { t } = useTranslation('CustomerReturnRegistration')
   const showAlert = useErrorAlert()
 
   const [selectedReason, setSelectedReason] = useState(

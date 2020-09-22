@@ -96,9 +96,8 @@ const CustomerRegistration = () => {
 
         <Content>
           <CustomerInput
-            errorComponent={
-              <InputError show={isShowingErrors && !name.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !name.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('nameLabel')}
@@ -123,9 +122,8 @@ const CustomerRegistration = () => {
           />
 
           <CustomerInput
-            errorComponent={
-              <InputError show={isShowingErrors && !email.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !email.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('emailLabel')}
@@ -151,9 +149,8 @@ const CustomerRegistration = () => {
           />
 
           <CustomerInput
-            errorComponent={
-              <InputError show={isShowingErrors && !whatsapp.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !whatsapp.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('whatsappLabel')}

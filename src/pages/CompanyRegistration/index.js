@@ -114,7 +114,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !companyName.trim()}
         />
 
@@ -140,7 +140,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !fantasyName.trim()}
         />
 
@@ -169,7 +169,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !cnpj.trim()}
         />
 
@@ -195,7 +195,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !companyOwnerName.trim()}
         />
 
@@ -224,7 +224,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !companyOwnerPhone.trim()}
         />
 
@@ -253,7 +253,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !companyOwnerCpf.trim()}
         />
 
@@ -280,7 +280,7 @@ const CompanyRegistration = ({ navigation }) => {
               }}
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !email.trim()}
         />
 
@@ -307,7 +307,7 @@ const CompanyRegistration = ({ navigation }) => {
               secureTextEntry
             />
           }
-          errorComponent={<InputError show text={t('Error:emptyField')} />}
+          errorComponent={<InputError />}
           showErrorComponent={isShowingErrors && !password.trim()}
         />
 
@@ -331,7 +331,6 @@ const CompanyRegistration = ({ navigation }) => {
           }
           errorComponent={
             <InputError
-              show
               text={t(
                 !passwordConfirmation.trim()
                   ? 'Error:emptyField'

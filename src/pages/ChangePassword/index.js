@@ -59,9 +59,8 @@ const ChangePassword = ({ navigation }) => {
 
       <Scroll>
         <Input
-          errorComponent={
-            <InputError show={isShowingErrors && !currentPassword.trim()} />
-          }
+          showErrorComponent={isShowingErrors && !currentPassword.trim()}
+          errorComponent={<InputError />}
           labelComponent={
             <Label
               label={t('currentPassword')}
@@ -86,9 +85,8 @@ const ChangePassword = ({ navigation }) => {
         />
 
         <Input
-          errorComponent={
-            <InputError show={isShowingErrors && !password.trim()} />
-          }
+          showErrorComponent={isShowingErrors && !password.trim()}
+          errorComponent={<InputError />}
           labelComponent={
             <Label
               label={t('password')}
@@ -114,6 +112,9 @@ const ChangePassword = ({ navigation }) => {
         />
 
         <Input
+          showErrorComponent={
+            isShowingErrors && (!confirmPassword.trim() || !isPasswordsEqual)
+          }
           errorComponent={
             <InputError
               text={t(
@@ -121,10 +122,6 @@ const ChangePassword = ({ navigation }) => {
                   ? 'Error:emptyField'
                   : 'passwordsNotEqualError',
               )}
-              show={
-                isShowingErrors &&
-                (!confirmPassword.trim() || !isPasswordsEqual)
-              }
             />
           }
           labelComponent={

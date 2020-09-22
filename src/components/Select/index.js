@@ -27,6 +27,8 @@ const Select = (props) => {
     iconComponent,
     labelComponent,
     errorComponent,
+    showErrorComponent,
+    showLabelComponent,
   } = props
 
   const onClearData = useCallback(() => {
@@ -35,9 +37,12 @@ const Select = (props) => {
 
   return (
     <Container style={style}>
-      {labelComponent}
+      {!!showLabelComponent && labelComponent}
 
-      <SelectContainer hasLabel={!!labelComponent} hasError={!!errorComponent}>
+      <SelectContainer
+        hasLabel={!!showLabelComponent && !!labelComponent}
+        hasError={!!showErrorComponent && !!errorComponent}
+      >
         <SelectComponent>
           <Touchable onPress={onSelect} disabled={selectDisabled}>
             <SelectTouchable>
@@ -52,7 +57,7 @@ const Select = (props) => {
         </ClearButton>
       </SelectContainer>
 
-      {errorComponent}
+      {!!showErrorComponent && errorComponent}
     </Container>
   )
 }
@@ -69,6 +74,8 @@ Select.defaultProps = {
   setValue: null,
   style: null,
   value: null,
+  showErrorComponent: false,
+  showLabelComponent: true,
 }
 
 Select.propTypes = {
@@ -84,6 +91,8 @@ Select.propTypes = {
   setValue: PropTypes.func,
   style: ViewPropTypes.style,
   value: PropTypes.string,
+  showErrorComponent: PropTypes.bool,
+  showLabelComponent: PropTypes.bool,
 }
 
 export default Select

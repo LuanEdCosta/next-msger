@@ -15,7 +15,7 @@ import { Container } from './styles'
 const SelectServiceStartDate = () => {
   const { startDate, setStartDate, isShowingErrors } = useContext(context)
 
-  const { t } = useTranslation(['ServiceRegistration', 'Error'])
+  const { t } = useTranslation('ServiceRegistration')
   const [isShowingPicker, setIsShowingPicker] = useState(false)
 
   const onChangeDate = useCallback(
@@ -40,12 +40,8 @@ const SelectServiceStartDate = () => {
             isRequired
           />
         }
-        errorComponent={
-          <InputError
-            show={isShowingErrors && !startDate}
-            text={t('Error:emptyField')}
-          />
-        }
+        showErrorComponent={isShowingErrors && !startDate}
+        errorComponent={<InputError />}
       />
 
       <DateTimePicker

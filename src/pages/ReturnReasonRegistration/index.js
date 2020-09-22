@@ -73,9 +73,8 @@ const ReturnReasonRegistration = ({ navigation }) => {
 
         <Content>
           <ReasonNameInput
-            errorComponent={
-              <InputError show={isShowingErrors && !reasonName.trim()} />
-            }
+            showErrorComponent={isShowingErrors && !reasonName.trim()}
+            errorComponent={<InputError />}
             labelComponent={
               <Label
                 label={t('reasonNameLabel')}

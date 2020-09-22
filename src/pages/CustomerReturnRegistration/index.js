@@ -84,7 +84,9 @@ const CustomerReturnRegistration = withCustomerReturnProvider(() => {
           <SelectReason />
 
           <Select
+            errorComponent={<InputError />}
             value={returnDate ? moment(returnDate).format('L') : null}
+            showErrorComponent={isShowingErrors && !returnDate}
             onSelect={() => setIsShowingDatePicker(true)}
             placeholder={t('returnDatePh')}
             setValue={setReturnDate}
@@ -93,12 +95,6 @@ const CustomerReturnRegistration = withCustomerReturnProvider(() => {
                 label={t('returnDate')}
                 iconComponent={<Fw5IconAccent name="calendar-day" solid />}
                 isRequired
-              />
-            }
-            errorComponent={
-              <InputError
-                show={isShowingErrors && !returnDate}
-                text={t('Error:emptyField')}
               />
             }
           />
