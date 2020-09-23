@@ -2,11 +2,7 @@ import { useCallback, useContext } from 'react'
 import moment from 'moment'
 import firestore from '@react-native-firebase/firestore'
 
-import {
-  COLLECTIONS,
-  CUSTOMER_RETURN_DOC,
-  RETURN_REASON_DOC,
-} from '@/config/database'
+import { COLLECTIONS, CUSTOMER_RETURN_DOC } from '@/config/database'
 import { useUserData } from '@/hooks'
 
 import CustomerReturnContext from './context'
@@ -40,8 +36,14 @@ export default () => {
 
     try {
       const now = firestore.FieldValue.serverTimestamp()
-      const returnDateTimestamp = moment(returnDate).utc().valueOf()
-      const returnHourTimestamp = moment(returnHour).utc().valueOf()
+
+      const returnDateTimestamp = firestore.Timestamp.fromDate(
+        moment(returnDate).toDate(),
+      )
+
+      const returnHourTimestamp = firestore.Timestamp.fromDate(
+        moment(returnHour).toDate(),
+      )
 
       const dataToSave = {
         [CUSTOMER_RETURN_DOC.CREATED_AT]: now,

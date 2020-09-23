@@ -11,6 +11,7 @@ import { useArraySearch } from '@/hooks'
 import Header from '@/components/Header'
 import Fab from '@/components/Fab'
 import { RETURN_REASON_DOC } from '@/config/database'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import useSubscribeToReturnReason from './useSubscribeToReturnReason'
 import {
@@ -75,7 +76,7 @@ const ReturnReasonList = ({ navigation }) => {
       } = item
 
       const formattedDate = createdAt
-        ? t('createdAt', { date: createdAt.toDate() })
+        ? t('createdAt', { date: firebaseTimestampToMoment(createdAt) })
         : ''
 
       const onDeletePressed = () => onConfirmToDelete(id)

@@ -3,7 +3,7 @@
   "returnDate": "Data: {{date, L}}",
   "returnHour": "Hora: {{hour, HH:mm}}",
   "reason": "Motivo: {{reasonName}}",
-  "withourHour": "Não Informada",
+  "withoutHour": "Não Informada",
   "deleteAlertTitle": "Excluir Retorno do Cliente",
   "deleteAlertMessage": "Tem certeza que deseja excluir este retorno do cliente",
   "hintTitle": "O que é o \"Retorno do Cliente\"",

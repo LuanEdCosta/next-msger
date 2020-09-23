@@ -6,7 +6,6 @@ import React, {
   useEffect,
 } from 'react'
 import firestore from '@react-native-firebase/firestore'
-import moment from 'moment'
 
 import SearchableListModal from '@/components/SearchableListModal'
 import { COLLECTIONS, RETURN_REASON_DOC } from '@/config/database'
@@ -16,6 +15,7 @@ import Label from '@/components/Label'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { RETURN_REASON_PARAMS } from '@/config/navigation/RouteParams'
 import { useUserData } from '@/hooks'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import context from '../context'
 
@@ -56,12 +56,16 @@ const SelectReason = () => {
       .onSnapshot((querySnapshot) => {
         const reasons = querySnapshot.docs.map((doc) => {
           const reason = doc.data()
+          const momentDate = firebaseTimestampToMoment(
+            reason[RETURN_REASON_DOC.CREATED_AT],
+          )
+
           return {
             ...reason,
             [RETURN_REASON_DOC.ID]: doc.id,
-            [RETURN_REASON_DOC.CREATED_AT]: moment(
-              reason[RETURN_REASON_DOC.CREATED_AT],
-            ).format('LL'),
+            [RETURN_REASON_DOC.CREATED_AT]: momentDate
+              ? momentDate.format('LL')
+              : '',
           }
         })
 

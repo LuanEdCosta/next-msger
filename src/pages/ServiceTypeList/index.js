@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native-gesture-handler'
 import firestore from '@react-native-firebase/firestore'
@@ -12,6 +11,7 @@ import { DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import Header from '@/components/Header'
 import Fab from '@/components/Fab'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import {
   Container,
@@ -38,12 +38,7 @@ const ServiceTypeList = ({ navigation }) => {
     isSearching,
   } = useArraySearch({
     list: serviceTypeList,
-    keysToFilter: [SERVICE_TYPE_DOC.NAME, SERVICE_TYPE_DOC.CREATED_AT],
-    formatTexts: {
-      [SERVICE_TYPE_DOC.CREATED_AT]: (timestamp) => {
-        return moment(timestamp).format('LL')
-      },
-    },
+    keysToFilter: [SERVICE_TYPE_DOC.NAME],
   })
 
   const onSubscribeToCustomersCollection = useCallback(() => {
@@ -88,10 +83,13 @@ const ServiceTypeList = ({ navigation }) => {
       const {
         [SERVICE_TYPE_DOC.ID]: id,
         [SERVICE_TYPE_DOC.NAME]: name,
-        [SERVICE_TYPE_DOC.CREATED_AT]: creationTimestamp,
+        [SERVICE_TYPE_DOC.CREATED_AT]: createdAt,
       } = item
 
-      const creationDate = t('createdAt', { date: moment(creationTimestamp) })
+      const creationDate = t('createdAt', {
+        date: firebaseTimestampToMoment(createdAt),
+      })
+
       const onDeletePressed = () => onDeleteServiceType(id)
 
       return (

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -11,6 +10,7 @@ import { useErrorAlert, useUserData } from '@/hooks'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
 import { ADMOB_BANNER_ID } from '@/config/ads'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import {
   Container,
@@ -127,7 +127,9 @@ const MarketingStepDetails = ({ navigation }) => {
             </DataItemTitle>
             <DataItemValue
               text={t('createdAt', {
-                date: moment(stepData[MARKETING_STEP_DOC.CREATED_AT]),
+                date: firebaseTimestampToMoment(
+                  stepData[MARKETING_STEP_DOC.CREATED_AT],
+                ),
               })}
             />
           </DataItem>

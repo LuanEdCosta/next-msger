@@ -7,7 +7,6 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
-import moment from 'moment'
 
 import Select from '@/components/Select'
 import SearchableListModal from '@/components/SearchableListModal'
@@ -16,6 +15,7 @@ import Label from '@/components/Label'
 import { Fw5IconAccent, Fw5Icon } from '@/components/Fw5Icon'
 import InputError from '@/components/InputError'
 import { useUserData } from '@/hooks'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import context from '../context'
 
@@ -49,11 +49,14 @@ const SelectServiceType = () => {
       .onSnapshot((querySnapshot) => {
         const serviceTypes = querySnapshot.docs.map((doc) => {
           const serviceType = doc.data()
+          const momentDate = firebaseTimestampToMoment(
+            serviceType[SERVICE_TYPE_DOC.CREATED_AT],
+          )
 
           serviceType[SERVICE_TYPE_DOC.ID] = doc.id
-          serviceType[SERVICE_TYPE_DOC.CREATED_AT] = moment(
-            serviceType[SERVICE_TYPE_DOC.CREATED_AT],
-          ).format('LL')
+          serviceType[SERVICE_TYPE_DOC.CREATED_AT] = momentDate
+            ? momentDate.format('LL')
+            : ''
 
           return serviceType
         })

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native-gesture-handler'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -11,6 +10,7 @@ import { ADMOB_BANNER_ID } from '@/config/ads'
 import { useArraySearch } from '@/hooks'
 import Header from '@/components/Header'
 import Fab from '@/components/Fab'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import useSubscribeToServicesCollection from './useSubscribeToServicesCollection'
 import {
@@ -33,15 +33,8 @@ const ServiceList = ({ navigation }) => {
     isSearching,
   } = useArraySearch({
     list: serviceList,
-    keysToFilter: [
-      SERVICE_DOC.START_DATE,
-      SERVICE_DOC.END_DATE,
-      SERVICE_DOC.CUSTOMER,
-      SERVICE_DOC.SERVICE_TYPE,
-    ],
+    keysToFilter: [SERVICE_DOC.CUSTOMER, SERVICE_DOC.SERVICE_TYPE],
     formatTexts: {
-      [SERVICE_DOC.START_DATE]: (val) => moment(val).format('LL'),
-      [SERVICE_DOC.END_DATE]: (val) => moment(val).format('LL'),
       [SERVICE_DOC.CUSTOMER]: (customer) => {
         if (customer) return customer[CUSTOMER_DOC.NAME]
         return ''
@@ -76,6 +69,14 @@ const ServiceList = ({ navigation }) => {
         })
       }
 
+      const startDateText = t('startDate', {
+        date: firebaseTimestampToMoment(startDate),
+      })
+
+      const endDateText = t('endDate', {
+        date: firebaseTimestampToMoment(endDate),
+      })
+
       return (
         <ServiceItem
           onPress={onPress}
@@ -89,11 +90,11 @@ const ServiceList = ({ navigation }) => {
             <Fw5Icon name="file-alt" solid />
           </ServiceItemText>
 
-          <ServiceItemText text={t('startDate', { date: moment(startDate) })}>
+          <ServiceItemText text={startDateText}>
             <Fw5Icon name="calendar-day" solid />
           </ServiceItemText>
 
-          <ServiceItemText text={t('endDate', { date: moment(endDate) })}>
+          <ServiceItemText text={endDateText}>
             <Fw5Icon name="calendar-week" solid />
           </ServiceItemText>
         </ServiceItem>

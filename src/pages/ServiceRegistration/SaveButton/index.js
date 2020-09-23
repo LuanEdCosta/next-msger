@@ -35,8 +35,13 @@ const SaveButton = () => {
     setIsSaving(true)
 
     try {
-      const startUtcTimestamp = moment(startDate).utc().valueOf()
-      const endUtcTimestamp = moment(endDate).utc().valueOf()
+      const startUtcTimestamp = firestore.Timestamp.fromDate(
+        moment(startDate).toDate(),
+      )
+
+      const endUtcTimestamp = firestore.Timestamp.fromDate(
+        moment(endDate).toDate(),
+      )
 
       await firestore()
         .collection(COLLECTIONS.COMPANIES)

@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import moment from 'moment'
 import { Alert } from 'react-native'
 
 import {
@@ -14,6 +13,7 @@ import MessagePanel from '@/components/MessagePanel'
 import Fab from '@/components/Fab'
 import TouchableIcon from '@/components/TouchableIcon'
 import { CUSTOMER_RETURN_REGISTRATION_PARAMS } from '@/config/navigation/RouteParams'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import useSubscribeToReturnCollection from './useSubscribeToReturnCollection'
 import {
@@ -96,7 +96,7 @@ const CustomerReturnTab = ({ navigation }) => {
 
             <ReturnListItemText
               text={t('returnDate', {
-                date: moment(returnDate),
+                date: firebaseTimestampToMoment(returnDate),
                 interpolation: {
                   escapeValue: false,
                   format(str) {
@@ -110,7 +110,9 @@ const CustomerReturnTab = ({ navigation }) => {
 
             <ReturnListItemText
               text={t('returnHour', {
-                hour: returnHour ? moment(returnHour) : t('withourHour'),
+                hour: returnHour
+                  ? firebaseTimestampToMoment(returnHour)
+                  : t('withoutHour'),
               })}
             >
               <Fw5Icon name="clock" solid />
