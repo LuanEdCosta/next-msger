@@ -1,14 +1,15 @@
 {
   "home": "Início",
   "userProfile": "Seu Perfil",
-  "customerRegistration": "Cadastrar Cliente",
-  "customerList": "Listagem de Clientes",
+  "customerRegistration": "Novo Cliente",
+  "customerList": "Clientes",
   "dashboard": "Dashboard",
-  "serviceList": "Listagem de Serviços",
-  "marketingStepRegistration": "Cadastrar Etapa de Marketing",
-  "serviceTypeRegistration": "Cadastrar Tipo de Serviço",
-  "serviceTypeList": "Listagem de Tipos de Serviço",
-  "serviceRegistration": "Cadastrar Serviço",
-  "marketingStepList": "Listagem de Etapas de Marketing",
-  "returnReasonRegistration": "Cadastro de Motivo de Retorno"
+  "serviceList": "Serviços",
+  "marketingStepRegistration": "Nova Etapa de Marketing",
+  "serviceTypeRegistration": "Novo Tipo de Serviço",
+  "serviceTypeList": "Tipos de Serviço",
+  "serviceRegistration": "Novo Serviço",
+  "marketingStepList": "Etapas de Marketing",
+  "returnReasonRegistration": "Novo de Motivo de Retorno",
+  "returnReasonList": "Motivos de Retorno"
 }

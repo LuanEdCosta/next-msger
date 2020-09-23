@@ -1,0 +1,7 @@
+{
+  "anyReturnReasonFound": "Nenhum Motivo Encontrado",
+  "searchPlaceholder": "Nome do Motivo",
+  "createdAt": "Criado em: {{date, LL}}",
+  "deleteTitle": "Excluir Motivo de Retorno",
+  "deleteMessage": "Tem certeza que deseja excluir este motivo de retorno?"
+}

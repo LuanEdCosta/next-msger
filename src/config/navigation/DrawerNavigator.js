@@ -13,6 +13,7 @@ import ServiceTypeRegistration from '@/pages/ServiceTypeRegistration'
 import MarketingStepList from '@/pages/MarketingStepList'
 import UserProfile from '@/pages/UserProfile'
 import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
+import ReturnReasonList from '@/pages/ReturnReasonList'
 
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
@@ -60,6 +61,13 @@ const DrawerNavigator = createDrawerNavigator(
         [DRAWER_PAGES.DRAWER_ICON]: 'file-alt',
       },
     },
+    [DR.RETURN_REASON_REGISTRATION]: {
+      screen: ReturnReasonRegistration,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'returnReasonRegistration',
+        [DRAWER_PAGES.DRAWER_ICON]: 'reply',
+      },
+    },
     [DR.CUSTOMER_LIST]: {
       screen: CustomerList,
       params: {
@@ -88,11 +96,11 @@ const DrawerNavigator = createDrawerNavigator(
         [DRAWER_PAGES.DRAWER_ICON]: 'list-alt',
       },
     },
-    [DR.RETURN_REASON_REGISTRATION]: {
-      screen: ReturnReasonRegistration,
+    [DR.RETURN_REASON_LIST]: {
+      screen: ReturnReasonList,
       params: {
-        [DRAWER_PAGES.DRAWER_LABEL]: 'returnReasonRegistration',
-        [DRAWER_PAGES.DRAWER_ICON]: 'reply',
+        [DRAWER_PAGES.DRAWER_LABEL]: 'returnReasonList',
+        [DRAWER_PAGES.DRAWER_ICON]: 'align-left',
       },
     },
   },
