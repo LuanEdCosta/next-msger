@@ -4,6 +4,7 @@ import ListItem from '@/components/ListItem'
 import ListItemText from '@/components/ListItem/ListItemText'
 import { UppercaseBoldText } from '@/components/Text'
 import { MAIN_COLORS } from '@/styles'
+import Button from '@/components/Button'
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -44,3 +45,4 @@ export const DataItemTitle = styled(ListItemText).attrs({
 export const DataItemText = styled(ListItemText)`
   margin-top: 4px;
 `
+export const EditServiceButton = styled(Button)``

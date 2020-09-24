@@ -35,6 +35,7 @@ import DashboardFilters from './DashboardFilters.json'
 import ForgotPassword from './ForgotPassword.json'
 import CompanyRegistration from './CompanyRegistration.json'
 import ReturnReasonList from './ReturnReasonList.json'
+import EditService from './EditService.json'
 
 export default {
   Common,
@@ -74,4 +75,5 @@ export default {
   ForgotPassword,
   CompanyRegistration,
   ReturnReasonList,
+  EditService,
 }

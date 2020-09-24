@@ -1,10 +1,11 @@
 {
-  "serviceDataGroupTtitle": "Dados do Serviço",
-  "customerDataGroupTtitle": "Dados do Cliente",
+  "serviceDataGroupTitle": "Dados do Serviço",
+  "customerDataGroupTitle": "Dados do Cliente",
   "startDate": "Data de Inicio",
   "endDate": "Data de Término",
   "serviceTypeName": "Tipo do Serviço",
   "customerName": "Nome",
   "customerEmail": "Email",
-  "customerCellphone": "Celular"
+  "customerCellphone": "Celular",
+  "editService": "Editar Serviço"
 }

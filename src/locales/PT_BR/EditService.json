@@ -1,9 +1,6 @@
 {
-  "saveButton": "Cadastrar",
-  "customerSelect": "Cliente deste Serviço",
-  "customerSelectPh": "Toque e Selecione o Cliente",
-  "anyCustomerFound": "Nenhum Cliente Encontrado",
-  "customerSearchPh": "Nome ou email do cliente",
+  "pageTitle": "Editar Serviço",
+  "editButton": "Salvar Modificações",
   "serviceTypeSelect": "Tipo do Serviço",
   "serviceTypeSelectPh": "Toque e Selecione o Tipo do Serviço",
   "anyServiceTypeFound": "Nenhum Tipo de Serviço Encontrado",

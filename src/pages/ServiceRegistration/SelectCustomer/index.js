@@ -92,7 +92,7 @@ const SelectCustomer = () => {
         modalTitle={t('customerSelect')}
         titleIconComponent={<Fw5Icon name="signature" />}
         subtitleIconComponent={<Fw5Icon name="envelope" solid />}
-        messagePanelText={t('anyCustoemerFound')}
+        messagePanelText={t('anyCustomerFound')}
         searchInputPlaceholder={t('customerSearchPh')}
       />
     </Container>

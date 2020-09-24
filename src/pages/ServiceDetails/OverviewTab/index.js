@@ -1,9 +1,11 @@
-import React, { useMemo, useContext } from 'react'
+import React, { useMemo, useContext, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import moment from 'moment'
 
 import { CUSTOMER_DOC, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
-import { Fw5Icon } from '@/components/Fw5Icon'
+import { ButtonIcon, Fw5Icon } from '@/components/Fw5Icon'
+import { firebaseTimestampToMoment } from '@/utils'
+import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { EDIT_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
@@ -14,9 +16,10 @@ import {
   DataItem,
   DataItemTitle,
   DataItemText,
+  EditServiceButton,
 } from './styles'
 
-const OverviewTab = () => {
+const OverviewTab = ({ navigation }) => {
   const { t } = useTranslation('ServiceDetailsOverviewTab')
   const { serviceData } = useContext(ServiceDetailsContext)
 
@@ -29,17 +32,29 @@ const OverviewTab = () => {
     [serviceData],
   )
 
+  const onNavigateToEditService = useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.EDIT_SERVICE, {
+      [EDIT_SERVICE_PARAMS.SERVICE_DATA]: serviceData,
+    })
+  }, [navigation, serviceData])
+
   return (
     <Container>
       <DataGroup>
-        <DataGroupTitle>{t('serviceDataGroupTtitle')}</DataGroupTitle>
+        <DataGroupTitle>{t('serviceDataGroupTitle')}</DataGroupTitle>
 
         <DataItem>
           <DataItemTitle text={t('startDate')}>
             <Fw5Icon name="calendar-day" solid />
           </DataItemTitle>
           <DataItemText
-            text={moment(serviceData[SERVICE_DOC.START_DATE]).format('LL')}
+            text={
+              serviceData[SERVICE_DOC.START_DATE]
+                ? firebaseTimestampToMoment(
+                    serviceData[SERVICE_DOC.START_DATE],
+                  ).format('LL')
+                : ''
+            }
           />
         </DataItem>
 
@@ -48,7 +63,13 @@ const OverviewTab = () => {
             <Fw5Icon name="calendar-week" solid />
           </DataItemTitle>
           <DataItemText
-            text={moment(serviceData[SERVICE_DOC.END_DATE]).format('LL')}
+            text={
+              serviceData[SERVICE_DOC.END_DATE]
+                ? firebaseTimestampToMoment(
+                    serviceData[SERVICE_DOC.END_DATE],
+                  ).format('LL')
+                : ''
+            }
           />
         </DataItem>
 
@@ -61,7 +82,7 @@ const OverviewTab = () => {
       </DataGroup>
 
       <DataGroup>
-        <DataGroupTitle>{t('customerDataGroupTtitle')}</DataGroupTitle>
+        <DataGroupTitle>{t('customerDataGroupTitle')}</DataGroupTitle>
 
         <DataItem>
           <DataItemTitle text={t('customerName')}>
@@ -84,6 +105,12 @@ const OverviewTab = () => {
           <DataItemText text={customer[CUSTOMER_DOC.PHONE]} />
         </DataItem>
       </DataGroup>
+
+      <EditServiceButton
+        text={t('editService')}
+        onPress={onNavigateToEditService}
+        iconComponent={<ButtonIcon name="pen" />}
+      />
     </Container>
   )
 }
