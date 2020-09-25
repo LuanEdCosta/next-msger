@@ -36,6 +36,7 @@ import ForgotPassword from './ForgotPassword.json'
 import CompanyRegistration from './CompanyRegistration.json'
 import ReturnReasonList from './ReturnReasonList.json'
 import EditService from './EditService.json'
+import EditMarketingStep from './EditMarketingStep.json'
 
 export default {
   Common,
@@ -76,4 +77,5 @@ export default {
   CompanyRegistration,
   ReturnReasonList,
   EditService,
+  EditMarketingStep,
 }

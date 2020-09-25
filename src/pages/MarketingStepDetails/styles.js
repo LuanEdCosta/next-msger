@@ -31,6 +31,17 @@ export const DataItemValue = styled(ListItemText)`
   margin-top: 6px;
 `
 
-export const DeleteButton = styled(Button)`
+export const ActionsContainer = styled.View`
+  flex-direction: row;
   margin-bottom: 16px;
+`
+
+export const EditButton = styled(Button)`
+  flex: 1;
+  margin-right: 8px;
+`
+
+export const DeleteButton = styled(Button)`
+  flex: 1;
+  margin-left: 8px;
 `

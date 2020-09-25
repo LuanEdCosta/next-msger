@@ -12,13 +12,17 @@ import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import { firebaseTimestampToMoment } from '@/utils'
+import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { EDIT_MARKETING_STEP_PARAMS } from '@/config/navigation/RouteParams'
 
 import {
   Container,
   DataItem,
   DataItemTitle,
   DataItemValue,
+  ActionsContainer,
   DeleteButton,
+  EditButton,
   Scroll,
   Content,
 } from './styles'
@@ -88,6 +92,12 @@ const MarketingStepDetails = ({ navigation }) => {
     )
   }, [onDeleteMarketingStep, t])
 
+  const onEditMarketingStep = useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.EDIT_MARKETING_STEP, {
+      [EDIT_MARKETING_STEP_PARAMS.MARKETING_STEP_DATA]: stepData,
+    })
+  }, [navigation, stepData])
+
   return (
     <Container>
       <Scroll>
@@ -156,19 +166,27 @@ const MarketingStepDetails = ({ navigation }) => {
             />
           </DataItem>
 
-          <DeleteButton
-            text={t('deleteButton')}
-            backgroundColor="danger"
-            onPress={onConfirmToDelete}
-            disabled={isDeleting}
-            iconComponent={
-              isDeleting ? (
-                <WhiteSpinner size={FONT_SIZES.FONT_SIZE_4} />
-              ) : (
-                <ButtonIcon name="trash" />
-              )
-            }
-          />
+          <ActionsContainer>
+            <EditButton
+              text={t('editButton')}
+              onPress={onEditMarketingStep}
+              iconComponent={<ButtonIcon name="pen" />}
+            />
+
+            <DeleteButton
+              text={t('deleteButton')}
+              backgroundColor="danger"
+              onPress={onConfirmToDelete}
+              disabled={isDeleting}
+              iconComponent={
+                isDeleting ? (
+                  <WhiteSpinner size={FONT_SIZES.FONT_SIZE_4} />
+                ) : (
+                  <ButtonIcon name="trash" />
+                )
+              }
+            />
+          </ActionsContainer>
         </Content>
       </Scroll>
     </Container>
