@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -26,7 +27,7 @@ const MarketingStepDetails = ({ navigation }) => {
   const marketingStepId = navigation.getParam(MARKETING_STEP_DOC.ID)
   const { companyId } = useUserData()
 
-  const { t } = useTranslation('MarketingStepDetails')
+  const { t } = useTranslation(['MarketingStepDetails', 'Glossary'])
   const showAlert = useErrorAlert()
 
   const [stepData, setStepData] = useState({})
@@ -74,6 +75,18 @@ const MarketingStepDetails = ({ navigation }) => {
       setIsDeleting(false)
     }
   }, [companyId, marketingStepId, navigation, showAlert])
+
+  const onConfirmToDelete = useCallback(() => {
+    Alert.alert(
+      t('deleteTitle'),
+      t('deleteMessage'),
+      [
+        { text: t('Glossary:cancel') },
+        { text: t('Glossary:delete'), onPress: onDeleteMarketingStep },
+      ],
+      { cancelable: true },
+    )
+  }, [onDeleteMarketingStep, t])
 
   return (
     <Container>
@@ -146,7 +159,7 @@ const MarketingStepDetails = ({ navigation }) => {
           <DeleteButton
             text={t('deleteButton')}
             backgroundColor="danger"
-            onPress={onDeleteMarketingStep}
+            onPress={onConfirmToDelete}
             disabled={isDeleting}
             iconComponent={
               isDeleting ? (
