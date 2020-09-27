@@ -4,5 +4,7 @@
   "save": "Salvar",
   "edit": "Editar",
   "password": "Senha",
-  "confirm": "Confirmar"
+  "confirm": "Confirmar",
+  "finalize": "Finalizar",
+  "warning": "Aviso"
 }

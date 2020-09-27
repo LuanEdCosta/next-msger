@@ -4,15 +4,15 @@ import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import { SERVICE_DETAILS_ROUTES as SDR } from '@/config/navigation/ScreenRoutes'
 import { Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
-import TabBar from '@/components/TabBar'
 import { ADMOB_BANNER_ID } from '@/config/ads'
+import TabBar from '@/components/TabBar'
+
+import ServiceDetailsHeader from '../ServiceDetailsHeader'
 
 const ServiceDetailsTabBar = (props) => {
   const { t } = useTranslation('ServiceDetails')
 
   const propsClone = { ...props }
-
-  // Tem que excluir o que vem das props para poder usar os que foram definidos
   delete propsClone.getLabelText
   delete propsClone.renderIcon
 
@@ -51,7 +51,16 @@ const ServiceDetailsTabBar = (props) => {
 
   return (
     <>
+      <ServiceDetailsHeader />
+
       <TabBar
+        style={{
+          elevation: 0,
+          shadowOffset: {
+            height: 0,
+            width: 0,
+          },
+        }}
         labels={labels}
         renderIcon={onRenderIcon}
         scrollEnabled

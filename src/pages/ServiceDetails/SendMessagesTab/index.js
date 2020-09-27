@@ -37,7 +37,10 @@ import useCallCustomer from './useCallCustomer'
 
 const SendMessagesTab = ({ navigation }) => {
   const { t } = useTranslation('ServiceDetailsSendMessagesTab')
-  const { serviceData } = useContext(ServiceDetailsContext)
+
+  const { serviceData, isFinalized, onShowFinalizedWarning } = useContext(
+    ServiceDetailsContext,
+  )
 
   const [isLoadingMarketingSteps, setIsLoadingMarketingSteps] = useState(true)
   const [marketingStepList, setMarketingStepList] = useState([])
@@ -91,6 +94,7 @@ const SendMessagesTab = ({ navigation }) => {
       } = marketingStep
 
       const isMarketingStepEnabled = daysAfterServiceEnds >= numOfDays
+
       const {
         [SERVICE_SENT_MSGS.EMAIL]: wasSentEmail,
         [SERVICE_SENT_MSGS.WHATSAPP]: wasSentWhats,
@@ -98,10 +102,25 @@ const SendMessagesTab = ({ navigation }) => {
         [SERVICE_SENT_MSGS.CALL]: wasCalled,
       } = onGetSentMessagesObject(marketingStepId)
 
-      const onSendWhatsMessage = () => onSendWhatsAppToCustomer(marketingStep)
-      const onSendEmail = () => onSendEmailToCustomer(marketingStep)
-      const onSendSms = () => onSendSmsToCustomer(marketingStep)
-      const onCall = () => onCallCustomer(marketingStep)
+      const onSendWhatsMessage = () => {
+        if (isFinalized) onShowFinalizedWarning()
+        else onSendWhatsAppToCustomer(marketingStep)
+      }
+
+      const onSendEmail = () => {
+        if (isFinalized) onShowFinalizedWarning()
+        else onSendEmailToCustomer(marketingStep)
+      }
+
+      const onSendSms = () => {
+        if (isFinalized) onShowFinalizedWarning()
+        else onSendSmsToCustomer(marketingStep)
+      }
+
+      const onCall = () => {
+        if (isFinalized) onShowFinalizedWarning()
+        else onCallCustomer(marketingStep)
+      }
 
       return (
         <ItemContainer>
@@ -144,11 +163,13 @@ const SendMessagesTab = ({ navigation }) => {
     },
     [
       daysAfterServiceEnds,
+      isFinalized,
       onCallCustomer,
       onGetSentMessagesObject,
       onSendEmailToCustomer,
       onSendSmsToCustomer,
       onSendWhatsAppToCustomer,
+      onShowFinalizedWarning,
       t,
     ],
   )

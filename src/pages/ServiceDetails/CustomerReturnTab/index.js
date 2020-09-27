@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 
@@ -15,7 +15,8 @@ import TouchableIcon from '@/components/TouchableIcon'
 import { CUSTOMER_RETURN_REGISTRATION_PARAMS } from '@/config/navigation/RouteParams'
 import { firebaseTimestampToMoment } from '@/utils'
 
-import useSubscribeToReturnCollection from './useSubscribeToReturnCollection'
+import ServiceDetailsContext from '../ServiceDetailsContext'
+
 import {
   Container,
   List,
@@ -26,6 +27,7 @@ import {
   HintText,
 } from './styles'
 import useDeleteCustomerReturn from './useDeleteCustomerReturn'
+import useSubscribeToReturnCollection from './useSubscribeToReturnCollection'
 
 const CustomerReturnTab = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
@@ -33,6 +35,10 @@ const CustomerReturnTab = ({ navigation }) => {
   const { t } = useTranslation(['ServiceDetailsReturnTab', 'Glossary'])
   const [returnList, setReturnList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const { isFinalized, onShowFinalizedWarning } = useContext(
+    ServiceDetailsContext,
+  )
 
   const onDeleteCustomerReturn = useDeleteCustomerReturn()
 
@@ -46,6 +52,11 @@ const CustomerReturnTab = ({ navigation }) => {
 
   const onConfirmToDelete = useCallback(
     (id) => {
+      if (isFinalized) {
+        onShowFinalizedWarning()
+        return
+      }
+
       Alert.alert(
         t('deleteAlertTitle'),
         t('deleteAlertMessage'),
@@ -59,17 +70,22 @@ const CustomerReturnTab = ({ navigation }) => {
         { cancelable: true },
       )
     },
-    [onDeleteCustomerReturn, t],
+    [isFinalized, onDeleteCustomerReturn, onShowFinalizedWarning, t],
   )
 
   const onNavigateToEditReturn = useCallback(
     (item) => {
+      if (isFinalized) {
+        onShowFinalizedWarning()
+        return
+      }
+
       navigation.navigate(MAIN_ROUTES.CUSTOMER_RETURN_REGISTRATION, {
         [CUSTOMER_RETURN_REGISTRATION_PARAMS.IS_EDITING]: true,
         ...item, // Spread CUSTOMER_RETURN_DOC
       })
     },
-    [navigation],
+    [isFinalized, navigation, onShowFinalizedWarning],
   )
 
   const onRenderItem = useCallback(
@@ -125,8 +141,8 @@ const CustomerReturnTab = ({ navigation }) => {
             )}
           </ReturnListItem>
 
-          <TouchableIcon onPress={onDeleteReturn}>
-            <Fw5Icon name="trash" />
+          <TouchableIcon onPress={onDeleteReturn} size={48}>
+            <Fw5Icon name="trash" size={20} />
           </TouchableIcon>
         </ReturnListItemContainer>
       )
@@ -139,10 +155,15 @@ const CustomerReturnTab = ({ navigation }) => {
   }, [])
 
   const onAddNewCustomerReturn = useCallback(() => {
+    if (isFinalized) {
+      onShowFinalizedWarning()
+      return
+    }
+
     navigation.navigate(MAIN_ROUTES.CUSTOMER_RETURN_REGISTRATION, {
       [SERVICE_DOC.ID]: serviceId,
     })
-  }, [navigation, serviceId])
+  }, [isFinalized, navigation, onShowFinalizedWarning, serviceId])
 
   return (
     <Container>

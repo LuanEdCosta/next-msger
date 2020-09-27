@@ -16,12 +16,16 @@ import {
   DataItem,
   DataItemTitle,
   DataItemText,
+  ServiceStatusIndicator,
+  FinalizedStatusExplanation,
   EditServiceButton,
 } from './styles'
 
 const OverviewTab = ({ navigation }) => {
   const { t } = useTranslation('ServiceDetailsOverviewTab')
-  const { serviceData } = useContext(ServiceDetailsContext)
+  const { serviceData, isFinalized, onShowFinalizedWarning } = useContext(
+    ServiceDetailsContext,
+  )
 
   const customer = useMemo(() => serviceData[SERVICE_DOC.CUSTOMER] || {}, [
     serviceData,
@@ -33,13 +37,28 @@ const OverviewTab = ({ navigation }) => {
   )
 
   const onNavigateToEditService = useCallback(() => {
+    if (isFinalized) {
+      onShowFinalizedWarning()
+      return
+    }
+
     navigation.navigate(MAIN_ROUTES.EDIT_SERVICE, {
       [EDIT_SERVICE_PARAMS.SERVICE_DATA]: serviceData,
     })
-  }, [navigation, serviceData])
+  }, [isFinalized, navigation, onShowFinalizedWarning, serviceData])
 
   return (
     <Container>
+      <ServiceStatusIndicator isFinalized={isFinalized}>
+        {t(isFinalized ? 'serviceFinalized' : 'serviceNotFinalized')}
+      </ServiceStatusIndicator>
+
+      {isFinalized && (
+        <FinalizedStatusExplanation>
+          {t('finalizedExplanation')}
+        </FinalizedStatusExplanation>
+      )}
+
       <DataGroup>
         <DataGroupTitle>{t('serviceDataGroupTitle')}</DataGroupTitle>
 

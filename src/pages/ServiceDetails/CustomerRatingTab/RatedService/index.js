@@ -26,7 +26,9 @@ const RatedService = ({ navigation }) => {
   const serviceId = navigation.getParam(SERVICE_DOC.ID)
 
   const { t } = useTranslation(['ServiceDetailsRatingTab', 'Glossary'])
-  const { serviceData } = useContext(ServiceDetailsContext)
+  const { serviceData, isFinalized, onShowFinalizedWarning } = useContext(
+    ServiceDetailsContext,
+  )
 
   const [isDeleting, setIsDeleting] = useState(false)
   const onDeleteRating = useDeleteServiceRating(serviceId, setIsDeleting)
@@ -39,15 +41,32 @@ const RatedService = ({ navigation }) => {
   }, [serviceData])
 
   const onEditRating = useCallback(() => {
+    if (isFinalized) {
+      onShowFinalizedWarning()
+      return
+    }
+
     navigation.navigate(MAIN_ROUTES.RATE_SERVICE, {
       [SERVICE_DOC.ID]: serviceId,
       [RATE_SERVICE_PARAMS.IS_EDITING]: true,
       [RATE_SERVICE_PARAMS.CURRENT_NOTE]: note,
       [RATE_SERVICE_PARAMS.CURRENT_COMMENT]: comment,
     })
-  }, [comment, navigation, note, serviceId])
+  }, [
+    comment,
+    isFinalized,
+    navigation,
+    note,
+    onShowFinalizedWarning,
+    serviceId,
+  ])
 
   const onDeleteRatingButtonPressed = useCallback(() => {
+    if (isFinalized) {
+      onShowFinalizedWarning()
+      return
+    }
+
     Alert.alert(
       t('deleteAlertTitle'),
       t('deleteAlertMessage'),
@@ -57,7 +76,7 @@ const RatedService = ({ navigation }) => {
       ],
       { cancelable: true },
     )
-  }, [onDeleteRating, t])
+  }, [isFinalized, onDeleteRating, onShowFinalizedWarning, t])
 
   return (
     <>

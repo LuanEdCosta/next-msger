@@ -1,8 +1,20 @@
 {
   "pageTitle": "Detalhes do Serviço",
-  "pageSubtitle": "Confira Informações e Execute Ações",
+  "pageSubtitle": "Todas Informações do Serviço",
   "overviewTabLabel": "Detalhes",
   "sendMessagesTabLabel": "Enviar Mensagens",
   "customerRatingTabLabel": "Avaliação",
-  "customerReturnTabLabel": "Retorno"
+  "customerReturnTabLabel": "Retorno",
+  "serviceFinalizedWarning": "Esta ação não pode ser realizada porque o serviço foi marcado como finalizado.",
+
+  "actionBottomSheetTitle": "Ações do Serviço",
+  "deleteServiceAction": "Excluir Serviço",
+  "finalizeServiceAction": "Finalizar Serviço",
+  "setAsNotFinalizedAction": "Marcar como Não Finalizado",
+
+  "finalizeTitle": "Finalizar Serviço",
+  "finalizeMessage": "Ao finalizar não será mais possível editar o serviço, adicionar a avaliação do cliente nem retornos ao estabelecimento.",
+
+  "deleteTitle": "Excluir Serviço",
+  "deleteMessage": "Tem certeza que deseja excluir este serviço? Esta ação é irreversível!"
 }

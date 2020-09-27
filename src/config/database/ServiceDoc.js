@@ -7,6 +7,7 @@ export default {
   SERVICE_TYPE: 'serviceType',
   SENT_MESSAGES: 'sentMessages',
   RATING: 'rating',
+  FINALIZED: 'finalized',
 }
 
 export const SERVICE_SENT_MSGS = {

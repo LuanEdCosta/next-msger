@@ -2,7 +2,7 @@ import styled from 'styled-components/native'
 
 import ListItem from '@/components/ListItem'
 import ListItemText from '@/components/ListItem/ListItemText'
-import { UppercaseBoldText } from '@/components/Text'
+import { DefaultText, UppercaseBoldText } from '@/components/Text'
 import { MAIN_COLORS } from '@/styles'
 import Button from '@/components/Button'
 
@@ -45,4 +45,22 @@ export const DataItemTitle = styled(ListItemText).attrs({
 export const DataItemText = styled(ListItemText)`
   margin-top: 4px;
 `
+
 export const EditServiceButton = styled(Button)``
+
+export const ServiceStatusIndicator = styled(DefaultText)`
+  padding: 8px 24px;
+  margin-bottom: 16px;
+  border-radius: 100px;
+  align-self: flex-start;
+  color: white;
+  text-align: center;
+  background: ${({ isFinalized }) => {
+    return isFinalized ? MAIN_COLORS.success : MAIN_COLORS.accent
+  }};
+`
+
+export const FinalizedStatusExplanation = styled(DefaultText)`
+  margin-bottom: 16px;
+  line-height: 20px;
+`
