@@ -59,6 +59,8 @@ export default () => {
         await firestore()
           .collection(COLLECTIONS.COMPANIES)
           .doc(companyId)
+          .collection(COLLECTIONS.SERVICES)
+          .doc(serviceId)
           .collection(COLLECTIONS.CUSTOMER_RETURNS)
           .doc(returnIdParam)
           .update(dataToSave)
@@ -66,6 +68,8 @@ export default () => {
         await firestore()
           .collection(COLLECTIONS.COMPANIES)
           .doc(companyId)
+          .collection(COLLECTIONS.SERVICES)
+          .doc(serviceId)
           .collection(COLLECTIONS.CUSTOMER_RETURNS)
           .add(dataToSave)
       }

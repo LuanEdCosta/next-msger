@@ -11,8 +11,9 @@ export default (setReturnsList, setIsLoading, serviceId) => {
     const unsubscribe = firestore()
       .collection(COLLECTIONS.COMPANIES)
       .doc(companyId)
+      .collection(COLLECTIONS.SERVICES)
+      .doc(serviceId)
       .collection(COLLECTIONS.CUSTOMER_RETURNS)
-      .where(CUSTOMER_RETURN_DOC.SERVICE_ID, '==', serviceId)
       .onSnapshot((querySnapshot) => {
         const returns = querySnapshot.docs.map((doc) => {
           const returnItem = doc.data()

@@ -64,13 +64,13 @@ const CustomerReturnTab = ({ navigation }) => {
           { text: t('Glossary:cancel') },
           {
             text: t('Glossary:delete'),
-            onPress: () => onDeleteCustomerReturn(id),
+            onPress: () => onDeleteCustomerReturn(serviceId, id),
           },
         ],
         { cancelable: true },
       )
     },
-    [isFinalized, onDeleteCustomerReturn, onShowFinalizedWarning, t],
+    [isFinalized, onDeleteCustomerReturn, onShowFinalizedWarning, serviceId, t],
   )
 
   const onNavigateToEditReturn = useCallback(

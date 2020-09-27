@@ -9,11 +9,13 @@ export default () => {
   const showAlert = useErrorAlert()
 
   const onDeleteCustomerReturn = useCallback(
-    async (returnId) => {
+    async (serviceId, returnId) => {
       try {
         await firestore()
           .collection(COLLECTIONS.COMPANIES)
           .doc(companyId)
+          .collection(COLLECTIONS.SERVICES)
+          .doc(serviceId)
           .collection(COLLECTIONS.CUSTOMER_RETURNS)
           .doc(returnId)
           .delete()
