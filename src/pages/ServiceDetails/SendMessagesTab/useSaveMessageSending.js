@@ -11,17 +11,16 @@ export default () => {
   const { companyId } = useUserData()
 
   const onSaveMessageSending = useCallback(
-    async (marketingStepId, messageType) => {
+    async (marketingStepId, messageType, wasSent = true) => {
       const {
         [SERVICE_DOC.ID]: serviceId,
         [SERVICE_DOC.SENT_MESSAGES]: messagesSentObject = {},
       } = serviceData || {}
 
-      // Check if already sent this message before
-      // If true don't send again
+      // Just update if the flag is different from the one in database
       const marketingStepMessages = messagesSentObject[marketingStepId] || {}
-      const alreadySentThisMessage = marketingStepMessages[messageType]
-      if (alreadySentThisMessage) return
+      const currentFlagValue = !!marketingStepMessages[messageType]
+      if (currentFlagValue === wasSent) return
 
       await firestore()
         .collection(COLLECTIONS.COMPANIES)
@@ -33,7 +32,7 @@ export default () => {
             ...messagesSentObject,
             [marketingStepId]: {
               ...marketingStepMessages,
-              [messageType]: true,
+              [messageType]: wasSent,
             },
           },
         })

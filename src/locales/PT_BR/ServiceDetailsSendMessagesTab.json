@@ -5,5 +5,10 @@
   "itemStepName": "Etapa: {{name}}",
   "itemNumOfDays": "{{numOfDays}} Dias Após a Finalização do Serviço",
   "listHint": "Toque em um ícone para falar com o cliente por algum canal. Se um ícone estiver colorido o canal já foi utilizado.",
-  "notReadyToSendMessages": "Fazem apenas {{numOfDays}} dias que o serviço foi finalizado"
+  "notReadyToSendMessages": "Fazem apenas {{numOfDays}} dias que o serviço foi finalizado",
+  "actionsBottomSheetTitle": "Ações Desta Etapa de Marketing",
+  "markEmailAsUnsent": "Marcar Como Não Enviado por Email",
+  "markPhoneAsUnsent": "Marcar como Não Realizada a Ligação",
+  "markSmsAsUnsent": "Marcar Como Não Enviado por SMS",
+  "markWhatsAppAsUnsent": "Marcar Como Não Enviado por WhatsApp"
 }

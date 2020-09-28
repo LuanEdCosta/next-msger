@@ -40,6 +40,13 @@ export const ItemHeader = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${MAIN_COLORS.lightGrey};
   background-color: ${MAIN_COLORS.snowLight};
+  flex-direction: row;
+  align-items: center;
+`
+
+export const ItemHeaderTexts = styled.View`
+  flex: 1;
+  margin-right: 16px;
 `
 
 export const MarketingStepName = styled(BoldText)`
@@ -48,6 +55,8 @@ export const MarketingStepName = styled(BoldText)`
 `
 
 export const MarketingStepDays = styled(DefaultText)``
+
+export const ItemHeaderActions = styled(TouchableIcon)``
 
 export const ItemContent = styled.View`
   flex-direction: row;

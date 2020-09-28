@@ -13,10 +13,16 @@ import {
   SERVICE_DOC,
   SERVICE_SENT_MSGS,
 } from '@/config/database'
+import { Fw5Icon } from '@/components/Fw5Icon'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
 import useMarketingStepSubscription from './useMarketingStepSubscription'
+import useSendWhatsAppToCustomer from './useSendWhatsAppToCustomer'
+import ItemActionsBottomSheet from './ItemActionsBottomSheet'
+import useSendEmailToCustomer from './useSendEmailToCustomer'
+import useSendSmsToCustomer from './useSendSmsToCustomer'
+import useCallCustomer from './useCallCustomer'
 import EmptyComponent from './EmptyComponent'
 import {
   List,
@@ -29,11 +35,9 @@ import {
   ItemContent,
   SendMessageButton,
   SendMessageIcon,
+  ItemHeaderTexts,
+  ItemHeaderActions,
 } from './styles'
-import useSendWhatsAppToCustomer from './useSendWhatsAppToCustomer'
-import useSendEmailToCustomer from './useSendEmailToCustomer'
-import useSendSmsToCustomer from './useSendSmsToCustomer'
-import useCallCustomer from './useCallCustomer'
 
 const SendMessagesTab = ({ navigation }) => {
   const { t } = useTranslation('ServiceDetailsSendMessagesTab')
@@ -43,6 +47,7 @@ const SendMessagesTab = ({ navigation }) => {
   )
 
   const [isLoadingMarketingSteps, setIsLoadingMarketingSteps] = useState(true)
+  const [selectedMarketingStep, setSelectedMarketingStep] = useState(null)
   const [marketingStepList, setMarketingStepList] = useState([])
 
   const onSendWhatsAppToCustomer = useSendWhatsAppToCustomer()
@@ -122,6 +127,10 @@ const SendMessagesTab = ({ navigation }) => {
         else onCallCustomer(marketingStep)
       }
 
+      const onSelectMarketingStep = () => {
+        setSelectedMarketingStep(marketingStepId)
+      }
+
       return (
         <ItemContainer>
           {!isMarketingStepEnabled && (
@@ -131,11 +140,19 @@ const SendMessagesTab = ({ navigation }) => {
           )}
 
           <ItemHeader>
-            <MarketingStepName>{t('itemStepName', { name })}</MarketingStepName>
+            <ItemHeaderTexts>
+              <MarketingStepName>
+                {t('itemStepName', { name })}
+              </MarketingStepName>
 
-            <MarketingStepDays>
-              {t('itemNumOfDays', { numOfDays })}
-            </MarketingStepDays>
+              <MarketingStepDays>
+                {t('itemNumOfDays', { numOfDays })}
+              </MarketingStepDays>
+            </ItemHeaderTexts>
+
+            <ItemHeaderActions onPress={onSelectMarketingStep}>
+              <Fw5Icon name="ellipsis-v" />
+            </ItemHeaderActions>
           </ItemHeader>
 
           <ItemContent isMarketingStepEnabled={isMarketingStepEnabled}>
@@ -179,21 +196,31 @@ const SendMessagesTab = ({ navigation }) => {
   }, [])
 
   return (
-    <List
-      data={marketingStepList}
-      extraData={serviceData}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      ListEmptyComponent={
-        <EmptyComponent
-          navigation={navigation}
-          isLoading={isLoadingMarketingSteps}
-        />
-      }
-      ListHeaderComponent={
-        marketingStepList.length !== 0 && <ListHint>{t('listHint')}</ListHint>
-      }
-    />
+    <>
+      <ItemActionsBottomSheet
+        isShowing={!!selectedMarketingStep}
+        marketingStepId={selectedMarketingStep}
+        handleClose={() => {
+          setSelectedMarketingStep(null)
+        }}
+      />
+
+      <List
+        data={marketingStepList}
+        extraData={serviceData}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ListEmptyComponent={
+          <EmptyComponent
+            navigation={navigation}
+            isLoading={isLoadingMarketingSteps}
+          />
+        }
+        ListHeaderComponent={
+          marketingStepList.length !== 0 && <ListHint>{t('listHint')}</ListHint>
+        }
+      />
+    </>
   )
 }
 
