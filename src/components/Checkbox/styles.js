@@ -15,10 +15,10 @@ export const CheckMark = styled.View`
   border-radius: ${({ hasRoundCorners }) => (hasRoundCorners ? 1000 : 5)}px;
 
   background-color: ${({
-    checkmarkCheckedColor,
-    checkmarkUncheckedColor,
+    checkMarkCheckedColor,
+    checkMarkUncheckedColor,
     isChecked,
-  }) => (isChecked ? checkmarkCheckedColor : checkmarkUncheckedColor)};
+  }) => (isChecked ? checkMarkCheckedColor : checkMarkUncheckedColor)};
 `
 
 export const Touchable = styled.TouchableOpacity`

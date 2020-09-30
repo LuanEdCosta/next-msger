@@ -75,7 +75,7 @@ const DashboardFilters = ({ navigation }) => {
         <FilterCheckbox
           setIsChecked={() => setFilterDateType(0)}
           isChecked={filterDateType === 0}
-          checkmarkIconComponent={<Fw5IconWhite name="check" />}
+          checkMarkIconComponent={<Fw5IconWhite name="check" />}
         >
           <CheckboxText>{t('dateTypes.today')}</CheckboxText>
         </FilterCheckbox>
@@ -83,7 +83,7 @@ const DashboardFilters = ({ navigation }) => {
         <FilterCheckbox
           setIsChecked={() => setFilterDateType(1)}
           isChecked={filterDateType === 1}
-          checkmarkIconComponent={<Fw5IconWhite name="check" />}
+          checkMarkIconComponent={<Fw5IconWhite name="check" />}
         >
           <CheckboxText>{t('dateTypes.currentWeek')}</CheckboxText>
         </FilterCheckbox>
@@ -91,7 +91,7 @@ const DashboardFilters = ({ navigation }) => {
         <FilterCheckbox
           setIsChecked={() => setFilterDateType(2)}
           isChecked={filterDateType === 2}
-          checkmarkIconComponent={<Fw5IconWhite name="check" />}
+          checkMarkIconComponent={<Fw5IconWhite name="check" />}
         >
           <CheckboxText>{t('dateTypes.currentMonth')}</CheckboxText>
         </FilterCheckbox>
@@ -99,7 +99,7 @@ const DashboardFilters = ({ navigation }) => {
         <FilterCheckbox
           setIsChecked={() => setFilterDateType(3)}
           isChecked={filterDateType === 3}
-          checkmarkIconComponent={<Fw5IconWhite name="check" />}
+          checkMarkIconComponent={<Fw5IconWhite name="check" />}
         >
           <CheckboxText>{t('dateTypes.currentYear')}</CheckboxText>
         </FilterCheckbox>

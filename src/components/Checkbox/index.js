@@ -13,10 +13,10 @@ const Checkbox = (props) => {
     setIsChecked,
     children,
     disabled,
-    checkmarkCheckedColor,
-    checkmarkUncheckedColor,
+    checkMarkCheckedColor,
+    checkMarkUncheckedColor,
     hasRoundCorners,
-    checkmarkIconComponent,
+    checkMarkIconComponent,
   } = props
 
   const onCheck = useCallback(() => {
@@ -29,10 +29,10 @@ const Checkbox = (props) => {
         <CheckMark
           isChecked={!!isChecked}
           hasRoundCorners={!!hasRoundCorners}
-          checkmarkCheckedColor={getColor(checkmarkCheckedColor)}
-          checkmarkUncheckedColor={getColor(checkmarkUncheckedColor)}
+          checkMarkCheckedColor={getColor(checkMarkCheckedColor)}
+          checkMarkUncheckedColor={getColor(checkMarkUncheckedColor)}
         >
-          {!!isChecked && checkmarkIconComponent}
+          {!!isChecked && checkMarkIconComponent}
         </CheckMark>
 
         {children}
@@ -43,9 +43,9 @@ const Checkbox = (props) => {
 
 Checkbox.defaultProps = {
   isChecked: false,
-  checkmarkCheckedColor: 'accent',
-  checkmarkUncheckedColor: 'lightGrey',
-  checkmarkIconComponent: null,
+  checkMarkCheckedColor: 'accent',
+  checkMarkUncheckedColor: 'lightGrey',
+  checkMarkIconComponent: null,
   disabled: false,
   children: null,
   hasRoundCorners: false,
@@ -55,9 +55,9 @@ Checkbox.defaultProps = {
 
 Checkbox.propTypes = {
   isChecked: PropTypes.bool,
-  checkmarkCheckedColor: PropTypes.string,
-  checkmarkUncheckedColor: PropTypes.string,
-  checkmarkIconComponent: PropTypes.element,
+  checkMarkCheckedColor: PropTypes.string,
+  checkMarkUncheckedColor: PropTypes.string,
+  checkMarkIconComponent: PropTypes.element,
   disabled: PropTypes.bool,
   children: PropTypes.node,
   hasRoundCorners: PropTypes.bool,

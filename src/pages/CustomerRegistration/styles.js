@@ -1,6 +1,8 @@
 import styled from 'styled-components/native'
 
 import Input from '@/components/Input'
+import Checkbox from '@/components/Checkbox'
+import { DefaultText } from '@/components/Text'
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -15,6 +17,14 @@ export const Scroll = styled.ScrollView.attrs({
 
 export const CustomerInput = styled(Input)`
   margin-bottom: 16px;
+`
+
+export const CustomerCheckbox = styled(Checkbox)`
+  margin-bottom: 16px;
+`
+
+export const CustomerCheckboxText = styled(DefaultText)`
+  margin-left: 16px;
 `
 
 export const Content = styled.View`

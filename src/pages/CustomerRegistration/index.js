@@ -1,85 +1,71 @@
-import React, { useCallback, useState, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
-import firestore from '@react-native-firebase/firestore'
+import React from 'react'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
+import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
+import { ButtonIcon, CheckboxIcon, Fw5IconAccent } from '@/components/Fw5Icon'
+import { WhiteSpinner } from '@/components/Spinner'
+import InputError from '@/components/InputError'
+import { ADMOB_BANNER_ID } from '@/config/ads'
 import Header from '@/components/Header'
 import Button from '@/components/Button'
-import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
-import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
-import InputError from '@/components/InputError'
-import { WhiteSpinner } from '@/components/Spinner'
-import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
-import { useErrorAlert, useUserData } from '@/hooks'
-import { ADMOB_BANNER_ID } from '@/config/ads'
 
-import { Container, Scroll, CustomerInput, Content } from './styles'
+import usePageState from './usePageState'
+import {
+  Container,
+  Scroll,
+  CustomerInput,
+  Content,
+  CustomerCheckbox,
+  CustomerCheckboxText,
+} from './styles'
 
 const CustomerRegistration = () => {
-  const { t } = useTranslation(['CustomerRegistration', 'InputMasks'])
-  const showErrorAlert = useErrorAlert()
-  const { companyId } = useUserData()
+  const {
+    t,
+    onSaveCustomer,
 
-  const [isShowingErrors, setIsShowingErrors] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [whatsapp, setWhatsapp] = useState('')
-  const [phone, setPhone] = useState('')
+    emailInput,
+    whatsappInput,
+    phoneInput,
+    birthDateInput,
+    cepInput,
+    addressInput,
+    districtInput,
+    numberInput,
+    cityInput,
+    stateInput,
+    complementInput,
 
-  const emailInput = useRef(null)
-  let whatsappInput = useRef(null)
-  let phoneInput = useRef(null)
-
-  const onValidateInputs = useCallback(() => {
-    const valuesArray = [name, email, whatsapp]
-    return valuesArray.every((str) => !!str && !!str.trim())
-  }, [email, name, whatsapp])
-
-  const onClearData = useCallback(() => {
-    setName('')
-    setEmail('')
-    setWhatsapp('')
-    setPhone('')
-    setIsShowingErrors(false)
-  }, [])
-
-  const onSaveCustomer = useCallback(async () => {
-    if (!isShowingErrors) setIsShowingErrors(true)
-    if (!onValidateInputs()) return
-    setIsSaving(true)
-
-    try {
-      await firestore()
-        .collection(COLLECTIONS.COMPANIES)
-        .doc(companyId)
-        .collection(COLLECTIONS.CUSTOMERS)
-        .add({
-          [CUSTOMER_DOC.NAME]: name,
-          [CUSTOMER_DOC.EMAIL]: email,
-          [CUSTOMER_DOC.WHATSAPP]: whatsapp,
-          [CUSTOMER_DOC.PHONE]: phone,
-          [CUSTOMER_DOC.CREATED_AT]: firestore.Timestamp.now(),
-        })
-
-      onClearData()
-    } catch (e) {
-      showErrorAlert()
-    } finally {
-      setIsSaving(false)
-    }
-  }, [
-    companyId,
-    email,
     isShowingErrors,
+    isSaving,
     name,
-    onClearData,
-    onValidateInputs,
-    phone,
-    showErrorAlert,
+    setName,
+    email,
+    setEmail,
     whatsapp,
-  ])
+    setWhatsapp,
+    phone,
+    setPhone,
+    birthDate,
+    setBirthDate,
+    cep,
+    setCep,
+    address,
+    setAddress,
+    district,
+    setDistrict,
+    number,
+    setNumber,
+    city,
+    setCity,
+    state,
+    setState,
+    complement,
+    setComplement,
+    canReceiveMessages,
+    setCanReceiveMessages,
+  } = usePageState()
 
   return (
     <Container>
@@ -142,7 +128,7 @@ const CustomerRegistration = () => {
                 onChangeText={setEmail}
                 value={email}
                 onSubmitEditing={() => {
-                  whatsappInput.focus()
+                  whatsappInput.current.focus()
                 }}
               />
             }
@@ -167,10 +153,10 @@ const CustomerRegistration = () => {
                 onChangeText={setWhatsapp}
                 value={whatsapp}
                 refInput={(ref) => {
-                  whatsappInput = ref
+                  whatsappInput.current = ref
                 }}
                 onSubmitEditing={() => {
-                  phoneInput.focus()
+                  phoneInput.current.focus()
                 }}
               />
             }
@@ -192,11 +178,206 @@ const CustomerRegistration = () => {
                 onChangeText={setPhone}
                 value={phone}
                 refInput={(ref) => {
-                  phoneInput = ref
+                  phoneInput.current = ref
+                }}
+                onSubmitEditing={() => {
+                  birthDateInput.current.focus()
                 }}
               />
             }
           />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('birthDateLabel')}
+                iconComponent={<Fw5IconAccent name="birthday-cake" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInputMask
+                type="datetime"
+                options={{
+                  format: 'DD/MM/YYYY',
+                }}
+                placeholder={t('InputMasks:birthDatePlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setBirthDate}
+                value={birthDate}
+                refInput={(ref) => {
+                  birthDateInput.current = ref
+                }}
+                onSubmitEditing={() => {
+                  cepInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('cepLabel')}
+                iconComponent={<Fw5IconAccent name="map-marker-alt" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInputMask
+                type="zip-code"
+                placeholder={t('InputMasks:cepPlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setCep}
+                value={cep}
+                refInput={(ref) => {
+                  cepInput.current = ref
+                }}
+                onSubmitEditing={() => {
+                  addressInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('addressLabel')}
+                iconComponent={<Fw5IconAccent name="road" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={addressInput}
+                placeholder={t('addressPlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setAddress}
+                value={address}
+                onSubmitEditing={() => {
+                  numberInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('numberLabel')}
+                iconComponent={<Fw5IconAccent name="home" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={numberInput}
+                placeholder={t('numberPlaceholder')}
+                keyboardType="numeric"
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setNumber}
+                value={number}
+                onSubmitEditing={() => {
+                  districtInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('districtLabel')}
+                iconComponent={<Fw5IconAccent name="map-pin" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={districtInput}
+                placeholder={t('districtPlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setDistrict}
+                value={district}
+                onSubmitEditing={() => {
+                  cityInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('cityLabel')}
+                iconComponent={<Fw5IconAccent name="map" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={cityInput}
+                placeholder={t('cityPlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setCity}
+                value={city}
+                onSubmitEditing={() => {
+                  stateInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('stateLabel')}
+                iconComponent={<Fw5IconAccent name="map-marked-alt" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={stateInput}
+                placeholder={t('statePlaceholder')}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onChangeText={setState}
+                value={state}
+                onSubmitEditing={() => {
+                  complementInput.current.focus()
+                }}
+              />
+            }
+          />
+
+          <CustomerInput
+            labelComponent={
+              <Label
+                label={t('complementLabel')}
+                iconComponent={<Fw5IconAccent name="comment" solid />}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                ref={complementInput}
+                placeholder={t('complementPlaceholder')}
+                onChangeText={setComplement}
+                value={complement}
+              />
+            }
+          />
+
+          <CustomerCheckbox
+            isChecked={canReceiveMessages}
+            setIsChecked={setCanReceiveMessages}
+            checkMarkIconComponent={<CheckboxIcon name="check" />}
+            hasRoundCorners
+          >
+            <CustomerCheckboxText>
+              {t('canReceiveMessagesLabel')}
+            </CustomerCheckboxText>
+          </CustomerCheckbox>
 
           <Button
             text={t('saveButton')}

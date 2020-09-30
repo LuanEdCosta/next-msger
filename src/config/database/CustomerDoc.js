@@ -2,7 +2,7 @@ export default {
   ID: 'customerId',
   NAME: 'name',
   WHATSAPP: 'whatsapp',
-  BIRTH_DATE: 'birth_date',
+  BIRTH_DATE: 'birthDate',
   PHONE: 'phone',
   EMAIL: 'email',
   CEP: 'cep',
@@ -11,5 +11,7 @@ export default {
   DISTRICT: 'district',
   ADDRESS: 'address',
   NUMBER: 'number',
+  COMPLEMENT: 'complement',
   CREATED_AT: 'createdAt',
+  CAN_RECEIVE_MESSAGES: 'canReceiveMessages',
 }
