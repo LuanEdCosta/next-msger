@@ -20,5 +20,6 @@
   "complementLabel": "Complemento",
   "complementPlaceholder": "Ex: Terceiro andar",
   "canReceiveMessagesLabel": "Cliente pode receber mensagens",
-  "saveButton": "Salvar"
+  "saveButton": "Salvar",
+  "addressNotFound": "Não foi possível encontrar o endereço com CEP fornecido!"
 }

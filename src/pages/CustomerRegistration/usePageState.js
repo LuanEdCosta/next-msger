@@ -4,12 +4,14 @@ import firestore from '@react-native-firebase/firestore'
 
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
+import { FindAddress } from '@/services'
 
 export default () => {
   const { t } = useTranslation(['CustomerRegistration', 'InputMasks'])
   const showErrorAlert = useErrorAlert()
   const { companyId } = useUserData()
 
+  const [isSearchingAddress, setIsSearchingAddress] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [name, setName] = useState('')
@@ -95,9 +97,26 @@ export default () => {
     }
   }
 
+  const onFindAddressByCep = useCallback(async () => {
+    try {
+      setIsSearchingAddress(true)
+      const { data } = await FindAddress.findAddressByCep(cep)
+      setAddress(data[FindAddress.structure.LOGRADOURO])
+      setDistrict(data[FindAddress.structure.BAIRRO])
+      setCity(data[FindAddress.structure.LOCALIDADE])
+      setState(data[FindAddress.structure.UF])
+      setComplement(data[FindAddress.structure.COMPLEMENTO])
+    } catch (e) {
+      showErrorAlert(t('addressNotFound'))
+    } finally {
+      setIsSearchingAddress(false)
+    }
+  }, [cep, showErrorAlert, t])
+
   return {
     t,
     onSaveCustomer,
+    onFindAddressByCep,
 
     emailInput,
     whatsappInput,
@@ -111,6 +130,8 @@ export default () => {
     stateInput,
     complementInput,
 
+    isSearchingAddress,
+    setIsSearchingAddress,
     isShowingErrors,
     setIsShowingErrors,
     isSaving,
