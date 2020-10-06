@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert } from 'react-native'
 
-import { SERVICE_DOC } from '@/config/database'
+import { CUSTOMER_DOC, SERVICE_DOC } from '@/config/database'
 
 import ServiceDetailsContext from './ServiceDetailsContext'
 import useServiceSubscription from './useServiceSubscription'
@@ -25,10 +25,29 @@ export default (DefaultNavigator) => {
       return finalized
     }, [serviceData])
 
+    const canCustomerReceiveMessages = useMemo(() => {
+      const canReceive =
+        !!customerData[CUSTOMER_DOC.CAN_RECEIVE_MESSAGES] || false
+      return canReceive
+    }, [customerData])
+
+    const canSendMessages = useMemo(() => {
+      return !isFinalized && canCustomerReceiveMessages
+    }, [canCustomerReceiveMessages, isFinalized])
+
     const onShowFinalizedWarning = useCallback(() => {
       Alert.alert(
         t('Glossary:warning'),
         t('serviceFinalizedWarning'),
+        [{ text: t('Glossary:ok') }],
+        { cancelable: true },
+      )
+    }, [t])
+
+    const onShowCanNotSendMessageWarning = useCallback(() => {
+      Alert.alert(
+        t('Glossary:warning'),
+        t('canNotSendMessage'),
         [{ text: t('Glossary:ok') }],
         { cancelable: true },
       )
@@ -47,7 +66,10 @@ export default (DefaultNavigator) => {
           serviceData,
           customerData,
           isFinalized,
+          canSendMessages,
+          canCustomerReceiveMessages,
           onShowFinalizedWarning,
+          onShowCanNotSendMessageWarning,
         }}
       >
         <DefaultNavigator {...props} />

@@ -5,7 +5,9 @@
   "sendMessagesTabLabel": "Enviar Mensagens",
   "customerRatingTabLabel": "Avaliação",
   "customerReturnTabLabel": "Retorno",
+
   "serviceFinalizedWarning": "Esta ação não pode ser realizada porque o serviço foi marcado como finalizado.",
+  "canNotSendMessage": "O envio de mensagens não está habilitado para o cliente deste serviço.",
 
   "actionBottomSheetTitle": "Ações do Serviço",
   "deleteServiceAction": "Excluir Serviço",

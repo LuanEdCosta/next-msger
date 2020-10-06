@@ -42,9 +42,14 @@ import {
 const SendMessagesTab = ({ navigation }) => {
   const { t } = useTranslation('ServiceDetailsSendMessagesTab')
 
-  const { serviceData, isFinalized, onShowFinalizedWarning } = useContext(
-    ServiceDetailsContext,
-  )
+  const {
+    serviceData,
+    isFinalized,
+    canSendMessages,
+    onShowFinalizedWarning,
+    canCustomerReceiveMessages,
+    onShowCanNotSendMessageWarning,
+  } = useContext(ServiceDetailsContext)
 
   const [isLoadingMarketingSteps, setIsLoadingMarketingSteps] = useState(true)
   const [selectedMarketingStep, setSelectedMarketingStep] = useState(null)
@@ -90,6 +95,16 @@ const SendMessagesTab = ({ navigation }) => {
     [serviceData],
   )
 
+  const onDisplayWarningAlert = useCallback(() => {
+    if (isFinalized) onShowFinalizedWarning()
+    else if (!canCustomerReceiveMessages) onShowCanNotSendMessageWarning()
+  }, [
+    canCustomerReceiveMessages,
+    isFinalized,
+    onShowCanNotSendMessageWarning,
+    onShowFinalizedWarning,
+  ])
+
   const renderItem = useCallback(
     ({ item: marketingStep }) => {
       const {
@@ -108,22 +123,22 @@ const SendMessagesTab = ({ navigation }) => {
       } = onGetSentMessagesObject(marketingStepId)
 
       const onSendWhatsMessage = () => {
-        if (isFinalized) onShowFinalizedWarning()
+        if (!canSendMessages) onDisplayWarningAlert()
         else onSendWhatsAppToCustomer(marketingStep)
       }
 
       const onSendEmail = () => {
-        if (isFinalized) onShowFinalizedWarning()
+        if (!canSendMessages) onDisplayWarningAlert()
         else onSendEmailToCustomer(marketingStep)
       }
 
       const onSendSms = () => {
-        if (isFinalized) onShowFinalizedWarning()
+        if (!canSendMessages) onDisplayWarningAlert()
         else onSendSmsToCustomer(marketingStep)
       }
 
       const onCall = () => {
-        if (isFinalized) onShowFinalizedWarning()
+        if (!canSendMessages) onDisplayWarningAlert()
         else onCallCustomer(marketingStep)
       }
 
@@ -179,14 +194,14 @@ const SendMessagesTab = ({ navigation }) => {
       )
     },
     [
+      canSendMessages,
       daysAfterServiceEnds,
-      isFinalized,
       onCallCustomer,
+      onDisplayWarningAlert,
       onGetSentMessagesObject,
       onSendEmailToCustomer,
       onSendSmsToCustomer,
       onSendWhatsAppToCustomer,
-      onShowFinalizedWarning,
       t,
     ],
   )
