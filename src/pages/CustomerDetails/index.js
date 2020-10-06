@@ -23,9 +23,10 @@ import {
 
 const CustomerDetails = ({ navigation }) => {
   const customerId = navigation.getParam(CUSTOMER_DOC.ID)
-  const { companyId } = useUserData()
+  const customerName = navigation.getParam(CUSTOMER_DOC.NAME)
 
-  const { t } = useTranslation('CustomerDetails')
+  const { t } = useTranslation(['CustomerDetails', 'Customer'])
+  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const [customerData, setCustomerData] = useState({})
@@ -74,8 +75,17 @@ const CustomerDetails = ({ navigation }) => {
     }
   }, [companyId, customerId, navigation, showAlert])
 
+  const getValue = useCallback((key) => customerData[key], [customerData])
+
   return (
     <Container>
+      <Header
+        i18Namespace="CustomerDetails"
+        i18Title="pageTitle"
+        subtitle={customerName}
+        isStackPage
+      />
+
       <Scroll>
         <BannerAd
           unitId={ADMOB_BANNER_ID}
@@ -86,33 +96,128 @@ const CustomerDetails = ({ navigation }) => {
         />
 
         <Content>
-          <DataItem>
-            <DataItemTitle text={t('customerName')}>
-              <Fw5Icon name="user" solid />
-            </DataItemTitle>
-            <DataItemValue text={customerData[CUSTOMER_DOC.NAME]} />
-          </DataItem>
+          {!!getValue(CUSTOMER_DOC.NAME) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:nameLabel')}>
+                <Fw5Icon name="user" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.NAME)} />
+            </DataItem>
+          )}
 
-          <DataItem>
-            <DataItemTitle text={t('customerEmail')}>
-              <Fw5Icon name="envelope" solid />
-            </DataItemTitle>
-            <DataItemValue text={customerData[CUSTOMER_DOC.EMAIL]} />
-          </DataItem>
+          {!!getValue(CUSTOMER_DOC.EMAIL) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:emailLabel')}>
+                <Fw5Icon name="envelope" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.EMAIL)} />
+            </DataItem>
+          )}
 
-          <DataItem>
-            <DataItemTitle text={t('customerWhatsapp')}>
-              <Fw5Icon name="whatsapp" solid />
-            </DataItemTitle>
-            <DataItemValue text={customerData[CUSTOMER_DOC.WHATSAPP]} />
-          </DataItem>
+          {!!getValue(CUSTOMER_DOC.WHATSAPP) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:whatsappLabel')}>
+                <Fw5Icon name="whatsapp" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.WHATSAPP)} />
+            </DataItem>
+          )}
 
-          <DataItem>
-            <DataItemTitle text={t('customerPhone')}>
-              <Fw5Icon name="phone" solid />
-            </DataItemTitle>
-            <DataItemValue text={customerData[CUSTOMER_DOC.PHONE]} />
-          </DataItem>
+          {!!getValue(CUSTOMER_DOC.PHONE) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:phoneLabel')}>
+                <Fw5Icon name="phone" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.PHONE)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.BIRTH_DATE) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:birthDateLabel')}>
+                <Fw5Icon name="birthday-cake" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.BIRTH_DATE)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.CEP) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:cepLabel')}>
+                <Fw5Icon name="map-marker-alt" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.CEP)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.ADDRESS) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:addressLabel')}>
+                <Fw5Icon name="road" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.ADDRESS)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.NUMBER) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:numberLabel')}>
+                <Fw5Icon name="home" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.NUMBER)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.DISTRICT) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:districtLabel')}>
+                <Fw5Icon name="map-pin" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.DISTRICT)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.CITY) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:cityLabel')}>
+                <Fw5Icon name="map" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.CITY)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.STATE) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:stateLabel')}>
+                <Fw5Icon name="map-marked-alt" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.STATE)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.COMPLEMENT) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:complementLabel')}>
+                <Fw5Icon name="comment" solid />
+              </DataItemTitle>
+              <DataItemValue text={getValue(CUSTOMER_DOC.COMPLEMENT)} />
+            </DataItem>
+          )}
+
+          {!!getValue(CUSTOMER_DOC.CAN_RECEIVE_MESSAGES) && (
+            <DataItem>
+              <DataItemTitle text={t('Customer:canReceiveMessagesLabel')}>
+                <Fw5Icon name="check" solid />
+              </DataItemTitle>
+              <DataItemValue
+                text={t(
+                  getValue(CUSTOMER_DOC.CAN_RECEIVE_MESSAGES)
+                    ? 'Glossary:yes'
+                    : 'Glossary:no',
+                )}
+              />
+            </DataItem>
+          )}
 
           <DeleteButton
             text={t('deleteButton')}
@@ -133,21 +238,8 @@ const CustomerDetails = ({ navigation }) => {
   )
 }
 
-CustomerDetails.navigationOptions = ({ navigation }) => {
-  const subtitle = navigation.getParam(CUSTOMER_DOC.NAME)
-
-  return {
-    header() {
-      return (
-        <Header
-          i18Namespace="CustomerDetails"
-          i18Title="pageTitle"
-          subtitle={subtitle}
-          isStackPage
-        />
-      )
-    },
-  }
-}
+CustomerDetails.navigationOptions = () => ({
+  headerShown: false,
+})
 
 export default CustomerDetails

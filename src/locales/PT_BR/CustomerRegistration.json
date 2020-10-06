@@ -1,25 +1,3 @@
 {
-  "nameLabel": "Nome do Cliente",
-  "namePlaceholder": "Ex: Lucas da Silva",
-  "emailLabel": "Email",
-  "emailPlaceholder": "Ex: lucas@gmail.com",
-  "whatsappLabel": "WhatsApp/Celular",
-  "phoneLabel": "Telefone",
-  "birthDateLabel": "Data de Nascimento",
-  "cepLabel": "CEP",
-  "addressLabel": "Endereço",
-  "addressPlaceholder": "Ex: Rua das Rosas",
-  "districtLabel": "Bairro",
-  "districtPlaceholder": "Ex: Jardim das Flores",
-  "numberLabel": "Número",
-  "numberPlaceholder": "Ex: 555",
-  "cityLabel": "Cidade",
-  "cityPlaceholder": "Ex: São Paulo",
-  "stateLabel": "Estado (Apenas a Sigla)",
-  "statePlaceholder": "São Paulo",
-  "complementLabel": "Complemento",
-  "complementPlaceholder": "Ex: Terceiro andar",
-  "canReceiveMessagesLabel": "Cliente pode receber mensagens",
-  "saveButton": "Salvar",
-  "addressNotFound": "Não foi possível encontrar o endereço com CEP fornecido!"
+  "saveButton": "Salvar Cliente"
 }

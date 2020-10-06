@@ -7,7 +7,12 @@ import { useErrorAlert, useUserData } from '@/hooks'
 import { FindAddress } from '@/services'
 
 export default () => {
-  const { t } = useTranslation(['CustomerRegistration', 'InputMasks'])
+  const { t } = useTranslation([
+    'CustomerRegistration',
+    'InputMasks',
+    'Customer',
+  ])
+
   const showErrorAlert = useErrorAlert()
   const { companyId } = useUserData()
 
@@ -107,7 +112,7 @@ export default () => {
       setState(data[FindAddress.structure.UF])
       setComplement(data[FindAddress.structure.COMPLEMENTO])
     } catch (e) {
-      showErrorAlert(t('addressNotFound'))
+      showErrorAlert(t('Customer:addressNotFound'))
     } finally {
       setIsSearchingAddress(false)
     }

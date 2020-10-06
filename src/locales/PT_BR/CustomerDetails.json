@@ -1,8 +1,4 @@
 {
   "pageTitle": "Detalhes do Cliente",
-  "deleteButton": "Excluir Cliente",
-  "customerName": "Nome Completo",
-  "customerEmail": "Email",
-  "customerWhatsapp": "Celular / WhatsApp",
-  "customerPhone": "Telefone"
+  "deleteButton": "Excluir Cliente"
 }

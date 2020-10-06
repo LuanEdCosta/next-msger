@@ -88,14 +88,14 @@ const CustomerRegistration = () => {
             errorComponent={<InputError />}
             labelComponent={
               <Label
-                label={t('nameLabel')}
+                label={t('Customer:nameLabel')}
                 isRequired
                 iconComponent={<Fw5IconAccent name="signature" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
-                placeholder={t('namePlaceholder')}
+                placeholder={t('Customer:namePh')}
                 returnKeyType="next"
                 autoCapitalize="words"
                 autoCompleteType="name"
@@ -114,7 +114,7 @@ const CustomerRegistration = () => {
             errorComponent={<InputError />}
             labelComponent={
               <Label
-                label={t('emailLabel')}
+                label={t('Customer:emailLabel')}
                 isRequired
                 iconComponent={<Fw5IconAccent name="envelope" solid />}
               />
@@ -122,7 +122,7 @@ const CustomerRegistration = () => {
             inputComponent={
               <DefaultTextInput
                 ref={emailInput}
-                placeholder={t('emailPlaceholder')}
+                placeholder={t('Customer:emailPh')}
                 returnKeyType="next"
                 autoCapitalize="none"
                 autoCompleteType="email"
@@ -141,7 +141,7 @@ const CustomerRegistration = () => {
             errorComponent={<InputError />}
             labelComponent={
               <Label
-                label={t('whatsappLabel')}
+                label={t('Customer:whatsappLabel')}
                 isRequired
                 iconComponent={<Fw5IconAccent name="mobile" solid />}
               />
@@ -149,7 +149,7 @@ const CustomerRegistration = () => {
             inputComponent={
               <DefaultTextInputMask
                 type="cel-phone"
-                placeholder={t('InputMasks:cellphonePlaceholder')}
+                placeholder={t('InputMasks:cellphonePh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setWhatsapp}
@@ -167,14 +167,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('phoneLabel')}
+                label={t('Customer:phoneLabel')}
                 iconComponent={<Fw5IconAccent name="phone" solid />}
               />
             }
             inputComponent={
               <DefaultTextInputMask
                 type="cel-phone"
-                placeholder={t('InputMasks:phonePlaceholder')}
+                placeholder={t('InputMasks:phonePh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setPhone}
@@ -192,7 +192,7 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('birthDateLabel')}
+                label={t('Customer:birthDateLabel')}
                 iconComponent={<Fw5IconAccent name="birthday-cake" solid />}
               />
             }
@@ -202,7 +202,7 @@ const CustomerRegistration = () => {
                 options={{
                   format: 'DD/MM/YYYY',
                 }}
-                placeholder={t('InputMasks:birthDatePlaceholder')}
+                placeholder={t('InputMasks:birthDatePh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setBirthDate}
@@ -220,14 +220,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('cepLabel')}
+                label={t('Customer:cepLabel')}
                 iconComponent={<Fw5IconAccent name="map-marker-alt" solid />}
               />
             }
             inputComponent={
               <DefaultTextInputMask
                 type="zip-code"
-                placeholder={t('InputMasks:cepPlaceholder')}
+                placeholder={t('InputMasks:cepPh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setCep}
@@ -249,14 +249,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('addressLabel')}
+                label={t('Customer:addressLabel')}
                 iconComponent={<Fw5IconAccent name="road" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
                 ref={addressInput}
-                placeholder={t('addressPlaceholder')}
+                placeholder={t('Customer:addressPh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setAddress}
@@ -271,14 +271,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('numberLabel')}
+                label={t('Customer:numberLabel')}
                 iconComponent={<Fw5IconAccent name="home" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
                 ref={numberInput}
-                placeholder={t('numberPlaceholder')}
+                placeholder={t('Customer:numberPh')}
                 keyboardType="numeric"
                 returnKeyType="next"
                 blurOnSubmit={false}
@@ -294,14 +294,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('districtLabel')}
+                label={t('Customer:districtLabel')}
                 iconComponent={<Fw5IconAccent name="map-pin" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
                 ref={districtInput}
-                placeholder={t('districtPlaceholder')}
+                placeholder={t('Customer:districtPh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setDistrict}
@@ -316,14 +316,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('cityLabel')}
+                label={t('Customer:cityLabel')}
                 iconComponent={<Fw5IconAccent name="map" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
                 ref={cityInput}
-                placeholder={t('cityPlaceholder')}
+                placeholder={t('Customer:cityPh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setCity}
@@ -338,14 +338,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('stateLabel')}
+                label={t('Customer:stateLabel')}
                 iconComponent={<Fw5IconAccent name="map-marked-alt" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
                 ref={stateInput}
-                placeholder={t('statePlaceholder')}
+                placeholder={t('Customer:statePh')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setState}
@@ -360,14 +360,14 @@ const CustomerRegistration = () => {
           <CustomerInput
             labelComponent={
               <Label
-                label={t('complementLabel')}
+                label={t('Customer:complementLabel')}
                 iconComponent={<Fw5IconAccent name="comment" solid />}
               />
             }
             inputComponent={
               <DefaultTextInput
                 ref={complementInput}
-                placeholder={t('complementPlaceholder')}
+                placeholder={t('Customer:complementPh')}
                 onChangeText={setComplement}
                 value={complement}
               />
@@ -381,7 +381,7 @@ const CustomerRegistration = () => {
             hasRoundCorners
           >
             <CustomerCheckboxText>
-              {t('canReceiveMessagesLabel')}
+              {t('Customer:canReceiveMessagesLabel')}
             </CustomerCheckboxText>
           </CustomerCheckbox>
 

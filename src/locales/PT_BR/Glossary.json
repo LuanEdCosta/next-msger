@@ -6,5 +6,7 @@
   "password": "Senha",
   "confirm": "Confirmar",
   "finalize": "Finalizar",
-  "warning": "Aviso"
+  "warning": "Aviso",
+  "yes": "Sim",
+  "no": "Não"
 }

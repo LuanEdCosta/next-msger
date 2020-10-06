@@ -37,6 +37,7 @@ import CompanyRegistration from './CompanyRegistration.json'
 import ReturnReasonList from './ReturnReasonList.json'
 import EditService from './EditService.json'
 import EditMarketingStep from './EditMarketingStep.json'
+import Customer from './Customer.json'
 
 export default {
   Common,
@@ -78,4 +79,5 @@ export default {
   ReturnReasonList,
   EditService,
   EditMarketingStep,
+  Customer,
 }
