@@ -30,3 +30,7 @@ export const DataItemValue = styled(ListItemText)`
 export const DeleteButton = styled(Button)`
   margin-bottom: 16px;
 `
+
+export const EditButton = styled(Button)`
+  margin-bottom: 16px;
+`

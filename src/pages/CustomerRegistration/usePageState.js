@@ -1,17 +1,30 @@
-import { useCallback, useState, useRef } from 'react'
+import { useCallback, useState, useRef, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 
 import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
 import { FindAddress } from '@/services'
+import { EDIT_CUSTOMER_PARAMS } from '@/config/navigation/RouteParams'
 
-export default () => {
+export default (navigation) => {
   const { t } = useTranslation([
     'CustomerRegistration',
     'InputMasks',
     'Customer',
   ])
+
+  const isEditing = navigation.getParam(EDIT_CUSTOMER_PARAMS.IS_EDITING, false)
+  const customerData = navigation.getParam(
+    EDIT_CUSTOMER_PARAMS.CUSTOMER_DATA,
+    null,
+  )
+
+  const customerId = useMemo(() => {
+    if (!customerData) return ''
+    const id = customerData[CUSTOMER_DOC.ID]
+    return id
+  }, [customerData])
 
   const showErrorAlert = useErrorAlert()
   const { companyId } = useUserData()
@@ -73,32 +86,44 @@ export default () => {
     setIsSaving(true)
 
     try {
-      await firestore()
-        .collection(COLLECTIONS.COMPANIES)
-        .doc(companyId)
-        .collection(COLLECTIONS.CUSTOMERS)
-        .add({
-          [CUSTOMER_DOC.NAME]: name,
-          [CUSTOMER_DOC.EMAIL]: email,
-          [CUSTOMER_DOC.WHATSAPP]: whatsapp,
-          [CUSTOMER_DOC.PHONE]: phone,
-          [CUSTOMER_DOC.BIRTH_DATE]: birthDate,
-          [CUSTOMER_DOC.CEP]: cep,
-          [CUSTOMER_DOC.ADDRESS]: address,
-          [CUSTOMER_DOC.DISTRICT]: district,
-          [CUSTOMER_DOC.NUMBER]: number,
-          [CUSTOMER_DOC.CITY]: city,
-          [CUSTOMER_DOC.STATE]: state,
-          [CUSTOMER_DOC.COMPLEMENT]: complement,
-          [CUSTOMER_DOC.CAN_RECEIVE_MESSAGES]: canReceiveMessages,
-          [CUSTOMER_DOC.CREATED_AT]: firestore.Timestamp.now(),
-        })
+      const data = {
+        [CUSTOMER_DOC.NAME]: name,
+        [CUSTOMER_DOC.EMAIL]: email,
+        [CUSTOMER_DOC.WHATSAPP]: whatsapp,
+        [CUSTOMER_DOC.PHONE]: phone,
+        [CUSTOMER_DOC.BIRTH_DATE]: birthDate,
+        [CUSTOMER_DOC.CEP]: cep,
+        [CUSTOMER_DOC.ADDRESS]: address,
+        [CUSTOMER_DOC.DISTRICT]: district,
+        [CUSTOMER_DOC.NUMBER]: number,
+        [CUSTOMER_DOC.CITY]: city,
+        [CUSTOMER_DOC.STATE]: state,
+        [CUSTOMER_DOC.COMPLEMENT]: complement,
+        [CUSTOMER_DOC.CAN_RECEIVE_MESSAGES]: canReceiveMessages,
+        [CUSTOMER_DOC.CREATED_AT]: firestore.Timestamp.now(),
+      }
 
-      onClearData()
+      if (isEditing) {
+        await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
+          .collection(COLLECTIONS.CUSTOMERS)
+          .doc(customerId)
+          .update(data)
+      } else {
+        await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
+          .collection(COLLECTIONS.CUSTOMERS)
+          .add(data)
+
+        onClearData()
+      }
     } catch (e) {
       showErrorAlert()
     } finally {
       setIsSaving(false)
+      if (isEditing && navigation.goBack) navigation.goBack()
     }
   }
 
@@ -117,6 +142,40 @@ export default () => {
       setIsSearchingAddress(false)
     }
   }, [cep, showErrorAlert, t])
+
+  useEffect(() => {
+    if (isEditing && customerData) {
+      const {
+        [CUSTOMER_DOC.NAME]: currentName,
+        [CUSTOMER_DOC.EMAIL]: currentEmail,
+        [CUSTOMER_DOC.WHATSAPP]: currentWhatsapp,
+        [CUSTOMER_DOC.PHONE]: currentPhone,
+        [CUSTOMER_DOC.BIRTH_DATE]: currentBirthDate,
+        [CUSTOMER_DOC.CEP]: currentCep,
+        [CUSTOMER_DOC.ADDRESS]: currentAddress,
+        [CUSTOMER_DOC.DISTRICT]: currentDistrict,
+        [CUSTOMER_DOC.NUMBER]: currentNumber,
+        [CUSTOMER_DOC.CITY]: currentCity,
+        [CUSTOMER_DOC.STATE]: currentState,
+        [CUSTOMER_DOC.COMPLEMENT]: currentComplement,
+        [CUSTOMER_DOC.CAN_RECEIVE_MESSAGES]: currentCanReceiveMessages,
+      } = customerData
+
+      setName(currentName)
+      setEmail(currentEmail)
+      setWhatsapp(currentWhatsapp)
+      setPhone(currentPhone)
+      setBirthDate(currentBirthDate)
+      setCep(currentCep)
+      setAddress(currentAddress)
+      setDistrict(currentDistrict)
+      setNumber(currentNumber)
+      setCity(currentCity)
+      setState(currentState)
+      setComplement(currentComplement)
+      setCanReceiveMessages(currentCanReceiveMessages)
+    }
+  }, [customerData, isEditing])
 
   return {
     t,

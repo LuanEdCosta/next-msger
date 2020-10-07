@@ -20,7 +20,7 @@ import {
   CustomerCheckboxText,
 } from './styles'
 
-const CustomerRegistration = () => {
+const CustomerRegistration = ({ navigation }) => {
   const {
     t,
     onSaveCustomer,
@@ -67,7 +67,7 @@ const CustomerRegistration = () => {
     setComplement,
     canReceiveMessages,
     setCanReceiveMessages,
-  } = usePageState()
+  } = usePageState(navigation)
 
   return (
     <Container>
@@ -149,7 +149,7 @@ const CustomerRegistration = () => {
             inputComponent={
               <DefaultTextInputMask
                 type="cel-phone"
-                placeholder={t('InputMasks:cellphonePh')}
+                placeholder={t('InputMasks:cellphonePlaceholder')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setWhatsapp}
@@ -174,7 +174,7 @@ const CustomerRegistration = () => {
             inputComponent={
               <DefaultTextInputMask
                 type="cel-phone"
-                placeholder={t('InputMasks:phonePh')}
+                placeholder={t('InputMasks:phonePlaceholder')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setPhone}
@@ -202,7 +202,7 @@ const CustomerRegistration = () => {
                 options={{
                   format: 'DD/MM/YYYY',
                 }}
-                placeholder={t('InputMasks:birthDatePh')}
+                placeholder={t('InputMasks:birthDatePlaceholder')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setBirthDate}
@@ -227,7 +227,7 @@ const CustomerRegistration = () => {
             inputComponent={
               <DefaultTextInputMask
                 type="zip-code"
-                placeholder={t('InputMasks:cepPh')}
+                placeholder={t('InputMasks:cepPlaceholder')}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onChangeText={setCep}
@@ -398,5 +398,9 @@ const CustomerRegistration = () => {
     </Container>
   )
 }
+
+CustomerRegistration.navigationOptions = () => ({
+  headerShown: false,
+})
 
 export default CustomerRegistration

@@ -10,6 +10,8 @@ import { useErrorAlert, useUserData } from '@/hooks'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
 import { ADMOB_BANNER_ID } from '@/config/ads'
+import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { EDIT_CUSTOMER_PARAMS } from '@/config/navigation/RouteParams'
 
 import {
   Container,
@@ -23,7 +25,6 @@ import {
 
 const CustomerDetails = ({ navigation }) => {
   const customerId = navigation.getParam(CUSTOMER_DOC.ID)
-  const customerName = navigation.getParam(CUSTOMER_DOC.NAME)
 
   const { t } = useTranslation(['CustomerDetails', 'Customer'])
   const { companyId } = useUserData()
@@ -75,6 +76,13 @@ const CustomerDetails = ({ navigation }) => {
     }
   }, [companyId, customerId, navigation, showAlert])
 
+  const onEditCustomer = useCallback(() => {
+    navigation.navigate(MAIN_ROUTES.EDIT_CUSTOMER, {
+      [EDIT_CUSTOMER_PARAMS.IS_EDITING]: true,
+      [EDIT_CUSTOMER_PARAMS.CUSTOMER_DATA]: customerData,
+    })
+  }, [customerData, navigation])
+
   const getValue = useCallback((key) => customerData[key], [customerData])
 
   return (
@@ -82,7 +90,7 @@ const CustomerDetails = ({ navigation }) => {
       <Header
         i18Namespace="CustomerDetails"
         i18Title="pageTitle"
-        subtitle={customerName}
+        subtitle={getValue(CUSTOMER_DOC.NAME)}
         isStackPage
       />
 
@@ -231,6 +239,12 @@ const CustomerDetails = ({ navigation }) => {
                 <ButtonIcon name="trash" />
               )
             }
+          />
+
+          <DeleteButton
+            text={t('editButton')}
+            onPress={onEditCustomer}
+            iconComponent={<ButtonIcon name="pen" />}
           />
         </Content>
       </Scroll>

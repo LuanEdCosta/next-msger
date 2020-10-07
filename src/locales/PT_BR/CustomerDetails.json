@@ -1,4 +1,5 @@
 {
   "pageTitle": "Detalhes do Cliente",
-  "deleteButton": "Excluir Cliente"
+  "deleteButton": "Excluir Cliente",
+  "editButton": "Editar Cliente"
 }
