@@ -10,5 +10,6 @@
   "editService": "Editar Serviço",
   "serviceFinalized": "Serviço Finalizado",
   "serviceNotFinalized": "Serviço Não Finalizado",
-  "finalizedExplanation": "Com o serviço finalizado todas as modificações estão desabilitadas."
+  "finalizedExplanation": "Com o serviço finalizado todas as modificações estão desabilitadas.",
+  "openCustomerDetails": "Visualizar Cliente"
 }

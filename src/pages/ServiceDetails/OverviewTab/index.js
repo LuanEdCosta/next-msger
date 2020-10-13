@@ -2,7 +2,7 @@ import React, { useMemo, useContext, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CUSTOMER_DOC, SERVICE_DOC, SERVICE_TYPE_DOC } from '@/config/database'
-import { ButtonIcon, Fw5Icon } from '@/components/Fw5Icon'
+import { ButtonIcon, Fw5Icon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { firebaseTimestampToMoment } from '@/utils'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { EDIT_SERVICE_PARAMS } from '@/config/navigation/RouteParams'
@@ -19,6 +19,7 @@ import {
   ServiceStatusIndicator,
   FinalizedStatusExplanation,
   EditServiceButton,
+  OpenCustomerDetailsButton,
 } from './styles'
 
 const OverviewTab = ({ navigation }) => {
@@ -46,6 +47,15 @@ const OverviewTab = ({ navigation }) => {
       [EDIT_SERVICE_PARAMS.SERVICE_DATA]: serviceData,
     })
   }, [isFinalized, navigation, onShowFinalizedWarning, serviceData])
+
+  const onOpenCustomerDetails = useCallback(() => {
+    if (!customer) return
+    const customerId = customer[CUSTOMER_DOC.ID]
+    if (!customerId) return
+    navigation.navigate(MAIN_ROUTES.CUSTOMER_DETAILS, {
+      [CUSTOMER_DOC.ID]: customerId,
+    })
+  }, [customer, navigation])
 
   return (
     <Container>
@@ -123,6 +133,16 @@ const OverviewTab = ({ navigation }) => {
           </DataItemTitle>
           <DataItemText text={customer[CUSTOMER_DOC.PHONE]} />
         </DataItem>
+
+        <OpenCustomerDetailsButton
+          text={t('openCustomerDetails')}
+          onPress={onOpenCustomerDetails}
+          iconComponent={<Fw5IconAccent name="external-link-alt" />}
+          borderWidth={2}
+          borderColor="accent"
+          backgroundColor="white"
+          textColor="accent"
+        />
       </DataGroup>
 
       <EditServiceButton

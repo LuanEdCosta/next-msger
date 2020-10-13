@@ -213,6 +213,7 @@ const SendMessagesTab = ({ navigation }) => {
   return (
     <>
       <ItemActionsBottomSheet
+        navigation={navigation}
         isShowing={!!selectedMarketingStep}
         marketingStepId={selectedMarketingStep}
         handleClose={() => {

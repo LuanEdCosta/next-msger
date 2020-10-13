@@ -64,3 +64,13 @@ export const FinalizedStatusExplanation = styled(DefaultText)`
   margin-bottom: 16px;
   line-height: 20px;
 `
+
+export const OpenCustomerDetailsButton = styled(Button).attrs({
+  textStyle: {
+    fontSize: 14,
+  },
+})`
+  height: 48px;
+  align-self: flex-end;
+  margin: 8px;
+`

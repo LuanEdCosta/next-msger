@@ -43,7 +43,6 @@ const MarketingStepRegistration = () => {
       !marketingStepName ||
       !marketingStepName.trim() ||
       !numOfDays ||
-      !numOfDays.trim() ||
       !emailMessage ||
       !emailMessage.trim() ||
       !whatsappMessage ||
@@ -161,7 +160,7 @@ const MarketingStepRegistration = () => {
           />
 
           <MarketingStepInput
-            showErrorComponent={isShowingErrors && !numOfDays.trim()}
+            showErrorComponent={isShowingErrors && !numOfDays}
             errorComponent={<InputError />}
             labelComponent={
               <Label
