@@ -108,6 +108,15 @@ const OverviewTab = ({ navigation }) => {
           </DataItemTitle>
           <DataItemText text={serviceType[SERVICE_TYPE_DOC.NAME]} />
         </DataItem>
+
+        {!!serviceType[SERVICE_TYPE_DOC.DESCRIPTION] && (
+          <DataItem>
+            <DataItemTitle text={t('serviceTypeDescription')}>
+              <Fw5Icon name="comment" solid />
+            </DataItemTitle>
+            <DataItemText text={serviceType[SERVICE_TYPE_DOC.DESCRIPTION]} />
+          </DataItem>
+        )}
       </DataGroup>
 
       <DataGroup>

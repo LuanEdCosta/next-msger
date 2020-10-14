@@ -24,6 +24,7 @@ const ServiceTypeRegistration = () => {
   const [isShowingErrors, setIsShowingErrors] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [serviceTypeName, setServiceTypeName] = useState('')
+  const [description, setDescription] = useState('')
 
   const onSaveServiceType = useCallback(async () => {
     if (!isShowingErrors) setIsShowingErrors(true)
@@ -37,16 +38,18 @@ const ServiceTypeRegistration = () => {
         .collection(COLLECTIONS.SERVICE_TYPES)
         .add({
           [SERVICE_TYPE_DOC.NAME]: serviceTypeName,
+          [SERVICE_TYPE_DOC.DESCRIPTION]: description,
           [SERVICE_TYPE_DOC.CREATED_AT]: firestore.Timestamp.now(),
         })
 
       setIsShowingErrors(false)
       setServiceTypeName('')
+      setDescription('')
     } catch (e) {
       showErrorAlert()
     }
     setIsSaving(false)
-  }, [companyId, isShowingErrors, serviceTypeName, showErrorAlert])
+  }, [companyId, description, isShowingErrors, serviceTypeName, showErrorAlert])
 
   return (
     <Container>
@@ -82,6 +85,31 @@ const ServiceTypeRegistration = () => {
                 textContentType="none"
                 onChangeText={setServiceTypeName}
                 value={serviceTypeName}
+                autoCorrect
+              />
+            }
+          />
+
+          <ServiceTypeInput
+            labelComponent={
+              <Label
+                label={t('descriptionLabel')}
+                iconComponent={<Fw5IconAccent name="comment" solid />}
+                description={t('descriptionLength', {
+                  length: description.length,
+                })}
+              />
+            }
+            inputComponent={
+              <DefaultTextInput
+                style={{ textAlignVertical: 'top' }}
+                placeholder={t('descriptionPh')}
+                autoCapitalize="sentences"
+                onChangeText={setDescription}
+                value={description}
+                maxLength={500}
+                numberOfLines={5}
+                multiline
                 autoCorrect
               />
             }

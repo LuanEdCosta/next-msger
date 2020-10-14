@@ -83,6 +83,7 @@ const ServiceTypeList = ({ navigation }) => {
       const {
         [SERVICE_TYPE_DOC.ID]: id,
         [SERVICE_TYPE_DOC.NAME]: name,
+        [SERVICE_TYPE_DOC.DESCRIPTION]: description,
         [SERVICE_TYPE_DOC.CREATED_AT]: createdAt,
       } = item
 
@@ -102,6 +103,12 @@ const ServiceTypeList = ({ navigation }) => {
             <ServiceTypeItemText text={creationDate}>
               <Fw5Icon name="calendar-alt" solid />
             </ServiceTypeItemText>
+
+            {!!description && (
+              <ServiceTypeItemText text={description}>
+                <Fw5Icon name="file-alt" solid />
+              </ServiceTypeItemText>
+            )}
           </ServiceTypeItem>
 
           <DeleteButton onPress={onDeletePressed}>

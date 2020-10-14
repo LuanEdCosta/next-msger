@@ -1,5 +1,8 @@
 {
   "serviceTypeLabel": "Nome do Tipo de Serviço",
   "serviceTypePlaceholder": "Ex: Meu Serviço 1",
+  "descriptionLabel": "Descrição",
+  "descriptionPh": "Descreva brevemente este tipo de serviço",
+  "descriptionLength": "{{length}}/500",
   "saveButton": "Salvar"
 }
