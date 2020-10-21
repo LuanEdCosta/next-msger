@@ -45,15 +45,20 @@ const CustomerDetails = ({ navigation }) => {
           navigation.goBack()
         },
         next(doc) {
-          setCustomerData({
-            ...doc.data(),
-            [CUSTOMER_DOC.ID]: doc.id,
-          })
+          if (doc.exists) {
+            setCustomerData({
+              ...doc.data(),
+              [CUSTOMER_DOC.ID]: doc.id,
+            })
+          } else {
+            showAlert(t('Customer:customerDoesNotExist'))
+            navigation.goBack()
+          }
         },
       })
 
     return unsubscribe
-  }, [companyId, customerId, navigation, showAlert])
+  }, [companyId, customerId, navigation, showAlert, t])
 
   useEffect(onSubscribeToCustomerDocument, [])
 

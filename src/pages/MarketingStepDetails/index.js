@@ -49,10 +49,15 @@ const MarketingStepDetails = ({ navigation }) => {
           navigation.goBack()
         },
         next(doc) {
-          setStepData({
-            ...doc.data(),
-            [MARKETING_STEP_DOC.ID]: doc.id,
-          })
+          if (doc.exists) {
+            setStepData({
+              ...doc.data(),
+              [MARKETING_STEP_DOC.ID]: doc.id,
+            })
+          } else {
+            showAlert('marketingStepDoesNotExist')
+            navigation.goBack()
+          }
         },
       })
 

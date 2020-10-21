@@ -12,5 +12,6 @@
   "stepCreationDate": "Data de Criação",
   "createdAt": "Criada em: {{date, LL}}",
   "numOfDaysValue": "{{count}} dia",
-  "numOfDaysValue_plural": "{{count}} dias"
+  "numOfDaysValue_plural": "{{count}} dias",
+  "marketingStepDoesNotExist": "Esta etapa de marketing não existe! Ela foi excluída da base de dados."
 }

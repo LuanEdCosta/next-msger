@@ -20,5 +20,6 @@
   "complementLabel": "Complemento",
   "complementPh": "Ex: Terceiro andar",
   "canReceiveMessagesLabel": "Cliente pode receber mensagens",
-  "addressNotFound": "Não foi possível encontrar o endereço com CEP fornecido!"
+  "addressNotFound": "Não foi possível encontrar o endereço com CEP fornecido!",
+  "customerDoesNotExist": "Este cliente não existe mais! Ele foi excluído da base de dados."
 }
