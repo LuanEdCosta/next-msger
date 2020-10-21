@@ -11,8 +11,17 @@ import Button from '@/components/Button'
 import Label from '@/components/Label'
 
 import useSaveBirthdayMsgsConfig from './useSaveBirthdayMsgsConfig'
-import { Container, Scroll, Content, MsgConfigInput } from './styles'
 import useFetchBirthdayMsgsConfig from './useFetchBirthdayMsgsConfig'
+import {
+  Container,
+  Scroll,
+  Content,
+  MsgConfigInput,
+  ExplanationContainer,
+  ExplanationText,
+  ExplanationTitle,
+  ExplanationSectionTitle,
+} from './styles'
 
 const BirthdayMessagesConfig = () => {
   const { t } = useTranslation('BirthdayMessagesConfig')
@@ -145,6 +154,34 @@ const BirthdayMessagesConfig = () => {
             }
           />
         </Content>
+
+        <ExplanationContainer>
+          <ExplanationSectionTitle>{t('explanation')}</ExplanationSectionTitle>
+
+          <ExplanationTitle>
+            {t('explanationTitles.birthdayMessage')}
+          </ExplanationTitle>
+
+          <ExplanationText>
+            {t('explanationMessages.birthdayMessage')}
+          </ExplanationText>
+
+          <ExplanationTitle>
+            {t('explanationTitles.delayedBirthdayMessage')}
+          </ExplanationTitle>
+
+          <ExplanationText>
+            {t('explanationMessages.delayedBirthdayMessage')}
+          </ExplanationText>
+
+          <ExplanationTitle>
+            {t('explanationTitles.futureBirthdayMessage')}
+          </ExplanationTitle>
+
+          <ExplanationText>
+            {t('explanationMessages.futureBirthdayMessage')}
+          </ExplanationText>
+        </ExplanationContainer>
       </Scroll>
     </Container>
   )

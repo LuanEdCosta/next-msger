@@ -5,11 +5,25 @@
   "birthdayMsgPh": "Digite a mensagem que será enviada para o cliente no dia do aniversário dele",
   "birthdayMsgMaxLength": "{{length}}/500",
 
-  "delayedBirthdayMsgLabel": "Mensagem de Aniversário Atrasado",
+  "delayedBirthdayMsgLabel": "Msg. de Aniversário Atrasado",
   "delayedBirthdayMsgPh": "Digite a mensagem que será enviada para o cliente após o dia de aniversário dele",
   "delayedBirthdayMsgMaxLength": "{{length}}/500",
 
-  "futureBirthdayMsgLabel": "Mensagem de Aniversário Futura",
+  "futureBirthdayMsgLabel": "Msg. de Aniversário Futura",
   "futureBirthdayMsgPh": "Digite a mensagem que será enviada para o cliente antes do dia de aniversário dele",
-  "futureBirthdayMsgMaxLength": "{{length}}/500"
+  "futureBirthdayMsgMaxLength": "{{length}}/500",
+
+  "explanation": "Explicação das Mensagens",
+
+  "explanationTitles": {
+    "birthdayMessage": "Mensagem de Aniversário",
+    "delayedBirthdayMessage": "Mensagem de Aniversário Atrasada",
+    "futureBirthdayMessage": "Mensagem de Aniversário Futura"
+  },
+
+  "explanationMessages": {
+    "birthdayMessage": "Mensagem para enviar no dia exato do aniversário do cliente.",
+    "delayedBirthdayMessage": "Mensagem para enviar após o dia do aniversário do cliente.",
+    "futureBirthdayMessage": "Mensagem para enviar antes do dia do aniversário do cliente."
+  }
 }
