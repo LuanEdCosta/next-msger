@@ -1,0 +1,15 @@
+{
+  "saveButton": "Salvar Configuração",
+
+  "birthdayMsgLabel": "Mensagem de Aniversário",
+  "birthdayMsgPh": "Digite a mensagem que será enviada para o cliente no dia do aniversário dele",
+  "birthdayMsgMaxLength": "{{length}}/500",
+
+  "delayedBirthdayMsgLabel": "Mensagem de Aniversário Atrasado",
+  "delayedBirthdayMsgPh": "Digite a mensagem que será enviada para o cliente após o dia de aniversário dele",
+  "delayedBirthdayMsgMaxLength": "{{length}}/500",
+
+  "futureBirthdayMsgLabel": "Mensagem de Aniversário Futura",
+  "futureBirthdayMsgPh": "Digite a mensagem que será enviada para o cliente antes do dia de aniversário dele",
+  "futureBirthdayMsgMaxLength": "{{length}}/500"
+}

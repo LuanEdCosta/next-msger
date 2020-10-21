@@ -38,6 +38,7 @@ import ReturnReasonList from './ReturnReasonList.json'
 import EditService from './EditService.json'
 import EditMarketingStep from './EditMarketingStep.json'
 import Customer from './Customer.json'
+import BirthdayMessagesConfig from './BirthdayMessagesConfig.json'
 
 export default {
   Common,
@@ -80,4 +81,5 @@ export default {
   EditService,
   EditMarketingStep,
   Customer,
+  BirthdayMessagesConfig,
 }

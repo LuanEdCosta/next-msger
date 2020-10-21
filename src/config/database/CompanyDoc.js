@@ -7,4 +7,11 @@ export default {
   OWNER_CPF: 'ownerCpf',
   EMAIL: 'email',
   CREATED_AT: 'createdAt',
+  BIRTHDAY_MESSAGES_CONFIG: 'birthdayMessagesConfig',
+}
+
+export const BIRTHDAY_MESSAGES_CONFIG = {
+  BIRTHDAY_MESSAGE: 'birthdayMessage',
+  DELAYED_BIRTHDAY_MESSAGE: 'delayedBirthdayMessage',
+  FUTURE_BIRTHDAY_MESSAGE: 'futureBirthdayMessage',
 }

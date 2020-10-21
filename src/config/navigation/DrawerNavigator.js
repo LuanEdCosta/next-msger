@@ -14,6 +14,7 @@ import MarketingStepList from '@/pages/MarketingStepList'
 import UserProfile from '@/pages/UserProfile'
 import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
 import ReturnReasonList from '@/pages/ReturnReasonList'
+import BirthdayMessagesConfig from '@/pages/BirthdayMessagesConfig'
 
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
@@ -101,6 +102,13 @@ const DrawerNavigator = createDrawerNavigator(
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'returnReasonList',
         [DRAWER_PAGES.DRAWER_ICON]: 'align-left',
+      },
+    },
+    [DR.BIRTHDAY_MESSAGES_CONFIG]: {
+      screen: BirthdayMessagesConfig,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'birthdayMessagesConfig',
+        [DRAWER_PAGES.DRAWER_ICON]: 'birthday-cake',
       },
     },
   },
