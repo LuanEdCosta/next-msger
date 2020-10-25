@@ -1,4 +1,5 @@
 import { useCallback, useState, useRef, useEffect, useMemo } from 'react'
+import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 
@@ -6,6 +7,8 @@ import { COLLECTIONS, CUSTOMER_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
 import { FindAddress } from '@/services'
 import { EDIT_CUSTOMER_PARAMS } from '@/config/navigation/RouteParams'
+import { firebaseTimestampToMoment } from '@/utils'
+import { DATE_FORMATS } from '@/config/constants'
 
 export default (navigation) => {
   const { t } = useTranslation([
@@ -58,10 +61,20 @@ export default (navigation) => {
   const stateInput = useRef(null)
   const complementInput = useRef(null)
 
+  const isBirthDateValid = useCallback((value) => {
+    // True if has no birth date or if it's a valid birth date
+    return (
+      value.trim().length === 0 ||
+      (value.trim().length === 10 &&
+        moment(value, DATE_FORMATS.SLASH.DDMMYYYY).isValid())
+    )
+  }, [])
+
   const onValidateInputs = useCallback(() => {
     const valuesArray = [name, email, whatsapp]
-    return valuesArray.every((str) => !!str && !!str.trim())
-  }, [email, name, whatsapp])
+    const hasRequiredValues = valuesArray.every((str) => !!str && !!str.trim())
+    return hasRequiredValues && isBirthDateValid(birthDate)
+  }, [birthDate, email, isBirthDateValid, name, whatsapp])
 
   const onClearData = useCallback(() => {
     setName('')
@@ -85,13 +98,25 @@ export default (navigation) => {
     if (!onValidateInputs()) return
     setIsSaving(true)
 
+    const momentBirthDate = moment(birthDate, DATE_FORMATS.SLASH.DDMMYYYY)
+    const birthDateTimestamp = momentBirthDate.isValid()
+      ? firestore.Timestamp.fromDate(momentBirthDate.toDate())
+      : null
+
+    const [birthDay, birthMonth, birthYear] = birthDate
+      ? birthDate.split('/')
+      : []
+
     try {
       const data = {
         [CUSTOMER_DOC.NAME]: name,
         [CUSTOMER_DOC.EMAIL]: email,
         [CUSTOMER_DOC.WHATSAPP]: whatsapp,
         [CUSTOMER_DOC.PHONE]: phone,
-        [CUSTOMER_DOC.BIRTH_DATE]: birthDate,
+        [CUSTOMER_DOC.BIRTH_DATE]: birthDateTimestamp,
+        [CUSTOMER_DOC.BIRTH_DAY]: birthDay,
+        [CUSTOMER_DOC.BIRTH_MONTH]: birthMonth,
+        [CUSTOMER_DOC.BIRTH_YEAR]: birthYear,
         [CUSTOMER_DOC.CEP]: cep,
         [CUSTOMER_DOC.ADDRESS]: address,
         [CUSTOMER_DOC.DISTRICT]: district,
@@ -161,11 +186,16 @@ export default (navigation) => {
         [CUSTOMER_DOC.CAN_RECEIVE_MESSAGES]: currentCanReceiveMessages,
       } = customerData
 
+      const momentBirthDate = firebaseTimestampToMoment(currentBirthDate)
+      const formattedBirthDate = momentBirthDate
+        ? momentBirthDate.format(DATE_FORMATS.SLASH.DDMMYYYY)
+        : ''
+
       setName(currentName)
       setEmail(currentEmail)
       setWhatsapp(currentWhatsapp)
       setPhone(currentPhone)
-      setBirthDate(currentBirthDate)
+      setBirthDate(formattedBirthDate)
       setCep(currentCep)
       setAddress(currentAddress)
       setDistrict(currentDistrict)
@@ -181,6 +211,7 @@ export default (navigation) => {
     t,
     onSaveCustomer,
     onFindAddressByCep,
+    isBirthDateValid,
 
     emailInput,
     whatsappInput,

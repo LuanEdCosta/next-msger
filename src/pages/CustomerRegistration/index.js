@@ -4,6 +4,7 @@ import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
 import { ButtonIcon, CheckboxIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { AccentSpinner, WhiteSpinner } from '@/components/Spinner'
+import { DATE_FORMATS } from '@/config/constants'
 import InputError from '@/components/InputError'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import Header from '@/components/Header'
@@ -25,6 +26,7 @@ const CustomerRegistration = ({ navigation }) => {
     t,
     onSaveCustomer,
     onFindAddressByCep,
+    isBirthDateValid,
 
     emailInput,
     whatsappInput,
@@ -190,6 +192,8 @@ const CustomerRegistration = ({ navigation }) => {
           />
 
           <CustomerInput
+            showErrorComponent={isShowingErrors && !isBirthDateValid(birthDate)}
+            errorComponent={<InputError text={t('birthDateInvalid')} />}
             labelComponent={
               <Label
                 label={t('Customer:birthDateLabel')}
@@ -200,7 +204,7 @@ const CustomerRegistration = ({ navigation }) => {
               <DefaultTextInputMask
                 type="datetime"
                 options={{
-                  format: 'DD/MM/YYYY',
+                  format: DATE_FORMATS.SLASH.DDMMYYYY,
                 }}
                 placeholder={t('InputMasks:birthDatePlaceholder')}
                 returnKeyType="next"

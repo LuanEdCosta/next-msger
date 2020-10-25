@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -12,6 +12,7 @@ import { FONT_SIZES } from '@/styles'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { EDIT_CUSTOMER_PARAMS } from '@/config/navigation/RouteParams'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import {
   Container,
@@ -90,6 +91,14 @@ const CustomerDetails = ({ navigation }) => {
 
   const getValue = useCallback((key) => customerData[key], [customerData])
 
+  const formattedBirthDate = useMemo(() => {
+    const momentDate = firebaseTimestampToMoment(
+      getValue(CUSTOMER_DOC.BIRTH_DATE),
+    )
+
+    return momentDate ? momentDate.format('DD/MM/YYYY') : null
+  }, [getValue])
+
   return (
     <Container>
       <Header
@@ -145,12 +154,12 @@ const CustomerDetails = ({ navigation }) => {
             </DataItem>
           )}
 
-          {!!getValue(CUSTOMER_DOC.BIRTH_DATE) && (
+          {!!formattedBirthDate && (
             <DataItem>
               <DataItemTitle text={t('Customer:birthDateLabel')}>
                 <Fw5Icon name="birthday-cake" solid />
               </DataItemTitle>
-              <DataItemValue text={getValue(CUSTOMER_DOC.BIRTH_DATE)} />
+              <DataItemValue text={formattedBirthDate} />
             </DataItem>
           )}
 
