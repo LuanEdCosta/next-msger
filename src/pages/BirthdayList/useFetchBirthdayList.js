@@ -12,8 +12,8 @@ export default (setBirthdayList, setIsLoading, setIsRefreshing) => {
   const handleFetchCustomers = useCallback(
     async (filterBirthDay, limit = 10, isRefreshing = false) => {
       try {
-        if (isRefreshing) setIsLoading(true)
-        else setIsRefreshing(true)
+        if (isRefreshing) setIsRefreshing(true)
+        else setIsLoading(true)
 
         const momentBirthDay = moment(filterBirthDay || undefined)
         const birthDayAndMonth = momentBirthDay.format('DD/MM')

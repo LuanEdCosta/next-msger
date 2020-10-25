@@ -22,6 +22,7 @@ import {
   EmptyMessage,
   BirthdayItem,
   BirthdayItemText,
+  FooterSpinner,
 } from './styles'
 
 const CUSTOMERS_PER_PAGE = 10
@@ -62,16 +63,16 @@ const BirthdayList = ({ navigation }) => {
     if (isScrolling) {
       const newPageNumber = pageNumber + 1
       const numberOfCustomers = newPageNumber * CUSTOMERS_PER_PAGE
-      await handleFetchCustomers(birthDay, numberOfCustomers, true)
       setPageNumber(newPageNumber)
       setIsScrolling(false)
+      await handleFetchCustomers(birthDay, numberOfCustomers, true)
     }
   }, [birthDay, handleFetchCustomers, isScrolling, pageNumber])
 
   const handleSearch = useCallback(async () => {
-    await handleFetchCustomers(birthDay, CUSTOMERS_PER_PAGE, false)
-    setIsScrolling(false)
     setPageNumber(1)
+    setIsScrolling(false)
+    await handleFetchCustomers(birthDay, CUSTOMERS_PER_PAGE, false)
   }, [birthDay, handleFetchCustomers])
 
   const handleScrollBegin = useCallback(() => {
@@ -99,11 +100,12 @@ const BirthdayList = ({ navigation }) => {
         data={birthdayList}
         onEndReachedThreshold={0.1}
         maxToRenderPerBatch={CUSTOMERS_PER_PAGE}
+        initialNumToRender={CUSTOMERS_PER_PAGE}
         onEndReached={handleFetchMoreCustomers}
         onMomentumScrollBegin={handleScrollBegin}
         refreshControl={
           <DefaultRefreshControl
-            refreshing={isRefreshing}
+            refreshing={isLoading}
             onRefresh={handleSearch}
           />
         }
@@ -192,6 +194,7 @@ const BirthdayList = ({ navigation }) => {
             <Filters birthDay={birthDay} setBirthDay={setBirthDay} />
           </>
         }
+        ListFooterComponent={isRefreshing ? <FooterSpinner /> : null}
       />
     </Container>
   )
