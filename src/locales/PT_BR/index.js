@@ -39,6 +39,8 @@ import EditService from './EditService.json'
 import EditMarketingStep from './EditMarketingStep.json'
 import Customer from './Customer.json'
 import BirthdayMessagesConfig from './BirthdayMessagesConfig.json'
+import BirthdayList from './BirthdayList.json'
+import Calendar from './Calendar.json'
 
 export default {
   Common,
@@ -82,4 +84,6 @@ export default {
   EditMarketingStep,
   Customer,
   BirthdayMessagesConfig,
+  BirthdayList,
+  Calendar,
 }

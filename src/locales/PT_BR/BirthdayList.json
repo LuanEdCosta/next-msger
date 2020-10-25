@@ -1,0 +1,11 @@
+{
+  "nothingFound": "Nenhum Aniversariante Encontrado",
+  "bottomSheetTitleWithName": "Ações para: {{name}}",
+  "bottomSheetTitle": "Ações Disponíveis",
+  "sendEmail": "Enviar Email para o Aniversariante",
+  "callCustomer": "Ligar para o Aniversariante",
+  "sendSms": "Enviar SMS para o Aniversariante",
+  "sendWhatsApp": "Enviar WhatsApp para o Aniversariante",
+  "birthDayLabel": "Filtro de Dia do Aniversário",
+  "birthDaySelectedDay": "Aniversariantes do Dia: {{birthDay, DD/MM}}"
+}

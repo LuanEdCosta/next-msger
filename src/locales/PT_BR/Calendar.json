@@ -1,0 +1,23 @@
+{
+  "today": "Hoje",
+  "tomorrow": "Amanhã",
+  "anotherDay": "Outro Dia",
+  "daysOfWeek": [
+    "Segunda-Feira",
+    "Terça-Feira",
+    "Quarta-Feira",
+    "Quinta-Feira",
+    "Sexta-Feira",
+    "Sábado",
+    "Domingo"
+  ],
+  "daysOfWeekSundayFirst": [
+    "Domingo",
+    "Segunda-Feira",
+    "Terça-Feira",
+    "Quarta-Feira",
+    "Quinta-Feira",
+    "Sexta-Feira",
+    "Sábado"
+  ]
+}

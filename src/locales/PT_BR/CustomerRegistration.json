@@ -1,3 +1,4 @@
 {
-  "saveButton": "Salvar Cliente"
+  "saveButton": "Salvar Cliente",
+  "birthDateInvalid": "Data de Nascimento Inválida"
 }
