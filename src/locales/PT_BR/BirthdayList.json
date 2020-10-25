@@ -7,5 +7,6 @@
   "sendSms": "Enviar SMS para o Aniversariante",
   "sendWhatsApp": "Enviar WhatsApp para o Aniversariante",
   "birthDayLabel": "Filtro de Dia do Aniversário",
-  "birthDaySelectedDay": "Aniversariantes do Dia: {{birthDay, DD/MM}}"
+  "birthDaySelectedDay": "Aniversariantes do Dia: {{birthDay, DD/MM}}",
+  "birthDate": "Nascimento: {{date, L}}"
 }

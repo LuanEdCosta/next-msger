@@ -11,6 +11,7 @@ import TouchableIcon from '@/components/TouchableIcon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { Fw5Icon, Fw5IconAccent, MessagePanelIcon } from '@/components/Fw5Icon'
 import { DefaultRefreshControl } from '@/components/RefreshControl'
+import { firebaseTimestampToMoment } from '@/utils'
 
 import useSubscribeToCompany from './useSubscribeToCompany'
 import useFetchBirthdayList from './useFetchBirthdayList'
@@ -112,6 +113,8 @@ const BirthdayList = ({ navigation }) => {
             [CUSTOMER_DOC.NAME]: name,
             [CUSTOMER_DOC.EMAIL]: email,
             [CUSTOMER_DOC.PHONE]: phone,
+            [CUSTOMER_DOC.WHATSAPP]: whatsAppNumber,
+            [CUSTOMER_DOC.BIRTH_DATE]: birthDate,
           } = item
 
           const onItemPress = () => {
@@ -141,9 +144,28 @@ const BirthdayList = ({ navigation }) => {
                 <Fw5Icon name="envelope" solid />
               </BirthdayItemText>
 
-              <BirthdayItemText text={phone}>
-                <Fw5Icon name="phone" solid />
+              <BirthdayItemText text={whatsAppNumber}>
+                <Fw5Icon name="whatsapp" solid />
               </BirthdayItemText>
+
+              {!!phone && (
+                <BirthdayItemText text={phone}>
+                  <Fw5Icon name="phone" solid />
+                </BirthdayItemText>
+              )}
+
+              {!!birthDate && (
+                <BirthdayItemText
+                  text={t('birthDate', {
+                    date: firebaseTimestampToMoment(birthDate),
+                    interpolation: {
+                      escapeValue: false,
+                    },
+                  })}
+                >
+                  <Fw5Icon name="baby" solid />
+                </BirthdayItemText>
+              )}
             </BirthdayItem>
           )
         }}

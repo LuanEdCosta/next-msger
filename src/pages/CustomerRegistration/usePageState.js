@@ -98,7 +98,11 @@ export default (navigation) => {
     if (!onValidateInputs()) return
     setIsSaving(true)
 
-    const momentBirthDate = moment(birthDate, DATE_FORMATS.SLASH.DDMMYYYY)
+    const momentBirthDate = moment(
+      birthDate,
+      DATE_FORMATS.SLASH.DDMMYYYY,
+    ).startOf('day')
+
     const birthDateTimestamp = momentBirthDate.isValid()
       ? firestore.Timestamp.fromDate(momentBirthDate.toDate())
       : null
