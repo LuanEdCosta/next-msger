@@ -35,6 +35,7 @@ const BirthdayActions = (props) => {
     handleClose,
     selectedCustomer,
     birthdayMessages,
+    onActionExecuted,
   } = props
 
   const showErrorAlert = useErrorAlert()
@@ -112,6 +113,10 @@ const BirthdayActions = (props) => {
       }
 
       await onSaveMessageSending(customerId, currentYear, channelType)
+
+      if (onActionExecuted) {
+        onActionExecuted(customerId, currentYear, channelType)
+      }
     } catch (e) {
       showErrorAlert()
     } finally {
@@ -172,6 +177,7 @@ BirthdayActions.defaultProps = {
   handleClose: null,
   selectedCustomer: null,
   birthdayMessages: null,
+  onActionExecuted: null,
 }
 
 BirthdayActions.propTypes = {
@@ -180,6 +186,7 @@ BirthdayActions.propTypes = {
   handleClose: PropTypes.func,
   selectedCustomer: PropTypes.shape({}),
   birthdayMessages: PropTypes.shape({}),
+  onActionExecuted: PropTypes.func,
 }
 
 export default BirthdayActions

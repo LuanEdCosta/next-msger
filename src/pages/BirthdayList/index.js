@@ -6,12 +6,16 @@ import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
 import { ADMOB_BANNER_ID } from '@/config/ads'
-import { COMPANY_DOC, CUSTOMER_DOC } from '@/config/database'
+import { firebaseTimestampToMoment } from '@/utils'
 import TouchableIcon from '@/components/TouchableIcon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
-import { Fw5Icon, Fw5IconAccent, MessagePanelIcon } from '@/components/Fw5Icon'
 import { DefaultRefreshControl } from '@/components/RefreshControl'
-import { firebaseTimestampToMoment } from '@/utils'
+import { Fw5Icon, Fw5IconAccent, MessagePanelIcon } from '@/components/Fw5Icon'
+import {
+  BIRTH_DAY_SENT_MESSAGES as BDSM,
+  COMPANY_DOC,
+  CUSTOMER_DOC,
+} from '@/config/database'
 
 import useSubscribeToCompany from './useSubscribeToCompany'
 import useFetchBirthdayList from './useFetchBirthdayList'
@@ -23,6 +27,8 @@ import {
   BirthdayItem,
   BirthdayItemText,
   FooterSpinner,
+  BadgeContainer,
+  ItemBadge,
 } from './styles'
 
 const CUSTOMERS_PER_PAGE = 10
@@ -79,6 +85,34 @@ const BirthdayList = ({ navigation }) => {
     setIsScrolling(true)
   }, [])
 
+  const handleActionExecuted = useCallback(
+    (customerId, currentYear, channelType) => {
+      const customerIndex = birthdayList.findIndex((customer) => {
+        return customer[CUSTOMER_DOC.ID] === customerId
+      })
+
+      if (customerIndex !== -1) {
+        const customerFound = birthdayList[customerIndex]
+        const customerClone = { ...customerFound }
+
+        const {
+          [CUSTOMER_DOC.BIRTH_DAY_SENT_MESSAGES]: sentMessages = {},
+        } = customerClone
+
+        const currentYearSentMessages = { ...(sentMessages[currentYear] || {}) }
+        currentYearSentMessages[channelType] = true
+
+        sentMessages[currentYear] = currentYearSentMessages
+        customerClone[CUSTOMER_DOC.BIRTH_DAY_SENT_MESSAGES] = sentMessages
+
+        const birthdayListClone = [...birthdayList]
+        birthdayListClone[customerIndex] = customerClone
+        setBirthdayList(birthdayListClone)
+      }
+    },
+    [birthdayList],
+  )
+
   useEffect(() => {
     handleSearch()
   }, [handleSearch])
@@ -94,6 +128,7 @@ const BirthdayList = ({ navigation }) => {
         handleClose={handleCloseActionsBottomSheet}
         selectedCustomer={selectedCustomer}
         birthdayMessages={birthdayMessages}
+        onActionExecuted={handleActionExecuted}
       />
 
       <FlatList
@@ -117,7 +152,17 @@ const BirthdayList = ({ navigation }) => {
             [CUSTOMER_DOC.PHONE]: phone,
             [CUSTOMER_DOC.WHATSAPP]: whatsAppNumber,
             [CUSTOMER_DOC.BIRTH_DATE]: birthDate,
+            [CUSTOMER_DOC.BIRTH_DAY_SENT_MESSAGES]: sentMessages,
           } = item
+
+          const currentYear = moment().format('YYYY')
+
+          const {
+            [BDSM.EMAIL]: emailSent = false,
+            [BDSM.CALL]: phoneCalled = false,
+            [BDSM.SMS]: smsSent = false,
+            [BDSM.WHATSAPP]: whatsAppSent = false,
+          } = sentMessages ? sentMessages[currentYear] || {} : {}
 
           const onItemPress = () => {
             navigation.navigate(MAIN_ROUTES.CUSTOMER_DETAILS, {
@@ -138,6 +183,13 @@ const BirthdayList = ({ navigation }) => {
                 </TouchableIcon>
               }
             >
+              <BadgeContainer>
+                {!!emailSent && <ItemBadge text={t('emailSent')} />}
+                {!!phoneCalled && <ItemBadge text={t('phoneCalled')} />}
+                {!!smsSent && <ItemBadge text={t('smsSent')} />}
+                {!!whatsAppSent && <ItemBadge text={t('whatsAppSent')} />}
+              </BadgeContainer>
+
               <BirthdayItemText text={name} isTitle>
                 <Fw5Icon name="user" solid />
               </BirthdayItemText>
@@ -177,7 +229,6 @@ const BirthdayList = ({ navigation }) => {
         ListEmptyComponent={
           <EmptyMessage
             text={t('nothingFound')}
-            isLoading={isLoading}
             iconComponent={<MessagePanelIcon name="birthday-cake" />}
           />
         }

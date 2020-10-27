@@ -8,5 +8,9 @@
   "sendWhatsApp": "Enviar WhatsApp para o Aniversariante",
   "birthDayLabel": "Filtro de Dia do Aniversário",
   "birthDaySelectedDay": "Aniversariantes do Dia: {{birthDay, DD/MM}}",
-  "birthDate": "Nascimento: {{date, L}}"
+  "birthDate": "Nascimento: {{date, L}}",
+  "emailSent": "Email Enviado",
+  "phoneCalled": "Ligação Efetuada",
+  "smsSent": "SMS Enviado",
+  "whatsAppSent": "WhatsApp Enviado"
 }
