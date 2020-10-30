@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 import { UppercaseBoldText } from '@/components/Text'
 import { MAIN_COLORS } from '@/styles'

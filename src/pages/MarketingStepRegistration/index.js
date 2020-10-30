@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react'
+import React, { useCallback, useState, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -6,12 +6,15 @@ import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 import Header from '@/components/Header'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
-import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
+import { DefaultTextInput } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
 import { useErrorAlert, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
+import { TimeBuilderModal } from '@/components/TimeBuilderModal'
+import { MILLISECONDS } from '@/config/constants'
+import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
 
 import {
   Container,
@@ -19,30 +22,45 @@ import {
   MarketingStepInput,
   SaveButton,
   Content,
+  OpenTimeBuilderButton,
+  TimeText,
+  TimeContainer,
+  TimeBuilderItemRow,
+  StyledTimeBuilderItem,
 } from './styles'
 
 const MarketingStepRegistration = () => {
-  const { t } = useTranslation('MarketingStepRegistration')
+  const { t } = useTranslation([
+    'MarketingStepRegistration',
+    'TimeBuilder',
+    'Glossary',
+  ])
+
   const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const [isSaving, setIsSaving] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
+  const [isTimeBuilderVisible, setIsTimeBuilderVisible] = useState(false)
+
   const [marketingStepName, setMarketingStepName] = useState('')
-  const [numOfDays, setNumOfDays] = useState('')
+  const [milliseconds, setMilliseconds] = useState(0)
   const [observations, setObservations] = useState('')
   const [emailMessage, setEmailMessage] = useState('')
   const [whatsappMessage, setWhatsappMessage] = useState('')
   const [smsMessage, setSmsMessage] = useState('')
 
-  let numOfDaysInput = useRef(null)
+  const numOfDaysInput = useRef(null)
   const emailMessageInput = useRef(null)
+
+  const onOpenTimeBuilder = useCallback(() => {
+    setIsTimeBuilderVisible(true)
+  }, [])
 
   const onValidateRegistration = useCallback(() => {
     if (
       !marketingStepName ||
       !marketingStepName.trim() ||
-      !numOfDays ||
       !emailMessage ||
       !emailMessage.trim() ||
       !whatsappMessage ||
@@ -53,13 +71,13 @@ const MarketingStepRegistration = () => {
     }
 
     return true
-  }, [emailMessage, marketingStepName, numOfDays, smsMessage, whatsappMessage])
+  }, [emailMessage, marketingStepName, smsMessage, whatsappMessage])
 
   const onClearData = useCallback(() => {
     setIsSaving('')
     setIsShowingErrors('')
     setMarketingStepName('')
-    setNumOfDays('')
+    setMilliseconds(0)
     setObservations('')
     setEmailMessage('')
     setWhatsappMessage('')
@@ -79,7 +97,8 @@ const MarketingStepRegistration = () => {
         .collection(COLLECTIONS.MARKETING_STEPS)
         .add({
           [MARKETING_STEP_DOC.NAME]: marketingStepName,
-          [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: Number(numOfDays),
+          [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: 0,
+          [MARKETING_STEP_DOC.MILLISECONDS]: milliseconds,
           [MARKETING_STEP_DOC.EMAIL_MESSAGE]: emailMessage,
           [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsappMessage,
           [MARKETING_STEP_DOC.SMS_MESSAGE]: smsMessage,
@@ -100,7 +119,7 @@ const MarketingStepRegistration = () => {
     emailMessage,
     isShowingErrors,
     marketingStepName,
-    numOfDays,
+    milliseconds,
     observations,
     onClearData,
     onValidateRegistration,
@@ -113,15 +132,81 @@ const MarketingStepRegistration = () => {
     numOfDaysInput.focus()
   }, [])
 
-  const onFocusEmailMessageInput = useCallback(() => {
-    emailMessageInput.current.focus()
+  const handleCloseTimeBuilderModal = useCallback(() => {
+    setIsTimeBuilderVisible(false)
   }, [])
+
+  const builtTimeText = useMemo(() => {
+    try {
+      if (milliseconds === 0) return t('Glossary:always')
+
+      const { days, minutes, seconds } = getTimePartsFromMilliseconds(
+        milliseconds,
+      )
+
+      return t('TimeBuilder:timeTextVerbose', {
+        days,
+        minutes,
+        seconds,
+      })
+    } catch (e) {
+      return t('Glossary:always')
+    }
+  }, [milliseconds, t])
 
   return (
     <Container>
       <Header
         i18Namespace="NavigationDrawer"
         i18Title="marketingStepRegistration"
+      />
+
+      <TimeBuilderModal
+        isVisible={isTimeBuilderVisible}
+        setIsVisible={setIsTimeBuilderVisible}
+        onConfirm={handleCloseTimeBuilderModal}
+        title={t('marketingStepTime')}
+        milliseconds={milliseconds}
+        setMilliseconds={setMilliseconds}
+        renderItems={(onAddMilliseconds) => {
+          return (
+            <>
+              <TimeBuilderItemRow>
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.MINUTE)}
+                  text={t('TimeBuilder:+1minute')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.HOUR)}
+                  text={t('TimeBuilder:+1hour')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.DAY)}
+                  text={t('TimeBuilder:+1day')}
+                />
+              </TimeBuilderItemRow>
+
+              <TimeBuilderItemRow>
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.WEEK)}
+                  text={t('TimeBuilder:+1week')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.MONTH)}
+                  text={t('TimeBuilder:+1month')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.YEAR)}
+                  text={t('TimeBuilder:+1year')}
+                />
+              </TimeBuilderItemRow>
+            </>
+          )
+        }}
       />
 
       <Scroll>
@@ -146,7 +231,7 @@ const MarketingStepRegistration = () => {
             }
             inputComponent={
               <DefaultTextInput
-                placeholder={t('namePlaceholder')}
+                placeholder={t('namePh')}
                 autoCapitalize="words"
                 textContentType="none"
                 returnKeyType="next"
@@ -160,28 +245,21 @@ const MarketingStepRegistration = () => {
           />
 
           <MarketingStepInput
-            showErrorComponent={isShowingErrors && !numOfDays}
+            showErrorComponent={isShowingErrors && !milliseconds}
             errorComponent={<InputError />}
             labelComponent={
               <Label
-                label={t('numOfDaysLabel')}
+                label={t('timeLabel')}
                 iconComponent={<Fw5IconAccent name="calendar-day" solid />}
-                isRequired
               />
             }
             inputComponent={
-              <DefaultTextInputMask
-                refInput={(ref) => {
-                  numOfDaysInput = ref
-                }}
-                type="only-numbers"
-                returnKeyType="next"
-                placeholder={t('numOfDaysPlaceholder')}
-                onSubmitEditing={onFocusEmailMessageInput}
-                onChangeText={setNumOfDays}
-                value={numOfDays}
-                blurOnSubmit={false}
-              />
+              <TimeContainer>
+                <TimeText>{builtTimeText}</TimeText>
+                <OpenTimeBuilderButton onPress={onOpenTimeBuilder} size={64}>
+                  <ButtonIcon name="clock" solid />
+                </OpenTimeBuilderButton>
+              </TimeContainer>
             }
           />
 
@@ -202,7 +280,7 @@ const MarketingStepRegistration = () => {
               <DefaultTextInput
                 ref={emailMessageInput}
                 style={{ textAlignVertical: 'top' }}
-                placeholder={t('emailMsgPlaceholder')}
+                placeholder={t('emailMsgPh')}
                 autoCapitalize="sentences"
                 onChangeText={setEmailMessage}
                 value={emailMessage}
@@ -230,7 +308,7 @@ const MarketingStepRegistration = () => {
             inputComponent={
               <DefaultTextInput
                 style={{ textAlignVertical: 'top' }}
-                placeholder={t('whatsappMsgPlaceholder')}
+                placeholder={t('whatsappMsgPh')}
                 autoCapitalize="sentences"
                 onChangeText={setWhatsappMessage}
                 value={whatsappMessage}
@@ -258,7 +336,7 @@ const MarketingStepRegistration = () => {
             inputComponent={
               <DefaultTextInput
                 style={{ textAlignVertical: 'top' }}
-                placeholder={t('smsMsgPlaceholder')}
+                placeholder={t('smsMsgPh')}
                 autoCapitalize="sentences"
                 onChangeText={setSmsMessage}
                 value={smsMessage}
@@ -283,7 +361,7 @@ const MarketingStepRegistration = () => {
             inputComponent={
               <DefaultTextInput
                 style={{ textAlignVertical: 'top' }}
-                placeholder={t('observationsPlaceholder')}
+                placeholder={t('observationsPh')}
                 autoCapitalize="sentences"
                 onChangeText={setObservations}
                 value={observations}

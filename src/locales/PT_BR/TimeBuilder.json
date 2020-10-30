@@ -1,0 +1,12 @@
+{
+  "+1second": "+1 Segundo",
+  "+1minute": "+1 Minuto",
+  "+1hour": "+1 Hora",
+  "+1day": "+1 Dia",
+  "+1week": "+1 Semana",
+  "+1month": "+1 Mês",
+  "+1year": "+1 Ano",
+
+  "timeTextVerbose": "{{days}} Dia(s), {{minutes}} Minuto(s), {{seconds}} Segundo(s)",
+  "timeText": "{{days}}D, {{minutes}}Min, {{seconds}}Seg"
+}

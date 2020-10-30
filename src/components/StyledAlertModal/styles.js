@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 import ReactNativeModal from 'react-native-modal'
 
 import { getColor } from '@/helpers'

@@ -1,19 +1,19 @@
 {
   "nameLabel": "Nome da Etapa",
-  "namePlaceholder": "Ex: Etapa 1",
-  "numOfDaysLabel": "Nº de Dias Após a Criação do Serviço",
-  "numOfDaysPlaceholder": "Ex: 15",
+  "namePh": "Ex: Etapa 1",
+  "timeLabel": "Quando a etapa estará ativa",
   "observationsLabel": "Observações",
-  "observationsPlaceholder": "Descreva brevemente esta etapa de pós-marketing",
+  "observationsPh": "Descreva brevemente esta etapa de pós-marketing",
   "observationsMaxLength": "{{length}}/150",
   "emailMsgLabel": "Mensagem para os Emails",
-  "emailMsgPlaceholder": "Escreva a mensagem que será enviada para os clientes via EMAIL",
+  "emailMsgPh": "Escreva a mensagem que será enviada para os clientes via EMAIL",
   "emailMsgMaxLength": "{{length}}/500",
   "whatsappMsgLabel": "Mensagem para WhatsApp",
-  "whatsappMsgPlaceholder": "Escreva a mensagem que será enviada para os clientes via WHATSAPP",
+  "whatsappMsgPh": "Escreva a mensagem que será enviada para os clientes via WHATSAPP",
   "whatsappMsgMaxLength": "{{length}}/500",
   "smsMsgLabel": "Mensagem por SMS",
-  "smsMsgPlaceholder": "Escreva a mensagem que será enviada para os clientes via SMS",
+  "smsMsgPh": "Escreva a mensagem que será enviada para os clientes via SMS",
   "smsMsgMaxLength": "{{length}}/500",
-  "saveButton": "Cadastrar Etapa"
+  "saveButton": "Cadastrar Etapa",
+  "marketingStepTime": "Defina o Tempo"
 }

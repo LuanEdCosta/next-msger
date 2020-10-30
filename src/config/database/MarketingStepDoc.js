@@ -7,4 +7,5 @@ export default {
   WHATSAPP_MESSAGE: 'whatsappMessage',
   SMS_MESSAGE: 'smsMessage',
   CREATED_AT: 'createdAt',
+  MILLISECONDS: 'milliseconds',
 }
