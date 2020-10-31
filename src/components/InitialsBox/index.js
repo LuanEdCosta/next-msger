@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { getColor } from '@/helpers'
+import { getColor } from '@/utils'
 
 import { Container, Initials } from './styles'
 

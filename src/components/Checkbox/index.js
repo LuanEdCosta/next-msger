@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { getColor } from '@/helpers'
+import { getColor } from '@/utils'
 
 import { Container, CheckMark, Touchable } from './styles'
 

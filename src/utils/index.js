@@ -1,3 +1,5 @@
-export * from './FirebaseTimestamp'
+export * from './StyleUtils'
 export * from './MacrosUtils'
+export * from './ReplaceUtils'
 export * from './MillisecondsUtils'
+export * from './FirebaseTimestampUtils'

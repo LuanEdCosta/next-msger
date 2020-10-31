@@ -9,7 +9,7 @@ import {
   USER_DOC,
 } from '@/config/database'
 
-import { firebaseTimestampToMoment } from './FirebaseTimestamp'
+import { firebaseTimestampToMoment } from './FirebaseTimestampUtils'
 
 export const parseMacros = (message, data = {}) => {
   if (!message) return ''

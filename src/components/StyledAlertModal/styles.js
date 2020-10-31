@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import ReactNativeModal from 'react-native-modal'
 
-import { getColor } from '@/helpers'
+import { getColor } from '@/utils'
 import { MAIN_COLORS } from '@/styles'
 
 import { DefaultText, UppercaseBoldText } from '../Text'

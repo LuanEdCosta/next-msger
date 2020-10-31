@@ -1,4 +1,4 @@
-import { MAIN_COLORS } from '../styles'
+import { MAIN_COLORS } from '@/styles'
 
 export const getColor = (color) => {
   if (color.includes('#') || !color) return color

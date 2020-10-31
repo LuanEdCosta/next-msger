@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Linking } from 'react-native'
 
-import { getOnlyPhoneNumbers } from '@/helpers'
+import { getOnlyPhoneNumbers } from '@/utils'
 
 export default () => {
   const onPhoneCall = useCallback(async (phoneNumber = '') => {

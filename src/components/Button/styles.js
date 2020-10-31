@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
 
+import { getColor } from '@/utils'
 import { FONT_SIZES } from '@/styles'
 import { UppercaseBoldText } from '@/components/Text'
-import { getColor } from '@/helpers/StylesHelper'
 
 export const Container = styled.View`
   background-color: ${({ backgroundColor }) => getColor(backgroundColor)};
