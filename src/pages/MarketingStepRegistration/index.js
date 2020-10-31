@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 
 import Header from '@/components/Header'
-import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
+import { ButtonIcon, Fw5IconAccent, Fw5IconPrimary } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
 import { DefaultTextInput } from '@/components/TextInput'
 import InputError from '@/components/InputError'
@@ -15,6 +15,7 @@ import { ADMOB_BANNER_ID } from '@/config/ads'
 import { TimeBuilderModal } from '@/components/TimeBuilderModal'
 import { MILLISECONDS } from '@/config/constants'
 import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import SelectMacroModal from '@/components/SelectMacroModal'
 
 import {
   Container,
@@ -28,6 +29,8 @@ import {
   TimeBuilderItemRow,
   StyledTimeBuilderItem,
   TimeBuilderExplanation,
+  InputActions,
+  InputActionButton,
 } from './styles'
 
 const MarketingStepRegistration = () => {
@@ -51,10 +54,50 @@ const MarketingStepRegistration = () => {
   const [whatsappMessage, setWhatsappMessage] = useState('')
   const [smsMessage, setSmsMessage] = useState('')
 
+  const [macroModalsConfig, setMacroModalsConfig] = useState({
+    isShowingAddMacroModal: false,
+    isShowingSeeMsgModal: false,
+    setMessage: null,
+    message: null,
+  })
+
   const emailMessageInput = useRef(null)
 
-  const handleOpenTimeBuilder = useCallback(() => {
+  const onOpenTimeBuilder = useCallback(() => {
     setIsTimeBuilderVisible(true)
+  }, [])
+
+  const onCloseTimeBuilderModal = useCallback(() => {
+    setIsTimeBuilderVisible(false)
+  }, [])
+
+  const onOpenModalToAddMacro = useCallback(
+    (setMessage) => () => {
+      setMacroModalsConfig({
+        isShowingAddMacroModal: true,
+        setMessage,
+      })
+    },
+    [],
+  )
+
+  const onOpenModalToSeeMessage = useCallback(
+    (message) => () => {
+      setMacroModalsConfig({
+        isShowingSeeMsgModal: true,
+        message,
+      })
+    },
+    [],
+  )
+
+  const onCloseMacroModal = useCallback(() => {
+    setMacroModalsConfig({
+      isShowingAddMacroModal: false,
+      isShowingSeeMsgModal: false,
+      message: null,
+      setMessage: null,
+    })
   }, [])
 
   const onValidateRegistration = useCallback(() => {
@@ -127,10 +170,6 @@ const MarketingStepRegistration = () => {
     whatsappMessage,
   ])
 
-  const handleCloseTimeBuilderModal = useCallback(() => {
-    setIsTimeBuilderVisible(false)
-  }, [])
-
   const builtTimeText = useMemo(() => {
     if (!milliseconds) return t('Glossary:always')
     const timeParts = getTimePartsFromMilliseconds(milliseconds)
@@ -144,10 +183,17 @@ const MarketingStepRegistration = () => {
         i18Title="marketingStepRegistration"
       />
 
+      <SelectMacroModal
+        isShowing={macroModalsConfig.isShowingAddMacroModal}
+        setMessage={macroModalsConfig.setMessage}
+        modalTitle={t('addMacroModalTitle')}
+        onCloseModal={onCloseMacroModal}
+      />
+
       <TimeBuilderModal
         isVisible={isTimeBuilderVisible}
         setIsVisible={setIsTimeBuilderVisible}
-        onConfirm={handleCloseTimeBuilderModal}
+        onConfirm={onCloseTimeBuilderModal}
         title={t('marketingStepTime')}
         milliseconds={milliseconds}
         setMilliseconds={setMilliseconds}
@@ -235,10 +281,7 @@ const MarketingStepRegistration = () => {
             inputComponent={
               <TimeContainer>
                 <TimeText>{builtTimeText}</TimeText>
-                <OpenTimeBuilderButton
-                  onPress={handleOpenTimeBuilder}
-                  size={56}
-                >
+                <OpenTimeBuilderButton onPress={onOpenTimeBuilder} size={56}>
                   <ButtonIcon name="clock" solid />
                 </OpenTimeBuilderButton>
               </TimeContainer>
@@ -264,18 +307,34 @@ const MarketingStepRegistration = () => {
               />
             }
             inputComponent={
-              <DefaultTextInput
-                ref={emailMessageInput}
-                style={{ textAlignVertical: 'top' }}
-                placeholder={t('emailMsgPh')}
-                autoCapitalize="sentences"
-                onChangeText={setEmailMessage}
-                value={emailMessage}
-                maxLength={500}
-                numberOfLines={5}
-                multiline
-                autoCorrect
-              />
+              <>
+                <DefaultTextInput
+                  ref={emailMessageInput}
+                  style={{ textAlignVertical: 'top' }}
+                  placeholder={t('emailMsgPh')}
+                  autoCapitalize="sentences"
+                  onChangeText={setEmailMessage}
+                  value={emailMessage}
+                  maxLength={2000}
+                  numberOfLines={5}
+                  multiline
+                  autoCorrect
+                />
+
+                <InputActions>
+                  <InputActionButton
+                    text={t('seeMessageButton')}
+                    iconComponent={<Fw5IconPrimary name="eye" />}
+                    onPress={onOpenModalToSeeMessage(emailMessage)}
+                  />
+
+                  <InputActionButton
+                    text={t('addMacroButton')}
+                    onPress={onOpenModalToAddMacro(setEmailMessage)}
+                    iconComponent={<Fw5IconPrimary name="plus-circle" />}
+                  />
+                </InputActions>
+              </>
             }
           />
 
@@ -293,17 +352,33 @@ const MarketingStepRegistration = () => {
               />
             }
             inputComponent={
-              <DefaultTextInput
-                style={{ textAlignVertical: 'top' }}
-                placeholder={t('whatsappMsgPh')}
-                autoCapitalize="sentences"
-                onChangeText={setWhatsappMessage}
-                value={whatsappMessage}
-                maxLength={500}
-                numberOfLines={5}
-                multiline
-                autoCorrect
-              />
+              <>
+                <DefaultTextInput
+                  style={{ textAlignVertical: 'top' }}
+                  placeholder={t('whatsappMsgPh')}
+                  autoCapitalize="sentences"
+                  onChangeText={setWhatsappMessage}
+                  value={whatsappMessage}
+                  maxLength={2000}
+                  numberOfLines={5}
+                  multiline
+                  autoCorrect
+                />
+
+                <InputActions>
+                  <InputActionButton
+                    text={t('seeMessageButton')}
+                    iconComponent={<Fw5IconPrimary name="eye" />}
+                    onPress={onOpenModalToSeeMessage(whatsappMessage)}
+                  />
+
+                  <InputActionButton
+                    text={t('addMacroButton')}
+                    onPress={onOpenModalToAddMacro(setWhatsappMessage)}
+                    iconComponent={<Fw5IconPrimary name="plus-circle" />}
+                  />
+                </InputActions>
+              </>
             }
           />
 
@@ -321,17 +396,33 @@ const MarketingStepRegistration = () => {
               />
             }
             inputComponent={
-              <DefaultTextInput
-                style={{ textAlignVertical: 'top' }}
-                placeholder={t('smsMsgPh')}
-                autoCapitalize="sentences"
-                onChangeText={setSmsMessage}
-                value={smsMessage}
-                maxLength={500}
-                numberOfLines={5}
-                multiline
-                autoCorrect
-              />
+              <>
+                <DefaultTextInput
+                  style={{ textAlignVertical: 'top' }}
+                  placeholder={t('smsMsgPh')}
+                  autoCapitalize="sentences"
+                  onChangeText={setSmsMessage}
+                  value={smsMessage}
+                  maxLength={2000}
+                  numberOfLines={5}
+                  multiline
+                  autoCorrect
+                />
+
+                <InputActions>
+                  <InputActionButton
+                    text={t('seeMessageButton')}
+                    iconComponent={<Fw5IconPrimary name="eye" />}
+                    onPress={onOpenModalToSeeMessage(smsMessage)}
+                  />
+
+                  <InputActionButton
+                    text={t('addMacroButton')}
+                    onPress={onOpenModalToAddMacro(smsMessage)}
+                    iconComponent={<Fw5IconPrimary name="plus-circle" />}
+                  />
+                </InputActions>
+              </>
             }
           />
 

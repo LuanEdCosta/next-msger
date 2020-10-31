@@ -1,0 +1,40 @@
+{
+  "noMacroFound": "Nenhum Macro Encontrado",
+
+  "labels": {
+    "TODAY": "Data de Hoje",
+    "CURRENT_DAY": "Dia de Hoje",
+    "CURRENT_MONTH": "Mês Atual",
+    "CURRENT_YEAR": "Ano Atual",
+
+    "COMPANY_FANTASY_NAME": "Nome Fantasia da Empresa",
+    "COMPANY_CNPJ": "CNPJ da Empresa",
+    "COMPANY_NAME": "Nome da Empresa",
+    "COMPANY_OWNER_NAME": "Nome Do Dono Da Empresa",
+    "COMPANY_OWNER_PHONE": "Celular do Dono da Empresa",
+    "COMPANY_EMAIL": "Email do Dono da Empresa",
+
+    "CUSTOMER_BIRTH_DATE": "Data de Nascimento do Cliente",
+    "CUSTOMER_NAME": "Nome do Cliente",
+    "CUSTOMER_WHATSAPP": "WhatsApp do Cliente",
+    "CUSTOMER_BIRTH_DAY": "Dia de Nascimento do Cliente",
+    "CUSTOMER_BIRTH_MONTH": "Mes de Nascimento do Cliente",
+    "CUSTOMER_BIRTH_YEAR": "Ano de Nascimento do Cliente",
+    "CUSTOMER_PHONE": "Celular do Cliente",
+    "CUSTOMER_EMAIL": "Email do Cliente",
+    "CUSTOMER_CEP": "CEP do Cliente",
+    "CUSTOMER_CITY": "Cidade do Cliente",
+    "CUSTOMER_STATE": "Estado do Cliente",
+    "CUSTOMER_DISTRICT": "Bairro do Cliente",
+    "CUSTOMER_ADDRESS": "Endereco do Cliente",
+    "CUSTOMER_NUMBER": "Numero da Residência do Cliente",
+    "CUSTOMER_COMPLEMENT": "Complemento do Endereço do Cliente",
+
+    "USER_NAME": "Nome do Usuario Atual",
+
+    "SERVICE_TYPE_NAME": "Nome do Tipo do Serviço",
+    "SERVICE_TYPE_DESCRIPTION": "Descrição do Tipo do Serviço",
+    "SERVICE_START_DATE": "Data de Início do Serviço",
+    "SERVICE_END_DATE": "Data de Término do Serviço"
+  }
+}

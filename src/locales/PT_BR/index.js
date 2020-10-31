@@ -42,6 +42,7 @@ import BirthdayMessagesConfig from './BirthdayMessagesConfig.json'
 import BirthdayList from './BirthdayList.json'
 import Calendar from './Calendar.json'
 import TimeBuilder from './TimeBuilder.json'
+import Macro from './Macro.json'
 
 export default {
   Common,
@@ -88,4 +89,5 @@ export default {
   BirthdayList,
   Calendar,
   TimeBuilder,
+  Macro,
 }

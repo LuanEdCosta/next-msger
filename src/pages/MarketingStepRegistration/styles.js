@@ -55,3 +55,23 @@ export const StyledTimeBuilderItem = styled(TimeBuilderItem)``
 export const TimeBuilderExplanation = styled(DefaultText)`
   line-height: 20px;
 `
+
+export const InputActions = styled.View`
+  flex-direction: row;
+  align-items: center;
+  border-top-width: 1px;
+  border-top-color: ${MAIN_COLORS.darkGrey};
+`
+
+export const InputActionButton = styled(Button).attrs({
+  textStyle: {
+    color: MAIN_COLORS.primaryText,
+    fontSize: 12,
+  },
+})`
+  flex: 1;
+  line-height: 20px;
+  background: ${MAIN_COLORS.snowLight};
+  height: 40px;
+  border-radius: 0;
+`
