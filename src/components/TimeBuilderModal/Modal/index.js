@@ -54,21 +54,9 @@ const TimeBuilderModal = (props) => {
   }
 
   const builtTimeText = useMemo(() => {
-    try {
-      if (milliseconds === 0) return t('Glossary:always')
-
-      const { days, minutes, seconds } = getTimePartsFromMilliseconds(
-        milliseconds,
-      )
-
-      return t('TimeBuilder:timeTextVerbose', {
-        days,
-        minutes,
-        seconds,
-      })
-    } catch (e) {
-      return t('Glossary:always')
-    }
+    if (!milliseconds) return t('Glossary:always')
+    const timeParts = getTimePartsFromMilliseconds(milliseconds)
+    return t('TimeBuilder:timeTextVerbose', timeParts)
   }, [milliseconds, t])
 
   return (

@@ -7,6 +7,11 @@
   "+1month": "+1 Mês",
   "+1year": "+1 Ano",
 
-  "timeTextVerbose": "{{days}} Dia(s), {{minutes}} Minuto(s), {{seconds}} Segundo(s)",
-  "timeText": "{{days}}D, {{minutes}}Min, {{seconds}}Seg"
+  "timeTextVerbose": "{{days}} Dia(s), {{hours}} Hora(s), {{minutes}} Minuto(s), {{seconds}} Segundo(s)",
+
+  "timeText": "{{days}}D, {{hours}}H, {{minutes}}Min, {{seconds}}Seg",
+
+  "afterTimeTextVerbose": "Após {{days}} Dia(s), {{hours}} Hora(s), {{minutes}} Minuto(s), {{seconds}} Segundo(s)",
+
+  "afterTimeText": "Após {{days}}D, {{hours}}H, {{minutes}}Min, {{seconds}}Seg"
 }

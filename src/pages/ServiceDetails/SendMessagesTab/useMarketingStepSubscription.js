@@ -12,7 +12,7 @@ export default (setIsLoading, setMarketingStepsList) => {
       .collection(COLLECTIONS.COMPANIES)
       .doc(companyId)
       .collection(COLLECTIONS.MARKETING_STEPS)
-      .orderBy(MARKETING_STEP_DOC.NUMBER_OF_DAYS)
+      .orderBy(MARKETING_STEP_DOC.MILLISECONDS)
       .onSnapshot((querySnapshot) => {
         const marketingSteps = querySnapshot.docs.map((doc) => {
           const marketingStep = doc.data()

@@ -2,8 +2,7 @@
   "pageTitle": "Editar Etapa de Marketing",
   "nameLabel": "Nome da Etapa",
   "namePlaceholder": "Ex: Etapa 1",
-  "numOfDaysLabel": "Nº de Dias Após a Criação do Serviço",
-  "numOfDaysPlaceholder": "Ex: 15",
+  "timeLabel": "Quando Enviar as Mensagens",
   "observationsLabel": "Observações",
   "observationsPlaceholder": "Descreva brevemente esta etapa de pós-marketing",
   "observationsMaxLength": "{{length}}/150",
@@ -16,5 +15,7 @@
   "smsMsgLabel": "Mensagem por SMS",
   "smsMsgPlaceholder": "Escreva a mensagem que será enviada para os clientes via SMS",
   "smsMsgMaxLength": "{{length}}/500",
-  "editButton": "Salvar Modificações"
+  "editButton": "Salvar Modificações",
+  "marketingStepTime": "Defina o Tempo",
+  "timeBuilderExplanation": "Esta é a quantidade de tempo após a finalização do serviço que será o adequado para enviar as mensagens de marketing desta etapa."
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
@@ -14,6 +14,7 @@ import { ADMOB_BANNER_ID } from '@/config/ads'
 import { firebaseTimestampToMoment } from '@/utils'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { EDIT_MARKETING_STEP_PARAMS } from '@/config/navigation/RouteParams'
+import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
 
 import {
   Container,
@@ -30,9 +31,13 @@ import {
 const MarketingStepDetails = ({ navigation }) => {
   const marketingStepId = navigation.getParam(MARKETING_STEP_DOC.ID)
   const { companyId } = useUserData()
-
-  const { t } = useTranslation(['MarketingStepDetails', 'Glossary'])
   const showAlert = useErrorAlert()
+
+  const { t } = useTranslation([
+    'MarketingStepDetails',
+    'TimeBuilder',
+    'Glossary',
+  ])
 
   const [stepData, setStepData] = useState({})
   const [isDeleting, setIsDeleting] = useState(false)
@@ -103,6 +108,17 @@ const MarketingStepDetails = ({ navigation }) => {
     })
   }, [navigation, stepData])
 
+  const builtTimeText = useMemo(() => {
+    try {
+      const milliseconds = stepData[MARKETING_STEP_DOC.MILLISECONDS] || 0
+      if (milliseconds === 0) return t('Glossary:always')
+      const timeParts = getTimePartsFromMilliseconds(milliseconds)
+      return t('TimeBuilder:afterTimeTextVerbose', timeParts)
+    } catch (e) {
+      return t('Glossary:always')
+    }
+  }, [stepData, t])
+
   return (
     <Container>
       <Scroll>
@@ -123,14 +139,10 @@ const MarketingStepDetails = ({ navigation }) => {
           </DataItem>
 
           <DataItem>
-            <DataItemTitle text={t('stepNumOfDays')}>
-              <Fw5Icon name="calendar-day" solid />
+            <DataItemTitle text={t('stepTime')}>
+              <Fw5Icon name="clock" solid />
             </DataItemTitle>
-            <DataItemValue
-              text={t('numOfDaysValue', {
-                count: Number(stepData[MARKETING_STEP_DOC.NUMBER_OF_DAYS]),
-              })}
-            />
+            <DataItemValue text={builtTimeText} />
           </DataItem>
 
           <DataItem>

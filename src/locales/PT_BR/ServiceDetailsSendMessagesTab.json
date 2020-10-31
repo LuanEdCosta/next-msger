@@ -3,13 +3,13 @@
   "marketingStepHint": "É necessário cadastrar uma etapa de marketing para poder enviar mensagens em serviços. Toque no botão abaixo e cadastre uma etapa em menos de dois minutos!",
   "newMarketingStepButton": "Cadastrar Etapa",
   "itemStepName": "Etapa: {{name}}",
-  "itemNumOfDays": "{{numOfDays}} Dias Após a Finalização do Serviço",
   "listHint": "Toque em um ícone para falar com o cliente por algum canal. Se um ícone estiver colorido o canal já foi utilizado.",
-  "notReadyToSendMessages": "Fazem apenas {{numOfDays}} dias que o serviço foi finalizado",
+  "notReadyToSendMessages": "Faltam {{timeText}} para liberar esta etapa",
   "actionsBottomSheetTitle": "Ações Desta Etapa de Marketing",
   "markEmailAsUnsent": "Marcar Como Não Enviado por Email",
   "markPhoneAsUnsent": "Marcar como Não Realizada a Ligação",
   "markSmsAsUnsent": "Marcar Como Não Enviado por SMS",
   "markWhatsAppAsUnsent": "Marcar Como Não Enviado por WhatsApp",
-  "openMarketingStepDetails": "Abrir Detalhes da Etapa de Marketing"
+  "openMarketingStepDetails": "Abrir Detalhes da Etapa de Marketing",
+  "stepAlwaysActive": "Etapa Sempre Ativa"
 }

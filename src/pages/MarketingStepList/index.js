@@ -11,6 +11,7 @@ import { useArraySearch, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import Header from '@/components/Header'
 import Fab from '@/components/Fab'
+import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
 
 import {
   Container,
@@ -21,7 +22,7 @@ import {
 } from './styles'
 
 const MarketingStepList = ({ navigation }) => {
-  const { t } = useTranslation('MarketingStepList')
+  const { t } = useTranslation(['MarketingStepList', 'TimeBuilder'])
   const { companyId } = useUserData()
 
   const [isLoading, setIsLoading] = useState(true)
@@ -34,11 +35,7 @@ const MarketingStepList = ({ navigation }) => {
     isSearching,
   } = useArraySearch({
     list: marketingStepsList,
-    keysToFilter: [
-      MARKETING_STEP_DOC.NAME,
-      MARKETING_STEP_DOC.NUMBER_OF_DAYS,
-      MARKETING_STEP_DOC.OBSERVATIONS,
-    ],
+    keysToFilter: [MARKETING_STEP_DOC.NAME, MARKETING_STEP_DOC.OBSERVATIONS],
   })
 
   const onSubscribeToMarketingStepCollection = useCallback(() => {
@@ -46,7 +43,7 @@ const MarketingStepList = ({ navigation }) => {
       .collection(COLLECTIONS.COMPANIES)
       .doc(companyId)
       .collection(COLLECTIONS.MARKETING_STEPS)
-      .orderBy(MARKETING_STEP_DOC.NUMBER_OF_DAYS)
+      .orderBy(MARKETING_STEP_DOC.MILLISECONDS)
       .onSnapshot((querySnapshot) => {
         const marketingSteps = querySnapshot.docs.map((doc) => {
           const marketingStep = doc.data()
@@ -68,9 +65,11 @@ const MarketingStepList = ({ navigation }) => {
       const {
         [MARKETING_STEP_DOC.ID]: id,
         [MARKETING_STEP_DOC.NAME]: name,
-        [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: numOfDays,
+        [MARKETING_STEP_DOC.MILLISECONDS]: milliseconds,
         [MARKETING_STEP_DOC.OBSERVATIONS]: observations,
       } = item
+
+      const timeParts = getTimePartsFromMilliseconds(milliseconds)
 
       const onPress = () => {
         navigation.navigate(MAIN_ROUTES.MARKETING_STEP_DETAILS, {
@@ -89,9 +88,13 @@ const MarketingStepList = ({ navigation }) => {
           </MarketingStepItemText>
 
           <MarketingStepItemText
-            text={t('numOfDays', { count: Number(numOfDays) })}
+            text={
+              milliseconds
+                ? t('TimeBuilder:timeText', timeParts)
+                : t('Glossary:always')
+            }
           >
-            <Fw5Icon name="calendar-day" solid />
+            <Fw5Icon name="clock" solid />
           </MarketingStepItemText>
 
           {!!observations && (

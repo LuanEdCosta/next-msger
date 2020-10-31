@@ -43,6 +43,7 @@ export const TimeValue = styled(PrimaryText)`
   text-align: left;
   font-weight: bold;
   font-size: 16px;
+  line-height: 24px;
 `
 
 export const ItemsContainer = styled.View``

@@ -1,6 +1,4 @@
 {
-  "searchPlaceholder": "Nome ou Nº de dias",
-  "anyMarketingStepFound": "Nenhuma Etapa Encontrada",
-  "numOfDays": "{{count}} dia após a criação do serviço",
-  "numOfDays_plural": "{{count}} dias após a criação do serviço"
+  "searchPlaceholder": "Use o nome da etapa para pesquisar",
+  "anyMarketingStepFound": "Nenhuma Etapa Encontrada"
 }

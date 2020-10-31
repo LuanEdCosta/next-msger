@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-  useMemo,
-} from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
@@ -14,6 +8,8 @@ import {
   SERVICE_SENT_MSGS,
 } from '@/config/database'
 import { Fw5Icon } from '@/components/Fw5Icon'
+import { firebaseTimestampToMoment } from '@/utils'
+import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
@@ -40,7 +36,11 @@ import {
 } from './styles'
 
 const SendMessagesTab = ({ navigation }) => {
-  const { t } = useTranslation('ServiceDetailsSendMessagesTab')
+  const { t } = useTranslation([
+    'ServiceDetailsSendMessagesTab',
+    'TimeBuilder',
+    'Glossary',
+  ])
 
   const {
     serviceData,
@@ -67,12 +67,12 @@ const SendMessagesTab = ({ navigation }) => {
 
   useEffect(onSubscribeToMarketingStep, [])
 
-  const daysAfterServiceEnds = useMemo(() => {
+  const getMillisecondsAfterServiceEnds = useCallback(() => {
     const { [SERVICE_DOC.END_DATE]: endDateTimestamp } = serviceData
-    const endDate = moment(endDateTimestamp)
+    const momentEndDate = firebaseTimestampToMoment(endDateTimestamp)
     const today = moment()
-    const differenceInDays = today.diff(endDate, 'days')
-    return differenceInDays
+    const differenceInMilliseconds = today.diff(momentEndDate, 'milliseconds')
+    return differenceInMilliseconds
   }, [serviceData])
 
   const onGetSentMessagesObject = useCallback(
@@ -110,10 +110,15 @@ const SendMessagesTab = ({ navigation }) => {
       const {
         [MARKETING_STEP_DOC.ID]: marketingStepId,
         [MARKETING_STEP_DOC.NAME]: name,
-        [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: numOfDays,
+        [MARKETING_STEP_DOC.MILLISECONDS]: milliseconds,
       } = marketingStep
 
-      const isMarketingStepEnabled = daysAfterServiceEnds >= numOfDays
+      const millisecondsAfterServiceEnds = getMillisecondsAfterServiceEnds()
+      const isStepEnabled = millisecondsAfterServiceEnds >= milliseconds
+      const stepTimeParts = getTimePartsFromMilliseconds(milliseconds)
+      const remainingTimeParts = getTimePartsFromMilliseconds(
+        milliseconds - millisecondsAfterServiceEnds,
+      )
 
       const {
         [SERVICE_SENT_MSGS.EMAIL]: wasSentEmail,
@@ -148,9 +153,11 @@ const SendMessagesTab = ({ navigation }) => {
 
       return (
         <ItemContainer>
-          {!isMarketingStepEnabled && (
+          {!isStepEnabled && (
             <ItemStatus>
-              {t('notReadyToSendMessages', { numOfDays: daysAfterServiceEnds })}
+              {t('notReadyToSendMessages', {
+                timeText: t('TimeBuilder:timeText', remainingTimeParts),
+              })}
             </ItemStatus>
           )}
 
@@ -161,7 +168,9 @@ const SendMessagesTab = ({ navigation }) => {
               </MarketingStepName>
 
               <MarketingStepDays>
-                {t('itemNumOfDays', { numOfDays })}
+                {milliseconds
+                  ? t('TimeBuilder:afterTimeText', stepTimeParts)
+                  : t('stepAlwaysActive')}
               </MarketingStepDays>
             </ItemHeaderTexts>
 
@@ -170,7 +179,7 @@ const SendMessagesTab = ({ navigation }) => {
             </ItemHeaderActions>
           </ItemHeader>
 
-          <ItemContent isMarketingStepEnabled={isMarketingStepEnabled}>
+          <ItemContent isMarketingStepEnabled={isStepEnabled}>
             <SendMessageButton
               onPress={onSendWhatsMessage}
               isMarked={wasSentWhats}
@@ -195,7 +204,7 @@ const SendMessagesTab = ({ navigation }) => {
     },
     [
       canSendMessages,
-      daysAfterServiceEnds,
+      getMillisecondsAfterServiceEnds,
       onCallCustomer,
       onDisplayWarningAlert,
       onGetSentMessagesObject,

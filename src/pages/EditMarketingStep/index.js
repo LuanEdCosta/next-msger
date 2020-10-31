@@ -6,13 +6,16 @@ import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 import Header from '@/components/Header'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import Label from '@/components/Label'
-import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
+import { DefaultTextInput } from '@/components/TextInput'
 import InputError from '@/components/InputError'
 import { WhiteSpinner } from '@/components/Spinner'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
 import { EDIT_MARKETING_STEP_PARAMS } from '@/config/navigation/RouteParams'
 import { useErrorAlert, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
+import { MILLISECONDS } from '@/config/constants'
+import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import { TimeBuilderModal } from '@/components/TimeBuilderModal'
 
 import {
   Container,
@@ -20,6 +23,12 @@ import {
   MarketingStepInput,
   SaveButton,
   Content,
+  OpenTimeBuilderButton,
+  StyledTimeBuilderItem,
+  TimeBuilderExplanation,
+  TimeBuilderItemRow,
+  TimeContainer,
+  TimeText,
 } from './styles'
 
 const EditMarketingStep = ({ navigation }) => {
@@ -27,27 +36,36 @@ const EditMarketingStep = ({ navigation }) => {
     EDIT_MARKETING_STEP_PARAMS.MARKETING_STEP_DATA,
   )
 
-  const { t } = useTranslation('EditMarketingStep')
+  const { t } = useTranslation(['EditMarketingStep', 'TimeBuilder', 'Glossary'])
   const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
   const [isEditing, setIsEditing] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
+  const [isTimeBuilderVisible, setIsTimeBuilderVisible] = useState(false)
+
   const [marketingStepName, setMarketingStepName] = useState('')
-  const [numOfDays, setNumOfDays] = useState('')
+  const [milliseconds, setMilliseconds] = useState('')
   const [observations, setObservations] = useState('')
   const [emailMessage, setEmailMessage] = useState('')
   const [whatsappMessage, setWhatsappMessage] = useState('')
   const [smsMessage, setSmsMessage] = useState('')
 
-  let numOfDaysInput = useRef(null)
   const emailMessageInput = useRef(null)
+
+  const handleOpenTimeBuilder = useCallback(() => {
+    setIsTimeBuilderVisible(true)
+  }, [])
+
+  const handleCloseTimeBuilderModal = useCallback(() => {
+    setIsTimeBuilderVisible(false)
+  }, [])
 
   useEffect(() => {
     if (marketingStep) {
       const {
         [MARKETING_STEP_DOC.NAME]: currentMarketingStepName = '',
-        [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: currentNumOfDays = '',
+        [MARKETING_STEP_DOC.MILLISECONDS]: currentMilliseconds = 0,
         [MARKETING_STEP_DOC.EMAIL_MESSAGE]: currentEmailMessage = '',
         [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: currentWhatsappMessage = '',
         [MARKETING_STEP_DOC.SMS_MESSAGE]: currentSmsMessage = '',
@@ -55,7 +73,7 @@ const EditMarketingStep = ({ navigation }) => {
       } = marketingStep
 
       setMarketingStepName(currentMarketingStepName)
-      setNumOfDays(currentNumOfDays)
+      setMilliseconds(currentMilliseconds)
       setEmailMessage(currentEmailMessage)
       setWhatsappMessage(currentWhatsappMessage)
       setSmsMessage(currentSmsMessage)
@@ -75,7 +93,7 @@ const EditMarketingStep = ({ navigation }) => {
       !marketingStepId ||
       !marketingStepName ||
       !marketingStepName.trim() ||
-      !numOfDays ||
+      !milliseconds ||
       !emailMessage ||
       !emailMessage.trim() ||
       !whatsappMessage ||
@@ -90,7 +108,7 @@ const EditMarketingStep = ({ navigation }) => {
     emailMessage,
     marketingStepId,
     marketingStepName,
-    numOfDays,
+    milliseconds,
     smsMessage,
     whatsappMessage,
   ])
@@ -113,7 +131,7 @@ const EditMarketingStep = ({ navigation }) => {
         .doc(marketingStepId)
         .update({
           [MARKETING_STEP_DOC.NAME]: marketingStepName,
-          [MARKETING_STEP_DOC.NUMBER_OF_DAYS]: Number(numOfDays),
+          [MARKETING_STEP_DOC.MILLISECONDS]: Number(milliseconds),
           [MARKETING_STEP_DOC.EMAIL_MESSAGE]: emailMessage,
           [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsappMessage,
           [MARKETING_STEP_DOC.SMS_MESSAGE]: smsMessage,
@@ -132,7 +150,7 @@ const EditMarketingStep = ({ navigation }) => {
     isShowingErrors,
     marketingStepId,
     marketingStepName,
-    numOfDays,
+    milliseconds,
     observations,
     onEditSuccess,
     onValidate,
@@ -141,17 +159,63 @@ const EditMarketingStep = ({ navigation }) => {
     whatsappMessage,
   ])
 
-  const onFocusNumOfDaysInput = useCallback(() => {
-    numOfDaysInput.focus()
-  }, [])
-
-  const onFocusEmailMessageInput = useCallback(() => {
-    emailMessageInput.current.focus()
-  }, [])
+  const builtTimeText = useMemo(() => {
+    if (!milliseconds) return t('Glossary:always')
+    const timeParts = getTimePartsFromMilliseconds(milliseconds)
+    return t('TimeBuilder:afterTimeTextVerbose', timeParts)
+  }, [milliseconds, t])
 
   return (
     <Container>
       <Header i18Namespace="EditMarketingStep" i18Title="pageTitle" />
+
+      <TimeBuilderModal
+        isVisible={isTimeBuilderVisible}
+        setIsVisible={setIsTimeBuilderVisible}
+        onConfirm={handleCloseTimeBuilderModal}
+        title={t('marketingStepTime')}
+        milliseconds={milliseconds}
+        setMilliseconds={setMilliseconds}
+        renderItems={(onAddMilliseconds) => {
+          return (
+            <>
+              <TimeBuilderItemRow>
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.MINUTE)}
+                  text={t('TimeBuilder:+1minute')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.HOUR)}
+                  text={t('TimeBuilder:+1hour')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.DAY)}
+                  text={t('TimeBuilder:+1day')}
+                />
+              </TimeBuilderItemRow>
+
+              <TimeBuilderItemRow>
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.WEEK)}
+                  text={t('TimeBuilder:+1week')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.MONTH)}
+                  text={t('TimeBuilder:+1month')}
+                />
+
+                <StyledTimeBuilderItem
+                  onPress={() => onAddMilliseconds(MILLISECONDS.YEAR)}
+                  text={t('TimeBuilder:+1year')}
+                />
+              </TimeBuilderItemRow>
+            </>
+          )
+        }}
+      />
 
       <Scroll>
         <BannerAd
@@ -181,36 +245,35 @@ const EditMarketingStep = ({ navigation }) => {
                 returnKeyType="next"
                 onChangeText={setMarketingStepName}
                 value={marketingStepName}
-                onSubmitEditing={onFocusNumOfDaysInput}
-                blurOnSubmit={false}
+                blurOnSubmit
                 autoCorrect
               />
             }
           />
 
           <MarketingStepInput
-            showErrorComponent={isShowingErrors && !numOfDays}
-            errorComponent={<InputError />}
+            showErrorComponent
             labelComponent={
               <Label
-                label={t('numOfDaysLabel')}
+                label={t('timeLabel')}
                 iconComponent={<Fw5IconAccent name="calendar-day" solid />}
-                isRequired
               />
             }
             inputComponent={
-              <DefaultTextInputMask
-                refInput={(ref) => {
-                  numOfDaysInput = ref
-                }}
-                type="only-numbers"
-                returnKeyType="next"
-                placeholder={t('numOfDaysPlaceholder')}
-                onSubmitEditing={onFocusEmailMessageInput}
-                onChangeText={setNumOfDays}
-                value={numOfDays}
-                blurOnSubmit={false}
-              />
+              <TimeContainer>
+                <TimeText>{builtTimeText}</TimeText>
+                <OpenTimeBuilderButton
+                  onPress={handleOpenTimeBuilder}
+                  size={56}
+                >
+                  <ButtonIcon name="clock" solid />
+                </OpenTimeBuilderButton>
+              </TimeContainer>
+            }
+            errorComponent={
+              <TimeBuilderExplanation>
+                {t('timeBuilderExplanation')}
+              </TimeBuilderExplanation>
             }
           />
 
