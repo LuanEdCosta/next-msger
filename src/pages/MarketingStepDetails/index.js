@@ -11,10 +11,12 @@ import { useErrorAlert, useUserData } from '@/hooks'
 import { WhiteSpinner } from '@/components/Spinner'
 import { FONT_SIZES } from '@/styles'
 import { ADMOB_BANNER_ID } from '@/config/ads'
-import { firebaseTimestampToMoment } from '@/utils'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { EDIT_MARKETING_STEP_PARAMS } from '@/config/navigation/RouteParams'
-import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import {
+  firebaseTimestampToMoment,
+  getTimePartsFromMilliseconds,
+} from '@/utils'
 
 import {
   Container,

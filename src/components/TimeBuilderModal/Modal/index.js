@@ -4,7 +4,7 @@ import { ViewPropTypes, Dimensions } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { ButtonIcon, Fw5Icon } from '@/components/Fw5Icon'
-import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import { getTimePartsFromMilliseconds } from '@/utils'
 
 import {
   Modal,

@@ -8,8 +8,10 @@ import {
   SERVICE_SENT_MSGS,
 } from '@/config/database'
 import { Fw5Icon } from '@/components/Fw5Icon'
-import { firebaseTimestampToMoment } from '@/utils'
-import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import {
+  firebaseTimestampToMoment,
+  getTimePartsFromMilliseconds,
+} from '@/utils'
 
 import ServiceDetailsContext from '../ServiceDetailsContext'
 

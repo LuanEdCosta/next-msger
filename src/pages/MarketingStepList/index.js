@@ -7,11 +7,11 @@ import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
 import { MAIN_ROUTES, DRAWER_ROUTES } from '@/config/navigation/ScreenRoutes'
 import { Fw5Icon, MessagePanelIcon, FabIcon } from '@/components/Fw5Icon'
 import { COLLECTIONS, MARKETING_STEP_DOC } from '@/config/database'
+import { getTimePartsFromMilliseconds } from '@/utils'
 import { useArraySearch, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import Header from '@/components/Header'
 import Fab from '@/components/Fab'
-import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
 
 import {
   Container,

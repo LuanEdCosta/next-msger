@@ -14,7 +14,7 @@ import { EDIT_MARKETING_STEP_PARAMS } from '@/config/navigation/RouteParams'
 import { useErrorAlert, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import { MILLISECONDS } from '@/config/constants'
-import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import { getTimePartsFromMilliseconds } from '@/utils'
 import { TimeBuilderModal } from '@/components/TimeBuilderModal'
 
 import {

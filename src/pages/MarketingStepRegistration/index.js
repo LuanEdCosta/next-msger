@@ -14,7 +14,7 @@ import { useErrorAlert, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import { TimeBuilderModal } from '@/components/TimeBuilderModal'
 import { MILLISECONDS } from '@/config/constants'
-import { getTimePartsFromMilliseconds } from '@/utils/MillisecondsUtils'
+import { getTimePartsFromMilliseconds } from '@/utils'
 import SelectMacroModal from '@/components/SelectMacroModal'
 
 import {
