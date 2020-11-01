@@ -9,6 +9,7 @@ import { COMPANY_DOC } from '@/config/database'
 import { firebaseTimestampToMoment } from '@/utils'
 import { ButtonIcon, Fw5Icon } from '@/components/Fw5Icon'
 import { MAIN_ROUTES } from '@/config/navigation/ScreenRoutes'
+import { EDIT_COMPANY_PARAMS } from '@/config/navigation/RouteParams'
 
 import {
   Container,
@@ -40,8 +41,10 @@ const CompanyProfile = ({ navigation }) => {
   }, [getValue])
 
   const onEditCompany = useCallback(() => {
-    navigation.navigate(MAIN_ROUTES.CHANGE_PASSWORD)
-  }, [navigation])
+    navigation.navigate(MAIN_ROUTES.EDIT_COMPANY, {
+      [EDIT_COMPANY_PARAMS.COMPANY_DATA]: companyData,
+    })
+  }, [companyData, navigation])
 
   return (
     <Container>

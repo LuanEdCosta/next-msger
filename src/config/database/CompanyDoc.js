@@ -1,4 +1,5 @@
 export default {
+  ID: 'id',
   FANTASY_NAME: 'fantasyName',
   CNPJ: 'cnpj',
   NAME: 'name',

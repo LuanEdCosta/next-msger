@@ -14,6 +14,7 @@ import DashboardFilters from '@/pages/DashboardFilters'
 import EditService from '@/pages/EditService'
 import MarketingStepRegistration from '@/pages/MarketingStepRegistration'
 import CustomerRegistration from '@/pages/CustomerRegistration'
+import CompanyRegistration from '@/pages/CompanyRegistration'
 
 import DrawerNavigator from './DrawerNavigator'
 import ServiceDetailsNavigator from './ServiceDetailsNavigator'
@@ -42,6 +43,7 @@ const MainNavigator = createStackNavigator(
     [MAIN_ROUTES.EDIT_SERVICE]: EditService,
     [MAIN_ROUTES.EDIT_MARKETING_STEP]: MarketingStepRegistration,
     [MAIN_ROUTES.EDIT_CUSTOMER]: CustomerRegistration,
+    [MAIN_ROUTES.EDIT_COMPANY]: CompanyRegistration,
   },
   {
     defaultNavigationOptions: {

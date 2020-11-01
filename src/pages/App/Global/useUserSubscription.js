@@ -4,7 +4,7 @@ import { firebase } from '@react-native-firebase/auth'
 import crashlytics from '@react-native-firebase/crashlytics'
 
 import { useDispatchCallback, useUserData } from '@/hooks'
-import { COLLECTIONS, USER_DOC } from '@/config/database'
+import { COLLECTIONS, COMPANY_DOC, USER_DOC } from '@/config/database'
 import {
   setUserData,
   deleteUserData,
@@ -79,7 +79,7 @@ export default () => {
           if (!doc.exists) return
           onSetCompanyData({
             ...doc.data(),
-            [USER_DOC.ID]: doc.id,
+            [COMPANY_DOC.ID]: doc.id,
           })
         },
       })

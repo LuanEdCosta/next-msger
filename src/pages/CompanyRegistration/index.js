@@ -1,14 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
+import { EDIT_COMPANY_PARAMS } from '@/config/navigation/RouteParams'
 import { ButtonIcon, Fw5IconAccent } from '@/components/Fw5Icon'
 import { WhiteSpinner } from '@/components/Spinner'
-import Label from '@/components/Label'
-import Header from '@/components/Header'
-import { DefaultTextInput, DefaultTextInputMask } from '@/components/TextInput'
 import InputError from '@/components/InputError'
+import { COMPANY_DOC } from '@/config/database'
+import Header from '@/components/Header'
+import Label from '@/components/Label'
 
 import useRegisterCompany from './useRegisterCompany'
+import useEditCompany from './useEditCompany'
 import {
   Container,
   Scroll,
@@ -18,8 +21,17 @@ import {
 } from './styles'
 
 const CompanyRegistration = ({ navigation }) => {
-  const { t } = useTranslation(['CompanyRegistration', 'Common', 'Error'])
+  const companyData = navigation.getParam(EDIT_COMPANY_PARAMS.COMPANY_DATA)
+
+  const { t } = useTranslation([
+    'CompanyRegistration',
+    'Common',
+    'Error',
+    'Company',
+  ])
+
   const onRegisterCompany = useRegisterCompany()
+  const onEditCompany = useEditCompany()
 
   const [companyName, setCompanyName] = useState('')
   const [fantasyName, setFantasyName] = useState('')
@@ -34,6 +46,10 @@ const CompanyRegistration = ({ navigation }) => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
+
+  const isEditing = useMemo(() => {
+    return !!companyData
+  }, [companyData])
 
   const companyNameInput = useRef(null)
   const fantasyNameInput = useRef(null)
@@ -54,14 +70,16 @@ const CompanyRegistration = ({ navigation }) => {
       companyOwnerPhone,
       companyOwnerCpf,
       email,
-      password,
-      passwordConfirmation,
     ]
+
+    if (!isEditing) {
+      notEmptyStrings.push(password, passwordConfirmation)
+    }
 
     const hasNoneEmptyStrings = notEmptyStrings.every((str) => !!str.trim())
     const isPasswordsEqual = password === passwordConfirmation
 
-    return hasNoneEmptyStrings && isPasswordsEqual
+    return hasNoneEmptyStrings && (isEditing || isPasswordsEqual)
   }
 
   const onSaveButtonPressed = async () => {
@@ -78,15 +96,42 @@ const CompanyRegistration = ({ navigation }) => {
         password,
       }
 
-      await onRegisterCompany(data, setIsLoading, navigation)
+      if (isEditing) {
+        data.companyId = companyData[COMPANY_DOC.ID]
+        await onEditCompany(data, setIsLoading, navigation)
+      } else {
+        await onRegisterCompany(data, setIsLoading, navigation)
+      }
     }
   }
+
+  useEffect(() => {
+    if (isEditing) {
+      const {
+        [COMPANY_DOC.NAME]: currentCompanyName = '',
+        [COMPANY_DOC.FANTASY_NAME]: currentFantasyName = '',
+        [COMPANY_DOC.CNPJ]: currentCnpj = '',
+        [COMPANY_DOC.OWNER_NAME]: currentCompanyOwnerName = '',
+        [COMPANY_DOC.OWNER_PHONE]: currentCompanyOwnerPhone = '',
+        [COMPANY_DOC.CNPJ]: currentCompanyOwnerCpf = '',
+        [COMPANY_DOC.EMAIL]: currentCompanyEmail = '',
+      } = companyData
+
+      setCompanyName(currentCompanyName)
+      setFantasyName(currentFantasyName)
+      setCnpj(currentCnpj)
+      setCompanyOwnerName(currentCompanyOwnerName)
+      setCompanyOwnerPhone(currentCompanyOwnerPhone)
+      setCompanyOwnerCpf(currentCompanyOwnerCpf)
+      setEmail(currentCompanyEmail)
+    }
+  }, [companyData, isEditing])
 
   return (
     <Container>
       <Header
         i18Namespace="CompanyRegistration"
-        i18Title="pageTitle"
+        i18Title={isEditing ? 'pageTitleWhenEditing' : 'pageTitle'}
         isStackPage
       />
 
@@ -94,7 +139,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('companyName')}
+              label={t('Company:companyName')}
               iconComponent={<Fw5IconAccent name="file-alt" solid />}
               isRequired
             />
@@ -121,7 +166,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('fantasyName')}
+              label={t('Company:fantasyName')}
               iconComponent={<Fw5IconAccent name="signature" solid />}
               isRequired
             />
@@ -147,7 +192,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('cnpj')}
+              label={t('Company:cnpj')}
               iconComponent={<Fw5IconAccent name="file-contract" solid />}
               isRequired
             />
@@ -176,7 +221,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('companyOwnerName')}
+              label={t('Company:companyOwnerName')}
               iconComponent={<Fw5IconAccent name="user-tie" solid />}
               isRequired
             />
@@ -202,7 +247,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('companyOwnerPhone')}
+              label={t('Company:companyOwnerPhone')}
               iconComponent={<Fw5IconAccent name="mobile" solid />}
               isRequired
             />
@@ -231,7 +276,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('companyOwnerCpf')}
+              label={t('Company:companyOwnerCpf')}
               iconComponent={<Fw5IconAccent name="id-card" solid />}
               isRequired
             />
@@ -260,7 +305,7 @@ const CompanyRegistration = ({ navigation }) => {
         <CreateAccountInput
           labelComponent={
             <Label
-              label={t('email')}
+              label={t('Company:email')}
               iconComponent={<Fw5IconAccent name="envelope" solid />}
               isRequired
             />
@@ -284,76 +329,81 @@ const CompanyRegistration = ({ navigation }) => {
           showErrorComponent={isShowingErrors && !email.trim()}
         />
 
-        <CreateAccountInput
-          labelComponent={
-            <Label
-              label={t('password')}
-              iconComponent={<Fw5IconAccent name="lock" solid />}
-              isRequired
+        {!isEditing && (
+          <>
+            <CreateAccountInput
+              labelComponent={
+                <Label
+                  label={t('password')}
+                  iconComponent={<Fw5IconAccent name="lock" solid />}
+                  isRequired
+                />
+              }
+              inputComponent={
+                <DefaultTextInput
+                  ref={passwordInput}
+                  returnKeyType="next"
+                  value={password}
+                  blurOnSubmit={false}
+                  editable={!isLoading}
+                  placeholder={t('passwordPh')}
+                  onChangeText={setPassword}
+                  onSubmitEditing={() => {
+                    passwordConfirmationInput.current.focus()
+                  }}
+                  secureTextEntry
+                />
+              }
+              errorComponent={<InputError />}
+              showErrorComponent={isShowingErrors && !password.trim()}
             />
-          }
-          inputComponent={
-            <DefaultTextInput
-              ref={passwordInput}
-              returnKeyType="next"
-              value={password}
-              blurOnSubmit={false}
-              editable={!isLoading}
-              placeholder={t('passwordPh')}
-              onChangeText={setPassword}
-              onSubmitEditing={() => {
-                passwordConfirmationInput.current.focus()
-              }}
-              secureTextEntry
-            />
-          }
-          errorComponent={<InputError />}
-          showErrorComponent={isShowingErrors && !password.trim()}
-        />
 
-        <CreateAccountInput
-          labelComponent={
-            <Label
-              label={t('passwordConfirmation')}
-              iconComponent={<Fw5IconAccent name="lock" solid />}
-              isRequired
+            <CreateAccountInput
+              labelComponent={
+                <Label
+                  label={t('passwordConfirmation')}
+                  iconComponent={<Fw5IconAccent name="lock" solid />}
+                  isRequired
+                />
+              }
+              inputComponent={
+                <DefaultTextInput
+                  ref={passwordConfirmationInput}
+                  value={passwordConfirmation}
+                  editable={!isLoading}
+                  placeholder={t('passwordConfirmationPh')}
+                  onChangeText={setPasswordConfirmation}
+                  secureTextEntry
+                />
+              }
+              errorComponent={
+                <InputError
+                  text={t(
+                    !passwordConfirmation.trim()
+                      ? 'Error:emptyField'
+                      : 'passwordsNotEqualError',
+                  )}
+                />
+              }
+              showErrorComponent={
+                isShowingErrors &&
+                (!passwordConfirmation.trim() ||
+                  password !== passwordConfirmation)
+              }
             />
-          }
-          inputComponent={
-            <DefaultTextInput
-              ref={passwordConfirmationInput}
-              value={passwordConfirmation}
-              editable={!isLoading}
-              placeholder={t('passwordConfirmationPh')}
-              onChangeText={setPasswordConfirmation}
-              secureTextEntry
-            />
-          }
-          errorComponent={
-            <InputError
-              text={t(
-                !passwordConfirmation.trim()
-                  ? 'Error:emptyField'
-                  : 'passwordsNotEqualError',
-              )}
-            />
-          }
-          showErrorComponent={
-            isShowingErrors &&
-            (!passwordConfirmation.trim() || password !== passwordConfirmation)
-          }
-        />
+          </>
+        )}
 
         <SaveButton
           onPress={onSaveButtonPressed}
-          text={t('saveButton')}
+          text={t(isEditing ? 'editButton' : 'saveButton')}
           disabled={isLoading}
           iconComponent={
             isLoading ? <WhiteSpinner /> : <ButtonIcon name="check-circle" />
           }
         />
 
-        <Explanation>{t('explanation')}</Explanation>
+        {!isEditing && <Explanation>{t('explanation')}</Explanation>}
       </Scroll>
     </Container>
   )
