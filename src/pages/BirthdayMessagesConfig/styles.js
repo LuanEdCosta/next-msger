@@ -2,6 +2,7 @@ import styled from 'styled-components/native'
 
 import Input from '@/components/Input'
 import { MAIN_COLORS } from '@/styles'
+import Button from '@/components/Button'
 import { DefaultText, PrimaryText } from '@/components/Text'
 
 export const Container = styled.View`
@@ -43,4 +44,24 @@ export const ExplanationTitle = styled(PrimaryText)`
 
 export const ExplanationText = styled(DefaultText)`
   margin-bottom: 16px;
+`
+
+export const InputActions = styled.View`
+  flex-direction: row;
+  align-items: center;
+  border-top-width: 1px;
+  border-top-color: ${MAIN_COLORS.darkGrey};
+`
+
+export const InputActionButton = styled(Button).attrs({
+  textStyle: {
+    color: MAIN_COLORS.primaryText,
+    fontSize: 12,
+  },
+})`
+  flex: 1;
+  line-height: 20px;
+  background: ${MAIN_COLORS.snowLight};
+  height: 40px;
+  border-radius: 0;
 `

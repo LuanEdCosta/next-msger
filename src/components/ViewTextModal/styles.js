@@ -8,7 +8,10 @@ export const Container = styled.View`
   background: ${MAIN_COLORS.white};
   overflow: hidden;
   border-radius: 5px;
+  margin: 32px 0;
 `
+
+export const Scroll = styled.ScrollView``
 
 export const Text = styled(DefaultText)`
   padding: 24px 16px;

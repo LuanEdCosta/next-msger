@@ -1,6 +1,10 @@
 {
   "saveButton": "Salvar Configuração",
 
+  "addMacroModalTitle": "Adicionar Macro na Mensagem",
+  "seeMessageButton": "Ver Mensagem",
+  "addMacroButton": "Novo Macro",
+
   "birthdayMsgLabel": "Mensagem de Aniversário",
   "birthdayMsgPh": "Digite a mensagem que será enviada para o cliente no dia do aniversário dele",
   "birthdayMsgMaxLength": "{{length}}/500",

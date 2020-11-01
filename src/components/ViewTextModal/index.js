@@ -5,7 +5,7 @@ import ReactNativeModal from 'react-native-modal'
 
 import { Fw5Icon } from '@/components/Fw5Icon'
 
-import { Container, Text, Header, Title, CloseButton } from './styles'
+import { Container, Scroll, Text, Header, Title, CloseButton } from './styles'
 
 const ViewTextModal = (props) => {
   const { style, text, isShowing, onCloseModal, title } = props
@@ -36,7 +36,10 @@ const ViewTextModal = (props) => {
             <Fw5Icon name="times" />
           </CloseButton>
         </Header>
-        <Text>{text}</Text>
+
+        <Scroll>
+          <Text>{text}</Text>
+        </Scroll>
       </Container>
     </ReactNativeModal>
   )

@@ -62,14 +62,14 @@ const MarketingStepDetails = ({ navigation }) => {
               [MARKETING_STEP_DOC.ID]: doc.id,
             })
           } else {
-            showAlert('marketingStepDoesNotExist')
+            showAlert(t('marketingStepDoesNotExist'))
             navigation.goBack()
           }
         },
       })
 
     return unsubscribe
-  }, [companyId, marketingStepId, navigation, showAlert])
+  }, [companyId, marketingStepId, navigation, showAlert, t])
 
   useEffect(onSubscribeToMarketingStepDocument, [])
 

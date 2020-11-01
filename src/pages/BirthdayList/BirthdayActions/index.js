@@ -25,6 +25,7 @@ import {
 import { DATE_FORMATS, PHONE_COUNTRY_CODES } from '@/config/constants'
 
 import useSaveMessageSending from '../useSaveMessageSending'
+import useParseMacrosWithData from '../useParseMacrosWithData'
 
 import { Container } from './styles'
 
@@ -40,7 +41,9 @@ const BirthdayActions = (props) => {
 
   const showErrorAlert = useErrorAlert()
   const { t } = useTranslation('BirthdayList')
+
   const onSaveMessageSending = useSaveMessageSending()
+  const onParseMacros = useParseMacrosWithData(selectedCustomer)
 
   const onPhoneCall = usePhoneCall()
   const onSendSmsMessage = useSendSmsMessage()
@@ -82,6 +85,9 @@ const BirthdayActions = (props) => {
       } else {
         messageToSend = futureMessage
       }
+
+      // Replace macros in the message
+      messageToSend = onParseMacros(messageToSend)
 
       switch (channelType) {
         case BDSM.CALL: {

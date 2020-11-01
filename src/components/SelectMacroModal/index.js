@@ -37,6 +37,7 @@ const SelectMacroModal = (props) => {
     style,
     modalTitle,
     setMessage,
+    macros,
   } = props
 
   const { t } = useTranslation(['Macro', 'Glossary', 'Common'])
@@ -45,13 +46,13 @@ const SelectMacroModal = (props) => {
   const [selectedMacros, setSelectedMacros] = useState([])
 
   const list = useMemo(() => {
-    const macroKeys = Object.keys(MACROS)
+    const macroKeys = Object.keys(macros || MACROS)
     return macroKeys.map((key) => ({
       id: key,
       macro: MACROS[key],
       text: t(`labels.${key}`),
     }))
-  }, [t])
+  }, [macros, t])
 
   const {
     isSearching,
@@ -197,6 +198,7 @@ SelectMacroModal.defaultProps = {
   style: null,
   modalTitle: null,
   setMessage: null,
+  macros: null,
 }
 
 SelectMacroModal.propTypes = {
@@ -207,6 +209,8 @@ SelectMacroModal.propTypes = {
   style: ViewPropTypes.style,
   modalTitle: PropTypes.string,
   setMessage: PropTypes.func,
+  // eslint-disable-next-line react/forbid-prop-types
+  macros: PropTypes.object,
 }
 
 export default SelectMacroModal
