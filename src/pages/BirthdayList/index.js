@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import moment from 'moment'
 import { FlatList } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
+import { useSelector } from 'react-redux'
 
 import Header from '@/components/Header'
 import { ADMOB_BANNER_ID } from '@/config/ads'
@@ -17,7 +18,6 @@ import {
   CUSTOMER_DOC,
 } from '@/config/database'
 
-import useSubscribeToCompany from './useSubscribeToCompany'
 import useFetchBirthdayList from './useFetchBirthdayList'
 import BirthdayActions from './BirthdayActions'
 import Filters from './Filters'
@@ -43,17 +43,14 @@ const BirthdayList = ({ navigation }) => {
   const [pageNumber, setPageNumber] = useState(1)
   const [birthdayList, setBirthdayList] = useState([])
   const [selectedCustomer, setSelectedCustomer] = useState(null)
-  const [companyData, setCompanyData] = useState({})
 
   const [birthDay, setBirthDay] = useState(moment())
 
-  const birthdayMessages = useMemo(() => {
-    if (companyData) {
-      const messages = companyData[COMPANY_DOC.BIRTHDAY_MESSAGES_CONFIG]
-      return messages || {}
-    }
-    return {}
-  }, [companyData])
+  const birthdayMessages = useSelector(({ Company }) => {
+    if (!Company) return {}
+    const messages = Company[COMPANY_DOC.BIRTHDAY_MESSAGES_CONFIG]
+    return messages || {}
+  })
 
   const handleCloseActionsBottomSheet = useCallback(() => {
     setSelectedCustomer(null)
@@ -116,8 +113,6 @@ const BirthdayList = ({ navigation }) => {
   useEffect(() => {
     handleSearch()
   }, [handleSearch])
-
-  useSubscribeToCompany(setCompanyData)
 
   return (
     <Container>
