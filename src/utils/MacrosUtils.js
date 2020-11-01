@@ -47,57 +47,59 @@ export const parseMacros = (message, data = {}) => {
     [SERVICE_DOC.END_DATE]: serviceEndDate,
   } = data
 
+  const rgx = (msg) => new RegExp(msg, 'gi')
+
   let newMsg = message
 
   const today = moment()
-  newMsg = newMsg.replaceAll(MACROS.TODAY, today.format('L'))
-  newMsg = newMsg.replaceAll(MACROS.CURRENT_DAY, today.format('DD'))
-  newMsg = newMsg.replaceAll(MACROS.CURRENT_MONTH, today.format('MM'))
-  newMsg = newMsg.replaceAll(MACROS.CURRENT_YEAR, today.format('YYYY'))
+  newMsg = newMsg.replace(rgx(MACROS.TODAY), today.format('L'))
+  newMsg = newMsg.replace(rgx(MACROS.CURRENT_DAY), today.format('DD'))
+  newMsg = newMsg.replace(rgx(MACROS.CURRENT_MONTH), today.format('MM'))
+  newMsg = newMsg.replace(rgx(MACROS.CURRENT_YEAR), today.format('YYYY'))
 
-  newMsg = newMsg.replaceAll(MACROS.COMPANY_FANTASY_NAME, companyFantasyName)
-  newMsg = newMsg.replaceAll(MACROS.COMPANY_CNPJ, companyCnpj)
-  newMsg = newMsg.replaceAll(MACROS.COMPANY_NAME, companyName)
-  newMsg = newMsg.replaceAll(MACROS.COMPANY_OWNER_NAME, companyOwnerName)
-  newMsg = newMsg.replaceAll(MACROS.COMPANY_OWNER_PHONE, companyOwnerPhone)
-  newMsg = newMsg.replaceAll(MACROS.COMPANY_EMAIL, companyEmail)
+  newMsg = newMsg.replace(rgx(MACROS.COMPANY_FANTASY_NAME), companyFantasyName)
+  newMsg = newMsg.replace(rgx(MACROS.COMPANY_CNPJ), companyCnpj)
+  newMsg = newMsg.replace(rgx(MACROS.COMPANY_NAME), companyName)
+  newMsg = newMsg.replace(rgx(MACROS.COMPANY_OWNER_NAME), companyOwnerName)
+  newMsg = newMsg.replace(rgx(MACROS.COMPANY_OWNER_PHONE), companyOwnerPhone)
+  newMsg = newMsg.replace(rgx(MACROS.COMPANY_EMAIL), companyEmail)
 
   const momentBirthDate = firebaseTimestampToMoment(customerBirthDate)
   if (momentBirthDate) {
     const formattedBirthDate = momentBirthDate.format('L')
-    newMsg = newMsg.replaceAll(MACROS.CUSTOMER_BIRTH_DATE, formattedBirthDate)
+    newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_BIRTH_DATE), formattedBirthDate)
   }
 
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_NAME, customerName)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_WHATSAPP, customerWhatsapp)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_BIRTH_DAY, customerBirthDay)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_BIRTH_MONTH, customerBirthMonth)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_BIRTH_YEAR, customerBirthYear)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_PHONE, customerPhone)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_EMAIL, customerEmail)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_CEP, customerCep)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_CITY, customerCity)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_STATE, customerState)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_DISTRICT, customerDistrict)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_ADDRESS, customerAddress)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_NUMBER, customerNumber)
-  newMsg = newMsg.replaceAll(MACROS.CUSTOMER_COMPLEMENT, customerComplement)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_NAME), customerName)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_WHATSAPP), customerWhatsapp)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_BIRTH_DAY), customerBirthDay)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_BIRTH_MONTH), customerBirthMonth)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_BIRTH_YEAR), customerBirthYear)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_PHONE), customerPhone)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_EMAIL), customerEmail)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_CEP), customerCep)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_CITY), customerCity)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_STATE), customerState)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_DISTRICT), customerDistrict)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_ADDRESS), customerAddress)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_NUMBER), customerNumber)
+  newMsg = newMsg.replace(rgx(MACROS.CUSTOMER_COMPLEMENT), customerComplement)
 
-  newMsg = newMsg.replaceAll(MACROS.USER_NAME, userName)
+  newMsg = newMsg.replace(rgx(MACROS.USER_NAME), userName)
 
-  newMsg = newMsg.replaceAll(MACROS.SERVICE_TYPE_NAME, serviceTypeName)
-  newMsg = newMsg.replaceAll(MACROS.SERVICE_TYPE_DESCRIPTION, serviceTypeDesc)
+  newMsg = newMsg.replace(rgx(MACROS.SERVICE_TYPE_NAME), serviceTypeName)
+  newMsg = newMsg.replace(rgx(MACROS.SERVICE_TYPE_DESCRIPTION), serviceTypeDesc)
 
   const momentStartDate = firebaseTimestampToMoment(serviceStartDate)
   if (momentStartDate) {
     const formattedStartDate = momentStartDate.format('L')
-    newMsg = newMsg.replaceAll(MACROS.SERVICE_START_DATE, formattedStartDate)
+    newMsg = newMsg.replace(rgx(MACROS.SERVICE_START_DATE), formattedStartDate)
   }
 
   const momentEndDate = firebaseTimestampToMoment(serviceEndDate)
   if (momentEndDate) {
     const formattedEndDate = momentEndDate.format('L')
-    newMsg = newMsg.replaceAll(MACROS.SERVICE_END_DATE, formattedEndDate)
+    newMsg = newMsg.replace(rgx(MACROS.SERVICE_END_DATE), formattedEndDate)
   }
 
   return newMsg

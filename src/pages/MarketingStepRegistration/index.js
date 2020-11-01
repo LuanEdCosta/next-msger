@@ -14,8 +14,9 @@ import { useErrorAlert, useUserData } from '@/hooks'
 import { ADMOB_BANNER_ID } from '@/config/ads'
 import { TimeBuilderModal } from '@/components/TimeBuilderModal'
 import { MILLISECONDS } from '@/config/constants'
-import { getTimePartsFromMilliseconds } from '@/utils'
+import { getTimePartsFromMilliseconds, testMessageWithMacros } from '@/utils'
 import SelectMacroModal from '@/components/SelectMacroModal'
+import ViewTextModal from '@/components/ViewTextModal'
 
 import {
   Container,
@@ -59,6 +60,7 @@ const MarketingStepRegistration = () => {
     isShowingSeeMsgModal: false,
     setMessage: null,
     message: null,
+    title: null,
   })
 
   const emailMessageInput = useRef(null)
@@ -82,10 +84,11 @@ const MarketingStepRegistration = () => {
   )
 
   const onOpenModalToSeeMessage = useCallback(
-    (message) => () => {
+    (message, title) => () => {
       setMacroModalsConfig({
+        title,
         isShowingSeeMsgModal: true,
-        message,
+        message: testMessageWithMacros(message),
       })
     },
     [],
@@ -97,6 +100,7 @@ const MarketingStepRegistration = () => {
       isShowingSeeMsgModal: false,
       message: null,
       setMessage: null,
+      title: null,
     })
   }, [])
 
@@ -187,6 +191,13 @@ const MarketingStepRegistration = () => {
         isShowing={macroModalsConfig.isShowingAddMacroModal}
         setMessage={macroModalsConfig.setMessage}
         modalTitle={t('addMacroModalTitle')}
+        onCloseModal={onCloseMacroModal}
+      />
+
+      <ViewTextModal
+        isShowing={macroModalsConfig.isShowingSeeMsgModal}
+        text={macroModalsConfig.message}
+        title={macroModalsConfig.title}
         onCloseModal={onCloseMacroModal}
       />
 
@@ -325,7 +336,10 @@ const MarketingStepRegistration = () => {
                   <InputActionButton
                     text={t('seeMessageButton')}
                     iconComponent={<Fw5IconPrimary name="eye" />}
-                    onPress={onOpenModalToSeeMessage(emailMessage)}
+                    onPress={onOpenModalToSeeMessage(
+                      emailMessage,
+                      t('emailMsgLabel'),
+                    )}
                   />
 
                   <InputActionButton
@@ -369,7 +383,10 @@ const MarketingStepRegistration = () => {
                   <InputActionButton
                     text={t('seeMessageButton')}
                     iconComponent={<Fw5IconPrimary name="eye" />}
-                    onPress={onOpenModalToSeeMessage(whatsappMessage)}
+                    onPress={onOpenModalToSeeMessage(
+                      whatsappMessage,
+                      t('whatsappMsgLabel'),
+                    )}
                   />
 
                   <InputActionButton
@@ -413,7 +430,10 @@ const MarketingStepRegistration = () => {
                   <InputActionButton
                     text={t('seeMessageButton')}
                     iconComponent={<Fw5IconPrimary name="eye" />}
-                    onPress={onOpenModalToSeeMessage(smsMessage)}
+                    onPress={onOpenModalToSeeMessage(
+                      smsMessage,
+                      t('smsMsgLabel'),
+                    )}
                   />
 
                   <InputActionButton
