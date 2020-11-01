@@ -164,6 +164,13 @@ const MarketingStepDetails = ({ navigation }) => {
           </DataItem>
 
           <DataItem>
+            <DataItemTitle text={t('stepSmsMsg')}>
+              <Fw5Icon name="sms" solid />
+            </DataItemTitle>
+            <DataItemValue text={stepData[MARKETING_STEP_DOC.SMS_MESSAGE]} />
+          </DataItem>
+
+          <DataItem>
             <DataItemTitle text={t('stepCreationDate')}>
               <Fw5Icon name="calendar-plus" solid />
             </DataItemTitle>

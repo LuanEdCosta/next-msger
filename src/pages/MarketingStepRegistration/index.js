@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useMemo } from 'react'
+import React, { useCallback, useState, useRef, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -17,6 +17,7 @@ import { MILLISECONDS } from '@/config/constants'
 import { getTimePartsFromMilliseconds, testMessageWithMacros } from '@/utils'
 import SelectMacroModal from '@/components/SelectMacroModal'
 import ViewTextModal from '@/components/ViewTextModal'
+import { EDIT_MARKETING_STEP_PARAMS } from '@/config/navigation/RouteParams'
 
 import {
   Container,
@@ -34,15 +35,20 @@ import {
   InputActionButton,
 } from './styles'
 
-const MarketingStepRegistration = () => {
+const MarketingStepRegistration = ({ navigation }) => {
+  const marketingStep = navigation.getParam(
+    EDIT_MARKETING_STEP_PARAMS.MARKETING_STEP_DATA,
+  )
+
   const { t } = useTranslation([
     'MarketingStepRegistration',
     'TimeBuilder',
     'Glossary',
   ])
 
-  const { companyId } = useUserData()
   const showAlert = useErrorAlert()
+  const { companyId } = useUserData()
+  const emailMessageInput = useRef(null)
 
   const [isSaving, setIsSaving] = useState(false)
   const [isShowingErrors, setIsShowingErrors] = useState(false)
@@ -63,7 +69,15 @@ const MarketingStepRegistration = () => {
     title: null,
   })
 
-  const emailMessageInput = useRef(null)
+  const isEditing = useMemo(() => {
+    return !!marketingStep
+  }, [marketingStep])
+
+  const builtTimeText = useMemo(() => {
+    if (!milliseconds) return t('Glossary:always')
+    const timeParts = getTimePartsFromMilliseconds(milliseconds)
+    return t('TimeBuilder:afterTimeTextVerbose', timeParts)
+  }, [milliseconds, t])
 
   const onOpenTimeBuilder = useCallback(() => {
     setIsTimeBuilderVisible(true)
@@ -95,13 +109,11 @@ const MarketingStepRegistration = () => {
   )
 
   const onCloseMacroModal = useCallback(() => {
-    setMacroModalsConfig({
+    setMacroModalsConfig((currentConfig) => ({
+      ...currentConfig,
       isShowingAddMacroModal: false,
       isShowingSeeMsgModal: false,
-      message: null,
-      setMessage: null,
-      title: null,
-    })
+    }))
   }, [])
 
   const onValidateRegistration = useCallback(() => {
@@ -138,23 +150,37 @@ const MarketingStepRegistration = () => {
     try {
       setIsSaving(true)
 
-      await firestore()
-        .collection(COLLECTIONS.COMPANIES)
-        .doc(companyId)
-        .collection(COLLECTIONS.MARKETING_STEPS)
-        .add({
-          [MARKETING_STEP_DOC.NAME]: marketingStepName,
-          [MARKETING_STEP_DOC.MILLISECONDS]: milliseconds,
-          [MARKETING_STEP_DOC.EMAIL_MESSAGE]: emailMessage,
-          [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsappMessage,
-          [MARKETING_STEP_DOC.SMS_MESSAGE]: smsMessage,
-          [MARKETING_STEP_DOC.OBSERVATIONS]: observations,
-          [MARKETING_STEP_DOC.CREATED_AT]: firestore.Timestamp.now(),
-        })
+      const dataToSave = {
+        [MARKETING_STEP_DOC.NAME]: marketingStepName,
+        [MARKETING_STEP_DOC.MILLISECONDS]: milliseconds,
+        [MARKETING_STEP_DOC.EMAIL_MESSAGE]: emailMessage,
+        [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: whatsappMessage,
+        [MARKETING_STEP_DOC.SMS_MESSAGE]: smsMessage,
+        [MARKETING_STEP_DOC.OBSERVATIONS]: observations,
+        [MARKETING_STEP_DOC.CREATED_AT]: firestore.Timestamp.now(),
+      }
 
-      onClearData()
-      setIsShowingErrors(false)
-      setMarketingStepName('')
+      if (isEditing) {
+        const marketingStepId = marketingStep[MARKETING_STEP_DOC.ID]
+
+        await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
+          .collection(COLLECTIONS.MARKETING_STEPS)
+          .doc(marketingStepId)
+          .update(dataToSave)
+
+        navigation.goBack()
+      } else {
+        await firestore()
+          .collection(COLLECTIONS.COMPANIES)
+          .doc(companyId)
+          .collection(COLLECTIONS.MARKETING_STEPS)
+          .add(dataToSave)
+
+        onClearData()
+        setIsShowingErrors(false)
+      }
     } catch (e) {
       showAlert()
     } finally {
@@ -163,9 +189,12 @@ const MarketingStepRegistration = () => {
   }, [
     companyId,
     emailMessage,
+    isEditing,
     isShowingErrors,
+    marketingStep,
     marketingStepName,
     milliseconds,
+    navigation,
     observations,
     onClearData,
     onValidateRegistration,
@@ -174,17 +203,36 @@ const MarketingStepRegistration = () => {
     whatsappMessage,
   ])
 
-  const builtTimeText = useMemo(() => {
-    if (!milliseconds) return t('Glossary:always')
-    const timeParts = getTimePartsFromMilliseconds(milliseconds)
-    return t('TimeBuilder:afterTimeTextVerbose', timeParts)
-  }, [milliseconds, t])
+  useEffect(() => {
+    if (marketingStep) {
+      const {
+        [MARKETING_STEP_DOC.NAME]: currentMarketingStepName = '',
+        [MARKETING_STEP_DOC.MILLISECONDS]: currentMilliseconds = 0,
+        [MARKETING_STEP_DOC.EMAIL_MESSAGE]: currentEmailMessage = '',
+        [MARKETING_STEP_DOC.WHATSAPP_MESSAGE]: currentWhatsappMessage = '',
+        [MARKETING_STEP_DOC.SMS_MESSAGE]: currentSmsMessage = '',
+        [MARKETING_STEP_DOC.OBSERVATIONS]: currentObservations = '',
+      } = marketingStep
+
+      setMarketingStepName(currentMarketingStepName)
+      setMilliseconds(currentMilliseconds)
+      setEmailMessage(currentEmailMessage)
+      setWhatsappMessage(currentWhatsappMessage)
+      setSmsMessage(currentSmsMessage)
+      setObservations(currentObservations)
+    }
+  }, [marketingStep])
 
   return (
     <Container>
       <Header
-        i18Namespace="NavigationDrawer"
-        i18Title="marketingStepRegistration"
+        isStackPage={isEditing}
+        i18Namespace={
+          isEditing ? 'MarketingStepRegistration' : 'NavigationDrawer'
+        }
+        i18Title={
+          isEditing ? 'pageTitleWhenEditing' : 'marketingStepRegistration'
+        }
       />
 
       <SelectMacroModal
@@ -484,5 +532,9 @@ const MarketingStepRegistration = () => {
     </Container>
   )
 }
+
+MarketingStepRegistration.navigationOptions = () => ({
+  headerShown: false,
+})
 
 export default MarketingStepRegistration

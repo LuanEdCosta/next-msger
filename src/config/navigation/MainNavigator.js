@@ -12,7 +12,7 @@ import EditUserName from '@/pages/EditUserName'
 import EditUserEmail from '@/pages/EditUserEmail'
 import DashboardFilters from '@/pages/DashboardFilters'
 import EditService from '@/pages/EditService'
-import EditMarketingStep from '@/pages/EditMarketingStep'
+import MarketingStepRegistration from '@/pages/MarketingStepRegistration'
 import CustomerRegistration from '@/pages/CustomerRegistration'
 
 import DrawerNavigator from './DrawerNavigator'
@@ -40,7 +40,7 @@ const MainNavigator = createStackNavigator(
     [MAIN_ROUTES.EDIT_USER_EMAIL]: EditUserEmail,
     [MAIN_ROUTES.DASHBOARD_FILTERS]: DashboardFilters,
     [MAIN_ROUTES.EDIT_SERVICE]: EditService,
-    [MAIN_ROUTES.EDIT_MARKETING_STEP]: EditMarketingStep,
+    [MAIN_ROUTES.EDIT_MARKETING_STEP]: MarketingStepRegistration,
     [MAIN_ROUTES.EDIT_CUSTOMER]: CustomerRegistration,
   },
   {
