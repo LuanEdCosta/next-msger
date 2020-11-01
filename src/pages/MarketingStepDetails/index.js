@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
@@ -35,6 +35,8 @@ const MarketingStepDetails = ({ navigation }) => {
   const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
+  const isFirstDataFetch = useRef(true)
+
   const { t } = useTranslation([
     'MarketingStepDetails',
     'TimeBuilder',
@@ -61,10 +63,12 @@ const MarketingStepDetails = ({ navigation }) => {
               ...doc.data(),
               [MARKETING_STEP_DOC.ID]: doc.id,
             })
-          } else {
+          } else if (isFirstDataFetch.current) {
             showAlert(t('marketingStepDoesNotExist'))
             navigation.goBack()
           }
+
+          isFirstDataFetch.current = false
         },
       })
 

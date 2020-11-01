@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import firestore from '@react-native-firebase/firestore'
 import { BannerAd, BannerAdSize } from '@react-native-firebase/admob'
@@ -31,6 +31,8 @@ const CustomerDetails = ({ navigation }) => {
   const { companyId } = useUserData()
   const showAlert = useErrorAlert()
 
+  const isFirstDataFetch = useRef(true)
+
   const [customerData, setCustomerData] = useState({})
   const [isDeleting, setIsDeleting] = useState(false)
 
@@ -51,10 +53,12 @@ const CustomerDetails = ({ navigation }) => {
               ...doc.data(),
               [CUSTOMER_DOC.ID]: doc.id,
             })
-          } else {
+          } else if (isFirstDataFetch.current) {
             showAlert(t('Customer:customerDoesNotExist'))
             navigation.goBack()
           }
+
+          isFirstDataFetch.current = false
         },
       })
 
