@@ -1,0 +1,10 @@
+{
+  "companyName": "Razão Social",
+  "fantasyName": "Nome Fantasia",
+  "cnpj": "CNPJ da Empresa",
+  "companyOwnerName": "Nome do Dono",
+  "companyOwnerPhone": "Telefone/Celular do Dono",
+  "companyOwnerCpf": "CPF do Dono",
+  "email": "Email da Empresa",
+  "creationDate": "Data de Cadastro no Sistema"
+}

@@ -16,6 +16,7 @@ import ReturnReasonRegistration from '@/pages/ReturnReasonRegistration'
 import ReturnReasonList from '@/pages/ReturnReasonList'
 import BirthdayMessagesConfig from '@/pages/BirthdayMessagesConfig'
 import BirthdayList from '@/pages/BirthdayList'
+import CompanyProfile from '@/pages/CompanyProfile'
 
 import { DRAWER_ROUTES as DR } from './ScreenRoutes'
 
@@ -33,6 +34,13 @@ const DrawerNavigator = createDrawerNavigator(
       params: {
         [DRAWER_PAGES.DRAWER_LABEL]: 'userProfile',
         [DRAWER_PAGES.DRAWER_ICON]: 'user-circle',
+      },
+    },
+    [DR.COMPANY_PROFILE]: {
+      screen: CompanyProfile,
+      params: {
+        [DRAWER_PAGES.DRAWER_LABEL]: 'companyProfile',
+        [DRAWER_PAGES.DRAWER_ICON]: 'building',
       },
     },
     [DR.CUSTOMER_REGISTRATION]: {

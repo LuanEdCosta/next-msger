@@ -42,6 +42,8 @@ import BirthdayList from './BirthdayList.json'
 import Calendar from './Calendar.json'
 import TimeBuilder from './TimeBuilder.json'
 import Macro from './Macro.json'
+import Company from './Company.json'
+import CompanyProfile from './CompanyProfile.json'
 
 export default {
   Common,
@@ -88,4 +90,6 @@ export default {
   Calendar,
   TimeBuilder,
   Macro,
+  Company,
+  CompanyProfile,
 }
