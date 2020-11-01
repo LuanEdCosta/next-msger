@@ -14,41 +14,48 @@ import { firebaseTimestampToMoment } from './FirebaseTimestampUtils'
 export const parseMacros = (message, data = {}) => {
   if (!message) return ''
 
+  const { company, customer, user, serviceType, service } = data || {}
+
   const {
-    [COMPANY_DOC.FANTASY_NAME]: companyFantasyName = '',
-    [COMPANY_DOC.CNPJ]: companyCnpj = '',
-    [COMPANY_DOC.NAME]: companyName = '',
-    [COMPANY_DOC.OWNER_NAME]: companyOwnerName = '',
-    [COMPANY_DOC.OWNER_PHONE]: companyOwnerPhone = '',
-    [COMPANY_DOC.EMAIL]: companyEmail = '',
+    [COMPANY_DOC.FANTASY_NAME]: companyFantasyName = '##',
+    [COMPANY_DOC.CNPJ]: companyCnpj = '##',
+    [COMPANY_DOC.NAME]: companyName = '##',
+    [COMPANY_DOC.OWNER_NAME]: companyOwnerName = '##',
+    [COMPANY_DOC.OWNER_PHONE]: companyOwnerPhone = '##',
+    [COMPANY_DOC.EMAIL]: companyEmail = '##',
+  } = company || {}
 
-    [CUSTOMER_DOC.BIRTH_DATE]: customerBirthDate = '',
-    [CUSTOMER_DOC.NAME]: customerName = '',
-    [CUSTOMER_DOC.WHATSAPP]: customerWhatsapp = '',
-    [CUSTOMER_DOC.BIRTH_DAY]: customerBirthDay = '',
-    [CUSTOMER_DOC.BIRTH_MONTH]: customerBirthMonth = '',
-    [CUSTOMER_DOC.BIRTH_YEAR]: customerBirthYear = '',
-    [CUSTOMER_DOC.PHONE]: customerPhone = '',
-    [CUSTOMER_DOC.EMAIL]: customerEmail = '',
-    [CUSTOMER_DOC.CEP]: customerCep = '',
-    [CUSTOMER_DOC.CITY]: customerCity = '',
-    [CUSTOMER_DOC.STATE]: customerState = '',
-    [CUSTOMER_DOC.DISTRICT]: customerDistrict = '',
-    [CUSTOMER_DOC.ADDRESS]: customerAddress = '',
-    [CUSTOMER_DOC.NUMBER]: customerNumber = '',
-    [CUSTOMER_DOC.COMPLEMENT]: customerComplement = '',
+  const {
+    [CUSTOMER_DOC.BIRTH_DATE]: customerBirthDate = null,
+    [CUSTOMER_DOC.NAME]: customerName = '##',
+    [CUSTOMER_DOC.WHATSAPP]: customerWhatsapp = '##',
+    [CUSTOMER_DOC.BIRTH_DAY]: customerBirthDay = '##',
+    [CUSTOMER_DOC.BIRTH_MONTH]: customerBirthMonth = '##',
+    [CUSTOMER_DOC.BIRTH_YEAR]: customerBirthYear = '##',
+    [CUSTOMER_DOC.PHONE]: customerPhone = '##',
+    [CUSTOMER_DOC.EMAIL]: customerEmail = '##',
+    [CUSTOMER_DOC.CEP]: customerCep = '##',
+    [CUSTOMER_DOC.CITY]: customerCity = '##',
+    [CUSTOMER_DOC.STATE]: customerState = '##',
+    [CUSTOMER_DOC.DISTRICT]: customerDistrict = '##',
+    [CUSTOMER_DOC.ADDRESS]: customerAddress = '##',
+    [CUSTOMER_DOC.NUMBER]: customerNumber = '##',
+    [CUSTOMER_DOC.COMPLEMENT]: customerComplement = '##',
+  } = customer || {}
 
-    [USER_DOC.NAME]: userName = '',
+  const { [USER_DOC.NAME]: userName = '##' } = user || {}
 
-    [SERVICE_TYPE_DOC.NAME]: serviceTypeName = '',
-    [SERVICE_TYPE_DOC.DESCRIPTION]: serviceTypeDesc = '',
+  const {
+    [SERVICE_TYPE_DOC.NAME]: serviceTypeName = '##',
+    [SERVICE_TYPE_DOC.DESCRIPTION]: serviceTypeDesc = '##',
+  } = serviceType || {}
 
-    [SERVICE_DOC.START_DATE]: serviceStartDate,
-    [SERVICE_DOC.END_DATE]: serviceEndDate,
-  } = data
+  const {
+    [SERVICE_DOC.START_DATE]: serviceStartDate = null,
+    [SERVICE_DOC.END_DATE]: serviceEndDate = null,
+  } = service || {}
 
   const rgx = (msg) => new RegExp(msg, 'gi')
-
   let newMsg = message
 
   const today = moment()
@@ -107,35 +114,45 @@ export const parseMacros = (message, data = {}) => {
 
 export const testMessageWithMacros = (message) => {
   return parseMacros(message, {
-    [COMPANY_DOC.FANTASY_NAME]: 'Next Msger',
-    [COMPANY_DOC.CNPJ]: '99.999.999/9999-99',
-    [COMPANY_DOC.NAME]: 'Next Msger LTDA ME',
-    [COMPANY_DOC.OWNER_NAME]: 'Robert Brown Jr.',
-    [COMPANY_DOC.OWNER_PHONE]: '(99) 99999-9999',
-    [COMPANY_DOC.EMAIL]: 'nextmsger@nextmsger.com',
+    company: {
+      [COMPANY_DOC.FANTASY_NAME]: 'Next Msger',
+      [COMPANY_DOC.CNPJ]: '99.999.999/9999-99',
+      [COMPANY_DOC.NAME]: 'Next Msger LTDA ME',
+      [COMPANY_DOC.OWNER_NAME]: 'Robert Brown Jr.',
+      [COMPANY_DOC.OWNER_PHONE]: '(99) 99999-9999',
+      [COMPANY_DOC.EMAIL]: 'nextmsger@nextmsger.com',
+    },
 
-    [CUSTOMER_DOC.NAME]: 'John Green',
-    [CUSTOMER_DOC.WHATSAPP]: '(88) 88888-8888',
-    [CUSTOMER_DOC.BIRTH_DATE]: moment(),
-    [CUSTOMER_DOC.BIRTH_DAY]: '12',
-    [CUSTOMER_DOC.BIRTH_MONTH]: '04',
-    [CUSTOMER_DOC.BIRTH_YEAR]: '2000',
-    [CUSTOMER_DOC.PHONE]: '(77) 7777-7777',
-    [CUSTOMER_DOC.EMAIL]: 'robert@robert.com',
-    [CUSTOMER_DOC.CEP]: '99.999-999',
-    [CUSTOMER_DOC.CITY]: 'Campinas',
-    [CUSTOMER_DOC.STATE]: 'São Paulo',
-    [CUSTOMER_DOC.DISTRICT]: 'Jardim das Flores',
-    [CUSTOMER_DOC.ADDRESS]: 'Rua das Rosas',
-    [CUSTOMER_DOC.NUMBER]: '999',
-    [CUSTOMER_DOC.COMPLEMENT]: 'Perto de Rosas',
+    customer: {
+      [CUSTOMER_DOC.NAME]: 'John Green',
+      [CUSTOMER_DOC.WHATSAPP]: '(88) 88888-8888',
+      [CUSTOMER_DOC.BIRTH_DATE]: moment(),
+      [CUSTOMER_DOC.BIRTH_DAY]: '12',
+      [CUSTOMER_DOC.BIRTH_MONTH]: '04',
+      [CUSTOMER_DOC.BIRTH_YEAR]: '2000',
+      [CUSTOMER_DOC.PHONE]: '(77) 7777-7777',
+      [CUSTOMER_DOC.EMAIL]: 'robert@robert.com',
+      [CUSTOMER_DOC.CEP]: '99.999-999',
+      [CUSTOMER_DOC.CITY]: 'Campinas',
+      [CUSTOMER_DOC.STATE]: 'São Paulo',
+      [CUSTOMER_DOC.DISTRICT]: 'Jardim das Flores',
+      [CUSTOMER_DOC.ADDRESS]: 'Rua das Rosas',
+      [CUSTOMER_DOC.NUMBER]: '999',
+      [CUSTOMER_DOC.COMPLEMENT]: 'Perto de Rosas',
+    },
 
-    [USER_DOC.NAME]: 'Jack Sparrow',
+    user: {
+      [USER_DOC.NAME]: 'Jack Sparrow',
+    },
 
-    [SERVICE_TYPE_DOC.NAME]: 'Concerto',
-    [SERVICE_TYPE_DOC.DESCRIPTION]: 'Concerto de Algo',
+    serviceType: {
+      [SERVICE_TYPE_DOC.NAME]: 'Concerto',
+      [SERVICE_TYPE_DOC.DESCRIPTION]: 'Concerto de Algo',
+    },
 
-    [SERVICE_DOC.START_DATE]: moment(),
-    [SERVICE_DOC.END_DATE]: moment(),
+    service: {
+      [SERVICE_DOC.START_DATE]: moment(),
+      [SERVICE_DOC.END_DATE]: moment(),
+    },
   })
 }

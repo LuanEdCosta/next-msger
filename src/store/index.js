@@ -5,9 +5,11 @@
 import { createStore, combineReducers } from 'redux'
 
 import User from './reducers/User'
+import Company from './reducers/Company'
 
 const Reducers = combineReducers({
   User,
+  Company,
 })
 
 let Store = null

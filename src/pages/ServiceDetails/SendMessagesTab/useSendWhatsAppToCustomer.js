@@ -11,11 +11,13 @@ import {
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
 import useSaveMessageSending from './useSaveMessageSending'
+import useParseMacrosWithData from './useParseMacrosWithData'
 
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
   const onSendWhatsAppMessage = useSendWhatsAppMessage()
   const onSaveMessageSending = useSaveMessageSending()
+  const onParseMacros = useParseMacrosWithData()
   const showAlert = useErrorAlert()
 
   const onSendWhatsAppToCustomer = useCallback(
@@ -30,7 +32,7 @@ export default () => {
 
         // We need to change the code to open whatsapp in another country
         await onSendWhatsAppMessage({
-          msg: whatsMessage,
+          msg: onParseMacros(whatsMessage),
           phoneNumber: whatsNumber,
           countryCode: PHONE_COUNTRY_CODES.BRAZIL,
         })
@@ -40,7 +42,13 @@ export default () => {
         showAlert()
       }
     },
-    [customerData, onSaveMessageSending, onSendWhatsAppMessage, showAlert],
+    [
+      customerData,
+      onParseMacros,
+      onSaveMessageSending,
+      onSendWhatsAppMessage,
+      showAlert,
+    ],
   )
 
   return onSendWhatsAppToCustomer

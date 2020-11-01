@@ -10,10 +10,12 @@ import {
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
 import useSaveMessageSending from './useSaveMessageSending'
+import useParseMacrosWithData from './useParseMacrosWithData'
 
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
   const onSaveMessageSending = useSaveMessageSending()
+  const onParseMacros = useParseMacrosWithData()
   const onSendSmsMessage = useSendSmsMessage()
   const showAlert = useErrorAlert()
 
@@ -26,13 +28,19 @@ export default () => {
         } = marketingStep
 
         const { [CUSTOMER_DOC.WHATSAPP]: whatsNumber } = customerData
-        await onSendSmsMessage(whatsNumber, smsMessage)
+        await onSendSmsMessage(whatsNumber, onParseMacros(smsMessage))
         await onSaveMessageSending(marketingStepId, SERVICE_SENT_MSGS.SMS)
       } catch (e) {
         showAlert()
       }
     },
-    [customerData, onSaveMessageSending, onSendSmsMessage, showAlert],
+    [
+      customerData,
+      onParseMacros,
+      onSaveMessageSending,
+      onSendSmsMessage,
+      showAlert,
+    ],
   )
 
   return onSendSmsToCustomer

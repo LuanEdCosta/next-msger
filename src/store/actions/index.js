@@ -1,1 +1,2 @@
-export { setUserData, deleteUserData } from './User'
+export * from './User'
+export * from './Company'

@@ -10,11 +10,13 @@ import {
 import ServiceDetailsContext from '../ServiceDetailsContext'
 
 import useSaveMessageSending from './useSaveMessageSending'
+import useParseMacrosWithData from './useParseMacrosWithData'
 
 export default () => {
   const { customerData } = useContext(ServiceDetailsContext)
   const onSaveMessageSending = useSaveMessageSending()
   const onSendEmailMessage = useSendEmailMessage()
+  const onParseMacros = useParseMacrosWithData()
   const showAlert = useErrorAlert()
 
   const onSendEmailToCustomer = useCallback(
@@ -26,13 +28,19 @@ export default () => {
         } = marketingStep
 
         const { [CUSTOMER_DOC.EMAIL]: customerEmail } = customerData
-        await onSendEmailMessage(customerEmail, '', emailMessage)
+        await onSendEmailMessage(customerEmail, '', onParseMacros(emailMessage))
         await onSaveMessageSending(marketingStepId, SERVICE_SENT_MSGS.EMAIL)
       } catch (e) {
         showAlert()
       }
     },
-    [customerData, onSaveMessageSending, onSendEmailMessage, showAlert],
+    [
+      customerData,
+      onParseMacros,
+      onSaveMessageSending,
+      onSendEmailMessage,
+      showAlert,
+    ],
   )
 
   return onSendEmailToCustomer
