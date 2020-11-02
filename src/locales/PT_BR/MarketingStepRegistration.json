@@ -16,6 +16,7 @@
   "smsMsgPh": "Escreva a mensagem que será enviada para os clientes via SMS",
   "smsMsgMaxLength": "{{length}}/2000",
   "saveButton": "Cadastrar Etapa",
+  "editButton": "Editar Etapa",
   "marketingStepTime": "Defina o Tempo",
   "timeBuilderExplanation": "Esta é a quantidade de tempo após a finalização do serviço que será o adequado para enviar as mensagens de marketing desta etapa.",
   "addMacroButton": "Novo Macro",

@@ -520,7 +520,7 @@ const MarketingStepRegistration = ({ navigation }) => {
           />
 
           <SaveButton
-            text={t('saveButton')}
+            text={t(isEditing ? 'editButton' : 'saveButton')}
             onPress={onSaveMarketingStep}
             disabled={isSaving}
             iconComponent={
