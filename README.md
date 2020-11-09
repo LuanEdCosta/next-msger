@@ -26,7 +26,7 @@
     <img alt="App Screenshot" src="design/screenshots/User Profile.png" width="150">
     <img alt="App Screenshot" src="design/screenshots/Drawer.png" width="150">
     <img alt="App Screenshot" src="design/screenshots/Service Registration.png" width="150">
-    <img alt="App Screenshot" src="design/screenshots/Service Details  - Send Messages Tab.png" width="150">
+    <img alt="App Screenshot" src="design/screenshots/Service Details - Send Messages Tab.png" width="150">
     <img alt="App Screenshot" src="design/screenshots/Marketing Step Registration.png" width="150">
     <img alt="App Screenshot" src="design/screenshots/Birthday List.png" width="150">
     <div>And much more...</div>
