@@ -46,4 +46,4 @@ The mentor of the project was [Kléber de Oliveira Andrade](https://github.com/k
 
 ## :man: Author
 
-Made with ♥ by Luan Eduardo da Costa | [Follow me on Linkedin](https://www.linkedin.com/in/luaneducosta/)
+Luan Eduardo da Costa | [Follow me on Linkedin](https://www.linkedin.com/in/luaneducosta/)
